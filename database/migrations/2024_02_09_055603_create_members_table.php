@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('cedula');
             $table->string('nombre');
             $table->string('apellido');
@@ -23,16 +22,17 @@ return new class extends Migration
             $table->string('correo');
             $table->string('fecha_nacimiento');
             $table->string('profesion');
-            $table->string('red_social');
-            $table->string('usuario_red');
+            $table->string('red_social')->nullable();
+            $table->string('usuario_red')->nullable();
             $table->string('genero');
-            $table->string('alcance');
+            $table->string('alcance')->nullable();
             $table->string('seccional')->nullable();
             $table->string('municipio')->nullable();
             $table->string('parroquia')->nullable();
-            $table->string('tipo_cargo');
+            $table->string('tipo_cargo')->nullable();
             $table->string('cargo')->nullable();
             $table->string('buro')->nullable();
+            $table->timestamps();
             // $table->string('esUsuario');
             // $table->string('password');
             // $table->string('confirm_password');

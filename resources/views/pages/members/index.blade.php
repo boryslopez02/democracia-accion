@@ -9,40 +9,48 @@
 @endsection
 
 @section('content')
-    <div class="table-responsive">
-        <table id="datatable-members" class="table border table-striped table-bordered text-nowrap align-middle dataTableCurrent">
-            <thead>
-                <!-- start row -->
-                <tr>
-                    <th>Nombre Completo</th>
-                    {{-- <th>CI</th> --}}
-                    <th>Telefono</th>
-                    <th>Correo</th>
-                    <th>F. Nacimiento</th>
-                    <th>Cargo</th>
-                    <th>Buró</th>
-                    <th>Acciones</th>
-                </tr>
-                <!-- end row -->
-            </thead>
-            <tbody>
+    <div class="position-relative">
+        <div class="table-responsive">
+            <table id="datatable-members" class="table border table-striped table-bordered text-nowrap align-middle dataTableCurrent">
+                <thead>
+                    <!-- start row -->
+                    <tr>
+                        <th></th>
+                        <th>Nombre Completo</th>
+                        {{-- <th>CI</th> --}}
+                        <th>Telefono</th>
+                        <th>Correo</th>
+                        <th>F. Nacimiento</th>
+                        <th>Cargo</th>
+                        <th>Buró</th>
+                        <th>Acciones</th>
+                    </tr>
+                    <!-- end row -->
+                </thead>
+                <tbody>
 
-            </tbody>
-            <tfoot>
-                <!-- start row -->
-                <tr>
-                    <th>Nombre Completo</th>
-                    {{-- <th>CI</th> --}}
-                    <th>Telefono</th>
-                    <th>Correo</th>
-                    <th>F. Nacimiento</th>
-                    <th>Cargo</th>
-                    <th>Buró</th>
-                    <th>Acciones</th>
-                </tr>
-                <!-- end row -->
-            </tfoot>
-        </table>
+                </tbody>
+                <tfoot>
+                    <!-- start row -->
+                    <tr>
+                        <th></th>
+                        <th>Nombre Completo</th>
+                        {{-- <th>CI</th> --}}
+                        <th>Telefono</th>
+                        <th>Correo</th>
+                        <th>F. Nacimiento</th>
+                        <th>Cargo</th>
+                        <th>Buró</th>
+                        <th>Acciones</th>
+                    </tr>
+                    <!-- end row -->
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="position-fixed bottom-0 end-0 translate-middle d-none" id="deleteMasive">
+            <a data-path="{{ route('members.modalDeleteMasive') }}" class="btn btn-danger h4 mb-0 d-flex align-items-center text-uppercase modal-pers">Eliminar usuarios <i class="ti ti-alert-circle h4 ms-1 text-white mb-0"></i></a>
+        </div>
     </div>
 @endsection
 
@@ -55,6 +63,12 @@
             lengthMenu: [10, 25, 50, 100],
             ajax: '{{ route("members.list") }}',
             columns: [
+                {
+                    data: "id",
+                    render: function (data, type, row) {
+                        return '<input type="checkbox" class="select-member form-check-input" value="' + data + '">';
+                    }
+                },
                 { data: 'nombre_completo', name: 'nombre_completo' },
                 // { data: 'apellido', name: 'apellido' },
                 // { data: 'cedula', name: 'cedula' },
@@ -89,8 +103,42 @@
                 }
             },
             initComplete: function() {
-                // $('select[name="datatable-members_length"]').select2();
+                $('#datatable-members_length, #datatable-members_filter').wrapAll('<div class="d-flex align-items-center justify-content-between"></div>');
             },
         });
+
+        $('#datatable-members').on('change', '.select-member', function() {
+            if ($('.select-member:checked').length > 0) {
+                $('#deleteMasive').removeClass('d-none');
+            } else {
+                $('#deleteMasive').addClass('d-none');
+            }
+        });
+
+        $(document).on('click', '#delete-masive-confirm', function() {
+            let selectedIds = $('.select-member:checked').map(function() {
+                return $(this).val();
+            }).get();
+
+            $.ajax({
+                url: '{{ route("members.deleteMasive") }}',
+                type: 'POST',
+                data: { ids: selectedIds },
+                success: function(response) {
+                    console.log(response)
+                    toastr.success(response.message, "¡Éxito!", {
+                        progressBar: true,
+                    });
+                    $('.dataTableCurrent').DataTable().ajax.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    toastr.error(xhr.responseText, "Error", {
+                        progressBar: true,
+                    });
+                }
+            });
+        });
+
     </script>
 @endsection

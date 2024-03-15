@@ -13,6 +13,7 @@ use App\Models\Positions;
 use App\Models\SocialNetwork;
 use App\Http\Requests\MembersStoreRequest;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 
 class MembersController extends Controller
@@ -116,7 +117,47 @@ class MembersController extends Controller
 
     public function saveMembers(Request $request)
     {
-        return $request;
+        $request->validate([
+            'file' => 'required|file',
+        ]);
+
+        $file = $request->file('file');
+
+        $extension = $file->getClientOriginalExtension();
+
+        if ($extension === 'xlsx' || $extension === 'xls') {
+            $data = Excel::toArray([], $file)[0];
+        } elseif ($extension === 'txt') {
+            $data = file($file);
+            $data = array_map('trim', $data);
+            $data = array_map('str_getcsv', $data);
+        } else {
+            return back()->with('error', 'Formato de archivo no compatible');
+        }
+
+        foreach ($data as $row) {
+            $member = new Members();
+            $member->cedula = $row[0];
+            $member->nombre = $row[1];
+            $member->apellido = $row[2];
+            $member->telefono = $row[3];
+            $member->correo = $row[4];
+            $member->fecha_nacimiento = $row[5];
+            $member->profesion = $row[6];
+            $member->red_social = $row[7] ?? null;
+            $member->usuario_red = $row[8] ?? null;
+            $member->genero = $row[9];
+            $member->alcance = $row[10] ?? null;
+            $member->seccional = $row[11] ?? null;
+            $member->municipio = $row[12] ?? null;
+            $member->parroquia = $row[13] ?? null;
+            $member->tipo_cargo = $row[14] ?? null;
+            $member->cargo = $row[15] ?? null;
+            $member->buro = $row[16] ?? null;
+            $member->save();
+        }
+
+        return redirect()->route('members.index')->with('success', 'Usuarios guardados correctamente.');
     }
 
     public function modal_delete(Members $members)
@@ -124,11 +165,19 @@ class MembersController extends Controller
         return view('pages.members.modal.deleteMembers', compact('members'));
     }
 
+    public function modal_delete_masive()
+    {
+        return view('pages.members.modal.deleteMasiveMembers');
+    }
+
     public function list()
     {
         $model = Members::query()->orderBy('created_at', 'desc');
 
         $data = DataTables::of($model)
+            ->addColumn('id', function ($row) {
+                return $row->id;
+            })
             ->addColumn('nombre_completo', function($row) {
                 $nombreC = $row->nombre . " " . $row->apellido;
                 $html = '<div class="d-flex flex-column">' .
@@ -222,4 +271,19 @@ class MembersController extends Controller
             return response()->json(['error' => 'Lo sentimos, hubo un error al completar la acción'], 200);
         }
     }
+
+    public function deleteMasive(Request $request)
+    {
+        $ids = $request->input('ids');
+
+
+        try {
+            Members::whereIn('id', $ids)->delete();
+            return response()->json(['message' => 'Los miembros seleccionados se han eliminado correctamente.']);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Lo sentimos sucedió algo al realizar la acción.']);
+        }
+
+    }
+
 }

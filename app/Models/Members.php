@@ -27,7 +27,6 @@ class Members extends Model
         'tipo_cargo',
         'cargo',
         'buro',
-        'esUsuario',
         // 'password',
         // 'confirm_password',
     ];

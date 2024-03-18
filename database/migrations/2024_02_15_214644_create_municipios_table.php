@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('municipios', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->foreignId('seccional_id')->constrained('seccionales');
+            // $table->foreignId('seccional_id')->constrained('seccionales');
+            $table->string('seccional_id')->nullable();
             $table->timestamps();
         });
     }

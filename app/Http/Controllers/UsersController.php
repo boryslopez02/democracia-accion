@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DataTables;
 use App\Models\Users;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserStoreRequest;
 
 class UsersController extends Controller
 {
@@ -41,9 +42,9 @@ class UsersController extends Controller
             ->addColumn('action', function($row){
                 if ($row->id != 1) {
                     return '<div class="d-flex">
-                        <button class="btn btn-icon btn-info btn-sm me-1">
+                        <a href="'. route('users.edit', $row) .'" class="btn btn-icon btn-info btn-sm me-1">
                             <i class="ti ti-pencil"></i>
-                        </button>
+                        </a>
                         <button class="btn btn-icon btn-danger btn-sm modal-pers" data-path="'. route('users.modalDelete', $row) .'">
                             <i class="ti ti-trash"></i>
                         </button>
@@ -64,9 +65,9 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
-        //
+        dd($request);
     }
 
     /**
@@ -88,7 +89,8 @@ class UsersController extends Controller
      */
     public function edit(Users $users)
     {
-        //
+        // return $users;
+        return view('pages.users.edit', compact('users'));
     }
 
     /**

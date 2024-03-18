@@ -195,9 +195,8 @@
                         @enderror
                     </div>
                     <!-- Es Usuario -->
-                    <div class="mb-3 col-md-6 align-self-end">
+                    <div class="mb-3 col-md-6 col-lg-4 align-self-end">
                         <label class="form-label me-3">Posees cargos de administración pública</label>
-                        <br>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="cargosAdm" id="inlineRadio1"
                                 value="si" {{ old('esUsuario') == 'si' ? 'checked' : '' }}>

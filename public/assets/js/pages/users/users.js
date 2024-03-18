@@ -33,7 +33,7 @@ $(document).ready(function () {
             }
         },
         initComplete: function() {
-            // $('select[name="datatable-members_length"]').select2();
+            $('#table-users_length, #table-users_filter').wrapAll('<div class="d-flex align-items-center justify-content-between"></div>');
         },
     });
 });

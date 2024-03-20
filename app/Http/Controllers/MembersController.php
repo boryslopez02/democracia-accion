@@ -208,9 +208,9 @@ class MembersController extends Controller
             })
             ->addColumn('action', function($row){
                 return '<div class="d-flex">
-                    <button class="btn btn-icon btn-info btn-sm me-1">
+                    <a href='. route('members.edit', $row) .' class="btn btn-icon btn-info btn-sm me-1">
                         <i class="ti ti-pencil"></i>
-                    </button>
+                    </a>
                     <button class="btn btn-icon btn-danger btn-sm modal-pers" data-path="'. route('members.modalDelete', $row) .'">
                         <i class="ti ti-trash"></i>
                     </button>
@@ -241,7 +241,29 @@ class MembersController extends Controller
      */
     public function edit(Members $members)
     {
-        //
+        $optionsScope = Scope::getOptions();
+        $optionsGender = Gender::getGenders();
+        $optionsSocialN = SocialNetwork::getSocialNet();
+        $optionsPositions = Positions::getPositions();
+        $optionsTypesPositions = Positions::getTypesPositions();
+        $optionsBuro = Positions::getBuro();
+        $optionsBuroSecFemenina = Positions::getBuroSecFemenina();
+        $optionsBuroSecCultura = Positions::getBuroSecCultura();
+        $seccionales = Seccional::all();
+
+        $optionsBuro = collect($optionsBuro)->map(function ($value, $key) {
+            return ['key' => $key, 'value' => $value];
+        })->values()->toJson();
+
+        $optionsBuroSecFemenina = collect($optionsBuroSecFemenina)->map(function ($value, $key) {
+            return ['key' => $key, 'value' => $value];
+        })->values()->toJson();
+
+        $optionsBuroSecCultura = collect($optionsBuroSecCultura)->map(function ($value, $key) {
+            return ['key' => $key, 'value' => $value];
+        })->values()->toJson();
+
+        return view('pages.members.edit', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'seccionales', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura'));
     }
 
     /**

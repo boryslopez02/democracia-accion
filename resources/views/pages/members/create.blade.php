@@ -194,22 +194,31 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <!-- Es Usuario -->
+                    <!-- Posees cargos de administración público -->
                     <div class="mb-3 col-md-6 align-self-end">
                         <label class="form-label me-3">Posees cargos de administración pública</label>
                         <br>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="cargosAdm" id="inlineRadio1"
-                                value="si" {{ old('esUsuario') == 'si' ? 'checked' : '' }}>
+                            <input class="form-check-input cargoPublicoCheck" type="radio" name="cargosAdm" id="inlineRadio1"
+                            value="si" {{ old('cargosAdm') == 'si' ? 'checked' : '' }}>
                             <label class="form-check-label" for="inlineRadio1">Si</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="cargosAdm" id="inlineRadio2"
-                                value="no" {{ old('cargosAdm') == 'no' ? 'checked' : '' }}>
+                            <input class="form-check-input cargoPublicoCheck" type="radio" name="cargosAdm" id="inlineRadio2"
+                            value="no" checked {{ old('cargosAdm') == 'no' ? 'checked' : '' }}>
                             <label class="form-check-label" for="inlineRadio2">No</label>
                         </div>
                         @error('cargosAdm')
-                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6"></div>
+                    <!-- Cargo publico -->
+                    <div class="mb-3 col-md-6 col-lg-4 d-none" id="cargo_pub">
+                        <label for="cargo_pub" class="form-label">Cargo público</label>
+                        <input type="text" class="form-control @error('cargo_pub') is-invalid @enderror" id="" name="cargo_pub" value="{{ old('cargo_pub') }}">
+                        @error('cargo_pub')
+                            <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-12 align-self-end">

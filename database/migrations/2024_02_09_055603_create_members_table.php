@@ -32,6 +32,7 @@ return new class extends Migration
             $table->string('tipo_cargo')->nullable();
             $table->string('cargo')->nullable();
             $table->string('buro')->nullable();
+            $table->string('cargo_pub')->nullable();
             $table->timestamps();
             // $table->string('esUsuario');
             // $table->string('password');

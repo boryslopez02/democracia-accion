@@ -69,6 +69,14 @@ $(document).ready(function () {
 
     let optionDefault = new Option("Seleccionar", null, false, false);
 
+    $('.cargoPublicoCheck').on('change', function() {
+        if ($(this).val() == "si") {
+            $('#cargo_pub').removeClass('d-none');
+        } else {
+            $('#cargo_pub').addClass('d-none');
+        }
+    });
+
     $('#seccional').on('change', function() {
         const seccionalId = $(this).val();
         const municipiosFilter = municipios.filter(municipio => municipio.seccional_id == seccionalId);

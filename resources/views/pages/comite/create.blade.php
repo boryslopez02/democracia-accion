@@ -12,9 +12,51 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-body position-relative">
-                <h5 class="card-title fw-semibold mb-4">Registrar Miembro</h5>
+                <h5 class="card-title fw-semibold mb-4">Registrar Comite Local</h5>
                 <form class="row" method="POST" action="{{ route('members.store') }}">
                     @csrf
+                    <!-- Nombre del comite -->
+                    <div class="mb-3 col-md-6 col-lg-4">
+                        <label for="nombre_comite" class="form-label">Nombre del comite</label>
+                        <input type="text" class="form-control @error('nombre_comite') is-invalid @enderror" id="nombre_comite" name="nombre_comite" value="{{ old('nombre_comite') }}">
+                        @error('nombre_comite')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    
+                    <!-- Seccional -->
+                    <div class="mb-3 col-md-6 col-lg-4">
+                        <label for="seccional" class="form-label">Seccional</label>
+                        <select class="form-control select2 @error('seccional') is-invalid @enderror" id="seccional" name="seccional">
+                            <option value="">Seleccionar</option>
+                            @foreach ($seccionales as $seccional)
+                                <option value="{{ $seccional->id }}">{{ $seccional->nombre }}</option>
+                            @endforeach
+                        </select>
+                        @error('seccional')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <!-- Municipio -->
+                    <div class="mb-3 col-md-6 col-lg-4">
+                        <label for="municipio" class="form-label">Municipio</label>
+                        <select class="form-control select2 @error('municipio') is-invalid @enderror" id="municipio" name="municipio">
+                            <option value="">Seleccionar</option>
+                        </select>
+                        @error('municipio')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <!-- Parroquia -->
+                    <div class="mb-3 col-md-6 col-lg-4">
+                        <label for="parroquia" class="form-label">Parroquia</label>
+                        <select class="form-control select2 @error('parroquia') is-invalid @enderror" id="parroquia" name="parroquia" value="{{ old('parroquia') }}">
+                            <option value="">Seleccionar</option>
+                        </select>
+                        @error('parroquia')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
                     <!-- Cedula -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="cedula" class="form-label">Cedula</label>
@@ -110,52 +152,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <!-- Alcance -->
-                    <div class="mb-3 col-md-6 col-lg-4">
-                        <label for="alcance" class="form-label">Alcance</label>
-                        <select class="form-control select2 @error('alcance') is-invalid @enderror" id="alcance" name="alcance">
-                            <option value="">Seleccionar</option>
-                            @foreach ($optionsScope as $value => $label)
-                                <option value="{{ $value }}">{{ $label }}</option>";
-                            @endforeach
-                        </select>
-                        @error('alcance')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <!-- Seccional -->
-                    <div class="mb-3 col-md-6 col-lg-4 d-none">
-                        <label for="seccional" class="form-label">Seccional</label>
-                        <select class="form-control select2 @error('seccional') is-invalid @enderror" id="seccional" name="seccional">
-                            <option value="">Seleccionar</option>
-                            @foreach ($seccionales as $seccional)
-                                <option value="{{ $seccional->id }}">{{ $seccional->nombre }}</option>
-                            @endforeach
-                        </select>
-                        @error('seccional')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <!-- Municipio -->
-                    <div class="mb-3 col-md-6 col-lg-4 d-none">
-                        <label for="municipio" class="form-label">Municipio</label>
-                        <select class="form-control select2 @error('municipio') is-invalid @enderror" id="municipio" name="municipio">
-                            <option value="">Seleccionar</option>
-                        </select>
-                        @error('municipio')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <!-- Parroquia -->
-                    <div class="mb-3 col-md-6 col-lg-4 d-none">
-                        <label for="parroquia" class="form-label">Parroquia</label>
-                        <select class="form-control select2 @error('parroquia') is-invalid @enderror" id="parroquia" name="parroquia" value="{{ old('parroquia') }}">
-                            <option value="">Seleccionar</option>
-                        </select>
-                        @error('parroquia')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
+                   
                     <!-- Tipo de Cargo -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="tipo_cargo" class="form-label">Tipo de Cargo</label>

@@ -61,7 +61,7 @@
                     <span class="hide-menu">Comite Local</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                    <a class="sidebar-link {{ Route::currentRouteName() == 'committe-local.index' ? 'active' : '' }}" href="{{ route('committe-local.index') }}">
                         <span>
                             <i class="ti ti-list-details"></i>
                         </span>
@@ -69,7 +69,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                    <a class="sidebar-link sidebar-link {{ Route::currentRouteName() == 'committe-local.create' ? 'active' : '' }}" href="{{ route('committe-local.create') }}">
                         <span>
                             <i class="ti ti-circle-plus"></i>
                         </span>

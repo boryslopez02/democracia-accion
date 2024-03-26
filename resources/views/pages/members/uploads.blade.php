@@ -15,7 +15,7 @@
                         <p class="mb-0">El archivo debe cumplir con la siguiente estructura para el correcto guardado de los miembros. <br> nombre, apellido, ci</p>
                     </div>
                     <div class="col-lg-6 mb-3">
-                        <label for="" class="form-label">Solo se admiten archivos con extensiones <span class="text-danger">.xls, .xlsx y .txt.</span></label>
+                        <label for="" class="form-label">Solo se admiten archivos con extensiones <span class="text-danger">.xls, .xlsx &nbsp;y .txt.</span></label>
                         <input type="file" name="file" class="form-control" id="" required>
                         @error('file')
                             <div class="invalid-feedback">{{ $message }}</div>

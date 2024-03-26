@@ -212,7 +212,7 @@
                         <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="col-md-6"></div>
+                    <div class="col-12"></div>
                     <!-- Cargo publico -->
                     <div class="mb-3 col-md-6 col-lg-4 d-none" id="cargo_pub">
                         <label for="cargo_pub" class="form-label">Cargo público</label>

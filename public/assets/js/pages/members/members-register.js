@@ -74,6 +74,7 @@ $(document).ready(function () {
             $('#cargo_pub').removeClass('d-none');
         } else {
             $('#cargo_pub').addClass('d-none');
+            $('#cargo_pub input').val('');
         }
     });
 

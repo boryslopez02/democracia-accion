@@ -11,18 +11,15 @@
 @section('content')
     <div class="position-relative">
         <div class="table-responsive">
-            <table id="datatable-members" class="table border table-striped table-bordered text-nowrap align-middle dataTableCurrent">
+            <table id="datatable-notices" class="table border table-striped table-bordered text-nowrap align-middle dataTableCurrent">
                 <thead>
                     <!-- start row -->
                     <tr>
                         <th></th>
-                        <th>Nombre Completo</th>
-                        {{-- <th>CI</th> --}}
-                        <th>Telefono</th>
-                        <th>Correo</th>
-                        <th>F. Nacimiento</th>
-                        <th>Cargo</th>
-                        <th>Buró</th>
+                        <th>Archivo</th>
+                        <th>Titulo</th>
+                        <th>Link</th>
+                        <th>Contenido</th>
                         <th>Acciones</th>
                     </tr>
                     <!-- end row -->
@@ -34,50 +31,38 @@
                     <!-- start row -->
                     <tr>
                         <th></th>
-                        <th>Nombre Completo</th>
-                        {{-- <th>CI</th> --}}
-                        <th>Telefono</th>
-                        <th>Correo</th>
-                        <th>F. Nacimiento</th>
-                        <th>Cargo</th>
-                        <th>Buró</th>
+                        <th>Archivo</th>
+                        <th>Titulo</th>
+                        <th>Link</th>
+                        <th>Contenido</th>
                         <th>Acciones</th>
                     </tr>
                     <!-- end row -->
                 </tfoot>
             </table>
         </div>
-
-        <div class="position-fixed bottom-0 end-0 translate-middle d-none" id="deleteMasive">
-            <a data-path="{{ route('members.modalDeleteMasive') }}" class="btn btn-danger h4 mb-0 d-flex align-items-center text-uppercase modal-pers">Eliminar usuarios <i class="ti ti-alert-circle h4 ms-1 text-white mb-0"></i></a>
-        </div>
     </div>
 @endsection
 
 @section('page-scripts')
     <script>
-        let table = $('#datatable-members').DataTable({
+        let table = $('#datatable-notices').DataTable({
             processing: true,
             serverSide: true,
             pageLength: 25,
             lengthMenu: [10, 25, 50, 100],
-            ajax: '{{ route("members.list") }}',
+            ajax: '{{ route("notices.list") }}',
             columns: [
                 {
                     data: "id",
                     render: function (data, type, row) {
-                        return '<input type="checkbox" class="select-member form-check-input" value="' + data + '">';
+                        return '<input type="checkbox" class="select-notice form-check-input" value="' + data + '">';
                     }
                 },
-                { data: 'nombre_completo', name: 'nombre_completo' },
-                // { data: 'apellido', name: 'apellido' },
-                // { data: 'cedula', name: 'cedula' },
-                { data: 'telefono', name: 'telefono' },
-                { data: 'correo', name: 'correo' },
-                { data: 'fecha_nacimiento', name: 'fecha_nacimiento' },
-                { data: 'cargo', name: 'cargo' },
-                // { data: 'tipo_cargo', name: 'tipo_cargo' },
-                { data: 'buro', name: 'buro' },
+                { data: 'media_path', name: 'media_path' },
+                { data: 'title', name: 'title' },
+                { data: 'link', name: 'link' },
+                { data: 'content', name: 'content' },
                 { data: 'action', name: 'action', orderable: false, searchable: false },
             ],
             language: {
@@ -103,25 +88,25 @@
                 }
             },
             initComplete: function() {
-                $('#datatable-members_length, #datatable-members_filter').wrapAll('<div class="d-flex align-items-center justify-content-between"></div>');
+                $('#datatable-notices_length, #datatable-notices_filter').wrapAll('<div class="d-flex align-items-center justify-content-between"></div>');
             },
         });
 
-        $('#datatable-members').on('change', '.select-member', function() {
-            if ($('.select-member:checked').length > 0) {
+        $('#datatable-notices').on('change', '.select-notice', function() {
+            if ($('.select-notice:checked').length > 0) {
                 $('#deleteMasive').removeClass('d-none');
             } else {
                 $('#deleteMasive').addClass('d-none');
             }
         })
 
-        $('#datatable-members').on('order.dt search.dt', function () {
-            $('.select-member').prop('checked', false);
-            $('.select-member').change();
+        $('#datatable-notices').on('order.dt search.dt', function () {
+            $('.select-notice').prop('checked', false);
+            $('.select-notice').change();
         });
 
         $(document).on('click', '#delete-masive-confirm', function() {
-            let selectedIds = $('.select-member:checked').map(function() {
+            let selectedIds = $('.select-notice:checked').map(function() {
                 return $(this).val();
             }).get();
 

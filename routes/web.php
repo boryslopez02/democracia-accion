@@ -42,6 +42,17 @@ Route::group(['middleware' => 'auth', 'prefix' => 'committe-local', 'as' => 'com
     Route::get('/create', 'create')->name('create');
 });
 
+Route::group(['middleware' => 'auth', 'prefix' => 'notices', 'as' => 'notices.', 'controller' => App\Http\Controllers\NoticesController::class], function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create/{notices?}', 'create')->name('create');
+    Route::post('/store', 'store')->name('store');
+    Route::post('/update/{notices}', 'update')->name('update');
+    Route::get('/list', 'list')->name('list');
+    Route::get('/modal_delete/{notices}', 'modal_delete')->name('modalDelete');
+    Route::delete('/delete/{notices}', 'destroy')->name('delete');
+    Route::post('/delete-masive', 'deleteMasive')->name('deleteMasive');
+});
+
 Route::group(['middleware' => 'auth', 'prefix' => 'users', 'as' => 'users.', 'controller' => App\Http\Controllers\UsersController::class], function () {
     Route::get('/', 'index')->name('index');
     Route::get('/create', 'create')->name('create');

@@ -79,7 +79,7 @@ class MembersController extends Controller
      */
     public function store(MembersStoreRequest $request)
     {
-        //return $request;
+        // return $request;
         $validated = $request->validated();
 
         DB::beginTransaction();
@@ -88,7 +88,9 @@ class MembersController extends Controller
 
             DB::commit();
 
-            return redirect()->route('members.index')->with('success', 'Usuario creado con éxito.');
+            session()->flash('success', 'Usuario creado con éxito.');
+
+            return redirect()->route('members.index');
 
             // return response()->json([
             //     'status' => 'success',
@@ -100,7 +102,9 @@ class MembersController extends Controller
             DB::rollBack();
 
             // Suponiendo que $e es una instancia de Exception capturada en un bloque catch
-            return redirect()->back()->with('error', 'Hubo un error al crear el usuario. Por favor, inténtalo de nuevo. Error: ' . $e->getMessage())->withInput();
+            session()->flash('error', 'Hubo un error al crear el usuario. Por favor, inténtalo de nuevo. Error: ' . $e->getMessage());
+
+            return redirect()->back();
 
             // return response()->json([
             //     'status' => 'error',
@@ -157,7 +161,9 @@ class MembersController extends Controller
             $member->save();
         }
 
-        return redirect()->route('members.index')->with('success', 'Usuarios guardados correctamente.');
+        session()->flash('success', 'Usuarios guardados correctamente.');
+
+        return redirect()->route('members.index');
     }
 
     public function modal_delete(Members $members)
@@ -298,14 +304,12 @@ class MembersController extends Controller
     {
         $ids = $request->input('ids');
 
-
         try {
             Members::whereIn('id', $ids)->delete();
             return response()->json(['message' => 'Los miembros seleccionados se han eliminado correctamente.']);
         } catch (\Throwable $th) {
             return response()->json(['message' => 'Lo sentimos sucedió algo al realizar la acción.']);
         }
-
     }
 
 }

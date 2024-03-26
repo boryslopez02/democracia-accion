@@ -35,6 +35,8 @@ class ComiteLocalController extends Controller
      */
     public function create()
     {
+
+        
         $optionsScope = Scope::getOptions();
         $optionsGender = Gender::getGenders();
         $optionsSocialN = SocialNetwork::getSocialNet();

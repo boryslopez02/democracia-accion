@@ -22,8 +22,8 @@ class MembersStoreRequest extends FormRequest
      * @return array<string, mixed>
      */
 
-     public function messages()
-     {
+    public function messages()
+    {
         return [
             'cedula.required' => 'La cédula es obligatoria.',
             'cedula.numeric' => 'La cédula debe ser un número.',

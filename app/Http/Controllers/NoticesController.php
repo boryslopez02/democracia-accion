@@ -29,7 +29,7 @@ class NoticesController extends Controller
      */
     public function create(Notices $notices)
     {
-        return $notices;
+        // return $notices;
         return view('pages.notices.create', compact('notices'));
     }
 

@@ -12,8 +12,8 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-body position-relative">
-                <h5 class="card-title fw-semibold mb-4"> @if($notices) Editar noticia @else Crear noticia @endif</h5>
-                <form class="row" method="POST" @if($notices) action="{{ route('notices.update', $notices) }}" @else action="{{ route('notices.store') }}" @endif  enctype="multipart/form-data">
+                <h5 class="card-title fw-semibold mb-4"> @if($notices->id) Editar noticia @else Crear noticia @endif</h5>
+                <form class="row" method="POST" @if($notices->id) action="{{ route('notices.update', $notices) }}" @else action="{{ route('notices.store') }}" @endif  enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3 col-md-6">
                         <label for="title" class="form-label">Título</label>
@@ -44,7 +44,7 @@
                         @enderror
                     </div>
                     <div class="col-12 align-self-end">
-                        <button type="submit" class="btn btn-primary">Añadir</button>
+                        <button type="submit" class="btn btn-primary"> @if($notices->id) Actualizar @else Añadir @endif</button>
                     </div>
                 </form>
 

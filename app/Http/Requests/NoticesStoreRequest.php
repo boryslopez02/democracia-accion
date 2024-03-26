@@ -21,10 +21,25 @@ class NoticesStoreRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
+    public function messages()
+    {
+        return [
+            'titulo.required' => 'El título es obligatorio.',
+            'link.url' => 'El enlace debe ser una URL válida.',
+            'contenido.required' => 'El contenido es obligatorio.',
+            'archivo.required' => 'El archivo es obligatorio.',
+            'archivo.mimes' => 'El archivo debe ser una imagen o un video.',
+        ];
+    }
+
     public function rules()
     {
         return [
-            //
+            'titulo' => 'required|string|max:255',
+            'link' => 'nullable|url',
+            'contenido' => 'required|string',
+            'archivo' => 'required|file|mimes:jpeg,png,gif,mp4,mov,avi',
         ];
     }
+
 }

@@ -75,12 +75,11 @@ class NoticesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(NoticesStoreRequest $request)
-    public function store(Request $request)
+    public function store(NoticesStoreRequest $request)
     {
         // return $request;
-        $validated = $request->all();
-        // $validated = $request->validated();
+        // $validated = $request->all();
+        $validated = $request->validated();
 
         DB::beginTransaction();
         try {
@@ -130,12 +129,11 @@ class NoticesController extends Controller
      * @param  \App\Models\Notices  $notices
      * @return \Illuminate\Http\Response
      */
-    // public function update(NoticesStoreRequest $request, Notices $notices)
-    public function update(Request $request, Notices $notices)
+    public function update(NoticesStoreRequest $request, Notices $notices)
     {
         // return $request;
-        // $validated = $request->validated();
-        $validated = $request->all();
+        $validated = $request->validated();
+        // $validated = $request->all();
 
         DB::beginTransaction();
         try {

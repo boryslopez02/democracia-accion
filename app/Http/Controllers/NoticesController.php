@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use DataTables;
 use App\Models\Notices;
+use App\Models\NoticeFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Http\Requests\NoticesStoreRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+
 
 class NoticesController extends Controller
 {
@@ -77,13 +81,47 @@ class NoticesController extends Controller
      */
     public function store(NoticesStoreRequest $request)
     {
-        // return $request;
-        // $validated = $request->all();
-        $validated = $request->validated();
+        // return $request->all();
 
         DB::beginTransaction();
         try {
-            $notice = Notices::create($validated);
+            $notice = Notices::create($request->validated());
+            $errors = [];
+            foreach ($request->file('media_path') as $key => $file) {
+                $validator = Validator::make([$key => $file], [
+                    "media_path.{$key}" => [
+                        'file',
+                        'mimes:jpeg,png,gif,mp4,mov,avi,webp',
+                        'max:4096',
+                    ],
+                ], [
+                    "media_path.{$key}.file" => 'El archivo debe ser válido.',
+                    "media_path.{$key}.mimes" => 'El archivo debe ser una imagen o un video.',
+                    "media_path.{$key}.max" => 'El tamaño máximo del archivo es :max kilobytes.',
+                ]);
+
+                if ($validator->fails()) {
+                    $errors[$key] = $validator->errors()->all();
+                } else {
+                    if ($file->isValid()) {
+                        $img = date('YmHis') . "_" . $file->getClientOriginalName();
+                        $file->storeAs('public/uploads', $img);
+
+                        $namefile = str_replace('public/', '', $img);
+
+                        $noticeFile = new NoticeFile();
+                        $noticeFile->notices_id = $notice->id;
+                        $noticeFile->file_path = $namefile;
+                        $noticeFile->save();
+
+                    }
+                }
+
+                if (!empty($errors)) {
+                    return redirect()->back()->withErrors($errors);
+                }
+
+            }
 
             DB::commit();
 
@@ -98,6 +136,20 @@ class NoticesController extends Controller
 
             return redirect()->back();
         }
+    }
+
+    public function preview()
+    {
+        $notices = Notices::all();
+        $mainArticles = $notices->filter(function ($notice) {
+            return $notice->main == 1;
+        });
+
+        $subArticles = $notices->filter(function ($notice) {
+            return $notice->main == 0;
+        });
+
+        return view('pages.notices.preview', compact('mainArticles', 'subArticles'));
     }
 
     /**
@@ -120,6 +172,11 @@ class NoticesController extends Controller
     public function edit()
     {
         return view('pages.notices.create', compact('notices'));
+    }
+
+    public function modal_delete_masive()
+    {
+        return view('pages.notices.modal.deleteMasiveNotices');
     }
 
     /**
@@ -172,6 +229,18 @@ class NoticesController extends Controller
             return response()->json(['success' => 'Noticia eliminada correctamente'], 200);
         } catch (\Throwable $th) {
             return response()->json(['error' => 'Lo sentimos, hubo un error al completar la acción'], 200);
+        }
+    }
+
+    public function deleteMasive(Request $request)
+    {
+        $ids = $request->input('ids');
+
+        try {
+            Notices::whereIn('id', $ids)->delete();
+            return response()->json(['message' => 'Las noticias seleccionadas se han eliminado correctamente.']);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Lo sentimos sucedió algo al realizar la acción.']);
         }
     }
 }

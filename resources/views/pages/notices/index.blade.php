@@ -41,6 +41,10 @@
                 </tfoot>
             </table>
         </div>
+
+        <div class="position-fixed bottom-0 end-0 translate-middle d-none" id="deleteMasive">
+            <a data-path="{{ route('notices.modalDeleteMasive') }}" class="btn btn-danger h4 mb-0 d-flex align-items-center text-uppercase modal-pers">Eliminar noticias <i class="ti ti-alert-circle h4 ms-1 text-white mb-0"></i></a>
+        </div>
     </div>
 @endsection
 
@@ -59,7 +63,19 @@
                         return '<input type="checkbox" class="select-notice form-check-input" value="' + data + '">';
                     }
                 },
-                { data: 'media_path', name: 'media_path' },
+                {
+                    data: 'media_path',
+                    name: 'media_path',
+                    render: function(data, type, row) {
+                        let images = '';
+                        if (row.notice_files.length > 0) {
+                            row.notice_files.forEach(function(file) {
+                                images += '<img src="storage/uploads/' + file.file_path + '" class="img-fluid rounded border-1 me-1 img-list" alt="Image">';
+                            });
+                        }
+                        return '<div class="d-flex align-items-center">' + images + '</div>';
+                    }
+                },
                 { data: 'title', name: 'title' },
                 { data: 'link', name: 'link' },
                 { data: 'content', name: 'content' },
@@ -111,7 +127,7 @@
             }).get();
 
             $.ajax({
-                url: '{{ route("members.deleteMasive") }}',
+                url: '{{ route("notices.deleteMasive") }}',
                 type: 'POST',
                 data: { ids: selectedIds },
                 success: function(response) {

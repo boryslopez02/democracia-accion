@@ -1,0 +1,408 @@
+@extends('layouts.app')
+
+@section('styles')
+@endsection
+
+@section('content')
+    <div class="container-fluid">
+        <div class="row" bis_skin_checked="1">
+            @foreach ($mainArticles as $key => $notice)
+                <div class="col-md-6 {{ (count($notices) == 1) ? 'col-lg-12' : (($key == 0) ? 'col-lg-8' : 'col-lg-4') }}">
+                    <div class="card blog blog-img-one position-relative overflow-hidden hover-img" bis_skin_checked="1" style="background-image: url({{ asset('storage/uploads/' . $notice->noticeFiles[0]->file_path) }});">
+                        <div class="card-body position-relative" bis_skin_checked="1">
+                            <div class="d-flex flex-column justify-content-between h-100" bis_skin_checked="1">
+                                <div class="d-flex align-items-start justify-content-between" bis_skin_checked="1">
+                                    <div class="position-relative" data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-title="Mollie Underwood" bis_skin_checked="1">
+                                        <img src="../assets/images/profile/user-1.jpg" alt=""
+                                            class="rounded-circle img-fluid" width="40" height="40">
+                                    </div>
+                                    <span class="badge text-bg-primary rounded-3 fs-2 fw-semibold">Gadget</span>
+                                </div>
+                                <div bis_skin_checked="1">
+                                    <a href="{{ route('notices.detail', $notice) }}"
+                                        class="fs-7 my-4 fw-semibold text-white d-block lh-sm">{{$notice->title}}</a>
+                                    <div class="d-flex align-items-center gap-4" bis_skin_checked="1">
+                                        <div class="d-flex align-items-center gap-2 text-white fs-3 fw-normal"
+                                            bis_skin_checked="1">
+                                            <i class="ti ti-eye fs-5"></i>
+                                            6006
+                                        </div>
+                                        <div class="d-flex align-items-center gap-2 text-white fs-3 fw-normal"
+                                            bis_skin_checked="1">
+                                            <i class="ti ti-message-2 fs-5"></i>
+                                            3
+                                        </div>
+                                        <div class="d-flex align-items-center gap-1 text-white fw-normal ms-auto"
+                                            bis_skin_checked="1">
+                                            <i class="ti ti-point"></i>
+                                            <small>{{ $notice->created_at->format('D, M j') }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
+            @foreach ($subArticles as $notice)
+                <div class="col-md-6 col-lg-4" bis_skin_checked="1">
+                    <div class="card rounded-2 overflow-hidden hover-img" bis_skin_checked="1">
+                        <div class="position-relative" bis_skin_checked="1">
+                            <a href="../main/blog-detail.html"><img src="{{ asset('storage/uploads/' . $notice->noticeFiles[0]->file_path) }}"
+                                    class="card-img-top rounded-0" alt="..."></a>
+                            <span
+                                class="badge text-bg-light fs-2 rounded-4 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">2
+                                min Read</span>
+                            <img src="../assets/images/profile/user-5.jpg" alt=""
+                                class="img-fluid rounded-circle position-absolute bottom-0 start-0 mb-n9 ms-9"
+                                width="40" height="40" data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-title="Esther Lindsey">
+                        </div>
+                        <div class="card-body p-4" bis_skin_checked="1">
+                            <span class="badge text-bg-light fs-2 rounded-4 py-1 px-2 lh-sm  mt-3">Lifestyle</span>
+                            <a class="d-block my-4 fs-5 text-dark fw-semibold"
+                                href="../main/blog-detail.html">{{ $notice->title }}</a>
+                            <div class="d-flex align-items-center gap-4" bis_skin_checked="1">
+                                <div class="d-flex align-items-center gap-2" bis_skin_checked="1"><i
+                                        class="ti ti-eye text-dark fs-5"></i>2252</div>
+                                <div class="d-flex align-items-center gap-2" bis_skin_checked="1"><i
+                                        class="ti ti-message-2 text-dark fs-5"></i>3</div>
+                                <div class="d-flex align-items-center fs-2 ms-auto" bis_skin_checked="1"><i
+                                        class="ti ti-point text-dark"></i>{{ $notice->created_at->format('D, M j') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
+
+            <div class="col-md-6 col-lg-8" bis_skin_checked="1">
+                <div class="card blog blog-img-one position-relative overflow-hidden hover-img" bis_skin_checked="1">
+                    <div class="card-body position-relative" bis_skin_checked="1">
+                        <div class="d-flex flex-column justify-content-between h-100" bis_skin_checked="1">
+                            <div class="d-flex align-items-start justify-content-between" bis_skin_checked="1">
+                                <div class="position-relative" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    data-bs-title="Mollie Underwood" bis_skin_checked="1">
+                                    <img src="../assets/images/profile/user-4.jpg" alt=""
+                                        class="rounded-circle img-fluid" width="40" height="40">
+                                </div>
+                                <span class="badge text-bg-primary rounded-3 fs-2 fw-semibold">Gadget</span>
+                            </div>
+                            <div bis_skin_checked="1">
+                                <a href="../main/blog-detail.html"
+                                    class="fs-7 my-4 fw-semibold text-white d-block lh-sm">Early Black Friday
+                                    Amazon deals: cheap TVs, headphones, laptops</a>
+                                <div class="d-flex align-items-center gap-4" bis_skin_checked="1">
+                                    <div class="d-flex align-items-center gap-2 text-white fs-3 fw-normal"
+                                        bis_skin_checked="1">
+                                        <i class="ti ti-eye fs-5"></i>
+                                        6006
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2 text-white fs-3 fw-normal"
+                                        bis_skin_checked="1">
+                                        <i class="ti ti-message-2 fs-5"></i>
+                                        3
+                                    </div>
+                                    <div class="d-flex align-items-center gap-1 text-white fw-normal ms-auto"
+                                        bis_skin_checked="1">
+                                        <i class="ti ti-point"></i>
+                                        <small>Fri, Jan 13</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" bis_skin_checked="1">
+                <div class="card blog blog-img-two position-relative overflow-hidden hover-img"
+                    bis_skin_checked="1">
+                    <div class="card-body position-relative" bis_skin_checked="1">
+                        <div class="d-flex flex-column justify-content-between h-100" bis_skin_checked="1">
+                            <div class="d-flex align-items-start justify-content-between" bis_skin_checked="1">
+                                <div class="position-relative" data-bs-toggle="tooltip" data-bs-placement="top"
+                                    data-bs-title="Francisco Quinn" bis_skin_checked="1">
+                                    <img src="../assets/images/profile/user-5.jpg" alt=""
+                                        class="rounded-circle img-fluid" width="40" height="40">
+                                </div>
+                                <span class="badge text-bg-primary rounded-3 fs-2 fw-semibold">Health</span>
+                            </div>
+                            <div bis_skin_checked="1">
+                                <a href="../main/blog-detail.html"
+                                    class="fs-7 my-4 fw-semibold text-white d-block lh-sm">Presented by Max
+                                    Rushden with Barry Glendenning, Philippe Auclair</a>
+                                <div class="d-flex align-items-center gap-4" bis_skin_checked="1">
+                                    <div class="d-flex align-items-center gap-2 text-white fs-3 fw-normal"
+                                        bis_skin_checked="1">
+                                        <i class="ti ti-eye fs-5"></i>
+                                        713
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2 text-white fs-3 fw-normal"
+                                        bis_skin_checked="1">
+                                        <i class="ti ti-message-2 fs-5"></i>
+                                        3
+                                    </div>
+                                    <div class="d-flex align-items-center gap-1 text-white fw-normal ms-auto"
+                                        bis_skin_checked="1">
+                                        <i class="ti ti-point"></i>
+                                        <small>Wed, Jan 18</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" bis_skin_checked="1">
+                <div class="card rounded-2 overflow-hidden hover-img" bis_skin_checked="1">
+                    <div class="position-relative" bis_skin_checked="1">
+                        <a href="../main/blog-detail.html"><img src="../assets/images/blog/blog-img6.jpg"
+                                class="card-img-top rounded-0" alt="..."></a>
+                        <span
+                            class="badge text-bg-light fs-2 rounded-4 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">2
+                            min Read</span>
+                        <img src="../assets/images/profile/user-2.jpg" alt=""
+                            class="img-fluid rounded-circle position-absolute bottom-0 start-0 mb-n9 ms-9"
+                            width="40" height="40" data-bs-toggle="tooltip" data-bs-placement="top"
+                            data-bs-title="Addie Keller">
+                    </div>
+                    <div class="card-body p-4" bis_skin_checked="1">
+                        <span class="badge text-bg-light fs-2 rounded-4 py-1 px-2 lh-sm  mt-3">Gadget</span>
+                        <a class="d-block my-4 fs-5 text-dark fw-semibold" href="../main/blog-detail.html">As yen
+                            tumbles, gadget-loving Japan goes
+                            for iPhones</a>
+                        <div class="d-flex align-items-center gap-4" bis_skin_checked="1">
+                            <div class="d-flex align-items-center gap-2" bis_skin_checked="1"><i
+                                    class="ti ti-eye text-dark fs-5"></i>9,125</div>
+                            <div class="d-flex align-items-center gap-2" bis_skin_checked="1"><i
+                                    class="ti ti-message-2 text-dark fs-5"></i>3</div>
+                            <div class="d-flex align-items-center fs-2 ms-auto" bis_skin_checked="1"><i
+                                    class="ti ti-point text-dark"></i>Mon, Jan 16
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" bis_skin_checked="1">
+                <div class="card rounded-2 overflow-hidden hover-img" bis_skin_checked="1">
+                    <div class="position-relative" bis_skin_checked="1">
+                        <a href="../main/blog-detail.html"><img src="../assets/images/blog/blog-img11.jpg"
+                                class="card-img-top rounded-0" alt="..."></a>
+                        <span
+                            class="badge text-bg-light fs-2 rounded-4 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">2
+                            min Read</span>
+                        <img src="../assets/images/profile/user-3.jpg" alt=""
+                            class="img-fluid rounded-circle position-absolute bottom-0 start-0 mb-n9 ms-9"
+                            width="40" height="40" data-bs-toggle="tooltip" data-bs-placement="top"
+                            data-bs-title="Walter Palmer">
+                    </div>
+                    <div class="card-body p-4" bis_skin_checked="1">
+                        <span class="badge text-bg-light fs-2 rounded-4 py-1 px-2 lh-sm  mt-3">Social</span>
+                        <a class="d-block my-4 fs-5 text-dark fw-semibold" href="../main/blog-detail.html">Intel
+                            loses
+                            bid to revive antitrust case
+                            against patent foe Fortress</a>
+                        <div class="d-flex align-items-center gap-4" bis_skin_checked="1">
+                            <div class="d-flex align-items-center gap-2" bis_skin_checked="1"><i
+                                    class="ti ti-eye text-dark fs-5"></i>4,150</div>
+                            <div class="d-flex align-items-center gap-2" bis_skin_checked="1"><i
+                                    class="ti ti-message-2 text-dark fs-5"></i>38</div>
+                            <div class="d-flex align-items-center fs-2 ms-auto" bis_skin_checked="1"><i
+                                    class="ti ti-point text-dark"></i>Sun, Jan 15
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" bis_skin_checked="1">
+                <div class="card rounded-2 overflow-hidden hover-img" bis_skin_checked="1">
+                    <div class="position-relative" bis_skin_checked="1">
+                        <a href="../main/blog-detail.html"><img src="../assets/images/blog/blog-img8.jpg"
+                                class="card-img-top rounded-0" alt="..."></a>
+                        <span
+                            class="badge text-bg-light fs-2 rounded-4 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">2
+                            min Read</span>
+                        <img src="../assets/images/profile/user-4.jpg" alt=""
+                            class="img-fluid rounded-circle position-absolute bottom-0 start-0 mb-n9 ms-9"
+                            width="40" height="40" data-bs-toggle="tooltip" data-bs-placement="top"
+                            data-bs-title="Miguel Kennedy">
+                    </div>
+                    <div class="card-body p-4" bis_skin_checked="1">
+                        <span class="badge text-bg-light fs-2 rounded-4 py-1 px-2 lh-sm  mt-3">Health</span>
+                        <a class="d-block my-4 fs-5 text-dark fw-semibold" href="../main/blog-detail.html">COVID
+                            outbreak deepens as more lockdowns
+                            loom in China</a>
+                        <div class="d-flex align-items-center gap-4" bis_skin_checked="1">
+                            <div class="d-flex align-items-center gap-2" bis_skin_checked="1"><i
+                                    class="ti ti-eye text-dark fs-5"></i>9,480</div>
+                            <div class="d-flex align-items-center gap-2" bis_skin_checked="1"><i
+                                    class="ti ti-message-2 text-dark fs-5"></i>12</div>
+                            <div class="d-flex align-items-center fs-2 ms-auto" bis_skin_checked="1"><i
+                                    class="ti ti-point text-dark"></i>Sat, Jan 14
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" bis_skin_checked="1">
+                <div class="card rounded-2 overflow-hidden hover-img" bis_skin_checked="1">
+                    <div class="position-relative" bis_skin_checked="1">
+                        <a href="../main/blog-detail.html"><img src="../assets/images/blog/blog-img5.jpg"
+                                class="card-img-top rounded-0" alt="..."></a>
+                        <span
+                            class="badge text-bg-light fs-2 rounded-4 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">2
+                            min Read</span>
+                        <img src="../assets/images/profile/user-5.jpg" alt=""
+                            class="img-fluid rounded-circle position-absolute bottom-0 start-0 mb-n9 ms-9"
+                            width="40" height="40" data-bs-toggle="tooltip" data-bs-placement="top"
+                            data-bs-title="Esther Lindsey">
+                    </div>
+                    <div class="card-body p-4" bis_skin_checked="1">
+                        <span class="badge text-bg-light fs-2 rounded-4 py-1 px-2 lh-sm  mt-3">Lifestyle</span>
+                        <a class="d-block my-4 fs-5 text-dark fw-semibold"
+                            href="../main/blog-detail.html">Streaming
+                            video way before it was cool, go
+                            dark tomorrow</a>
+                        <div class="d-flex align-items-center gap-4" bis_skin_checked="1">
+                            <div class="d-flex align-items-center gap-2" bis_skin_checked="1"><i
+                                    class="ti ti-eye text-dark fs-5"></i>2252</div>
+                            <div class="d-flex align-items-center gap-2" bis_skin_checked="1"><i
+                                    class="ti ti-message-2 text-dark fs-5"></i>3</div>
+                            <div class="d-flex align-items-center fs-2 ms-auto" bis_skin_checked="1"><i
+                                    class="ti ti-point text-dark"></i>Sat, Jan 14
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" bis_skin_checked="1">
+                <div class="card rounded-2 overflow-hidden hover-img" bis_skin_checked="1">
+                    <div class="position-relative" bis_skin_checked="1">
+                        <a href="../main/blog-detail.html"><img src="../assets/images/blog/blog-img3.jpg"
+                                class="card-img-top rounded-0" alt="..."></a>
+                        <span
+                            class="badge text-bg-light fs-2 rounded-4 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">2
+                            min Read</span>
+                        <img src="../assets/images/profile/user-6.jpg" alt=""
+                            class="img-fluid rounded-circle position-absolute bottom-0 start-0 mb-n9 ms-9"
+                            width="40" height="40" data-bs-toggle="tooltip" data-bs-placement="top"
+                            data-bs-title="Leroy Greer">
+                    </div>
+                    <div class="card-body p-4" bis_skin_checked="1">
+                        <span class="badge text-bg-light fs-2 rounded-4 py-1 px-2 lh-sm  mt-3">Design</span>
+                        <a class="d-block my-4 fs-5 text-dark fw-semibold" href="../main/blog-detail.html">Apple
+                            is
+                            apparently working on a new
+                            ‘streamlined’ accessibility</a>
+                        <div class="d-flex align-items-center gap-4" bis_skin_checked="1">
+                            <div class="d-flex align-items-center gap-2" bis_skin_checked="1"><i
+                                    class="ti ti-eye text-dark fs-5"></i>5860</div>
+                            <div class="d-flex align-items-center gap-2" bis_skin_checked="1"><i
+                                    class="ti ti-message-2 text-dark fs-5"></i>38</div>
+                            <div class="d-flex align-items-center fs-2 ms-auto" bis_skin_checked="1"><i
+                                    class="ti ti-point text-dark"></i>Fri, Jan 13
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" bis_skin_checked="1">
+                <div class="card rounded-2 overflow-hidden hover-img" bis_skin_checked="1">
+                    <div class="position-relative" bis_skin_checked="1">
+                        <a href="../main/blog-detail.html"><img src="../assets/images/blog/blog-img2.jpg"
+                                class="card-img-top rounded-0" alt="..."></a>
+                        <span
+                            class="badge text-bg-light fs-2 rounded-4 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">2
+                            min Read</span>
+                        <img src="../assets/images/profile/user-7.jpg" alt=""
+                            class="img-fluid rounded-circle position-absolute bottom-0 start-0 mb-n9 ms-9"
+                            width="40" height="40" data-bs-toggle="tooltip" data-bs-placement="top"
+                            data-bs-title="Tommy Butler">
+                    </div>
+                    <div class="card-body p-4" bis_skin_checked="1">
+                        <span class="badge text-bg-light fs-2 rounded-4 py-1 px-2 lh-sm  mt-3">Lifestyle</span>
+                        <a class="d-block my-4 fs-5 text-dark fw-semibold" href="../main/blog-detail.html">After
+                            Twitter Staff Cuts, Survivors Face
+                            ‘Radio Silence</a>
+                        <div class="d-flex align-items-center gap-4" bis_skin_checked="1">
+                            <div class="d-flex align-items-center gap-2" bis_skin_checked="1"><i
+                                    class="ti ti-eye text-dark fs-5"></i>6315</div>
+                            <div class="d-flex align-items-center gap-2" bis_skin_checked="1"><i
+                                    class="ti ti-message-2 text-dark fs-5"></i>12</div>
+                            <div class="d-flex align-items-center fs-2 ms-auto" bis_skin_checked="1"><i
+                                    class="ti ti-point text-dark"></i>Wed, Jan 11
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" bis_skin_checked="1">
+                <div class="card rounded-2 overflow-hidden hover-img" bis_skin_checked="1">
+                    <div class="position-relative" bis_skin_checked="1">
+                        <a href="../main/blog-detail.html"><img src="../assets/images/blog/blog-img4.jpg"
+                                class="card-img-top rounded-0" alt="..."></a>
+                        <span
+                            class="badge text-bg-light fs-2 rounded-4 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">2
+                            min Read</span>
+                        <img src="../assets/images/profile/user-8.jpg" alt=""
+                            class="img-fluid rounded-circle position-absolute bottom-0 start-0 mb-n9 ms-9"
+                            width="40" height="40" data-bs-toggle="tooltip" data-bs-placement="top"
+                            data-bs-title="Donald Holmes">
+                    </div>
+                    <div class="card-body p-4" bis_skin_checked="1">
+                        <span class="badge text-bg-light fs-2 rounded-4 py-1 px-2 lh-sm  mt-3">Design</span>
+                        <a class="d-block my-4 fs-5 text-dark fw-semibold" href="../main/blog-detail.html">Why
+                            Figma is
+                            selling to Adobe for $20
+                            billion</a>
+                        <div class="d-flex align-items-center gap-4" bis_skin_checked="1">
+                            <div class="d-flex align-items-center gap-2" bis_skin_checked="1"><i
+                                    class="ti ti-eye text-dark fs-5"></i>7570</div>
+                            <div class="d-flex align-items-center gap-2" bis_skin_checked="1"><i
+                                    class="ti ti-message-2 text-dark fs-5"></i>38</div>
+                            <div class="d-flex align-items-center fs-2 ms-auto" bis_skin_checked="1"><i
+                                    class="ti ti-point text-dark"></i>Wed, Jan 11
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" bis_skin_checked="1">
+                <div class="card rounded-2 overflow-hidden hover-img" bis_skin_checked="1">
+                    <div class="position-relative" bis_skin_checked="1">
+                        <a href="../main/blog-detail.html"><img src="../assets/images/blog/blog-img1.jpg"
+                                class="card-img-top rounded-0" alt="..."></a>
+                        <span
+                            class="badge text-bg-light fs-2 rounded-4 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">2
+                            min Read</span>
+                        <img src="../assets/images/profile/user-10.jpg" alt=""
+                            class="img-fluid rounded-circle position-absolute bottom-0 start-0 mb-n9 ms-9"
+                            width="40" height="40" data-bs-toggle="tooltip" data-bs-placement="top"
+                            data-bs-title="Eric Douglas">
+                    </div>
+                    <div class="card-body p-4" bis_skin_checked="1">
+                        <span class="badge text-bg-light fs-2 rounded-4 py-1 px-2 lh-sm  mt-3">Gadget</span>
+                        <a class="d-block my-4 fs-5 text-dark fw-semibold" href="../main/blog-detail.html">Garmins
+                            Instinct Crossover is a rugged
+                            hybrid smartwatch</a>
+                        <div class="d-flex align-items-center gap-4" bis_skin_checked="1">
+                            <div class="d-flex align-items-center gap-2" bis_skin_checked="1"><i
+                                    class="ti ti-eye text-dark fs-5"></i>6763</div>
+                            <div class="d-flex align-items-center gap-2" bis_skin_checked="1"><i
+                                    class="ti ti-message-2 text-dark fs-5"></i>12</div>
+                            <div class="d-flex align-items-center fs-2 ms-auto" bis_skin_checked="1"><i
+                                    class="ti ti-point text-dark"></i>Tue, Jan 10
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('page-scripts')
+@endsection

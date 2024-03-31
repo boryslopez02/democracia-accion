@@ -81,3 +81,33 @@ form.row {
 .form-control, .form-control:focus {
     background: white;
 }
+.img-list {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+/* Blog */
+.blog {
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 400px;
+}
+.fs-7 {
+    font-size: 1.5rem !important;
+}
+.blog::before {
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(33, 33, 33, 0.6);
+}
+.hover-img:hover {
+    transform: translateY(-10px);
+}
+.hover-img {
+    transition: 0.2s ease-in;
+}

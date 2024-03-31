@@ -47,6 +47,14 @@
                         <span class="hide-menu">Crear noticia</span>
                     </a>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Route::currentRouteName() == 'notices.preview' ? 'active' : '' }}" href="{{ route('notices.preview') }}">
+                        <span>
+                            <i class="ti ti-eye"></i>
+                        </span>
+                        <span class="hide-menu">Previsualizar</span>
+                    </a>
+                </li>
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                     <span class="hide-menu">Institucion</span>

@@ -25,7 +25,7 @@
 @if(session('error'))
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            toastr.success("{{ session('error') }}", "¡Éxito!", {
+            toastr.error("{{ session('error') }}", "Ups!", {
                 progressBar: true,
             });
         });

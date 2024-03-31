@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('notices', function (Blueprint $table) {
+        Schema::create('notice_files', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('link')->nullable();
-            $table->text('content');
-            $table->boolean('main')->nullable();
-            $table->string('media_path')->nullable();
+            $table->unsignedBigInteger('notices_id');
+            $table->foreign('notices_id')->references('id')->on('notices')->onDelete('cascade');
+            $table->string('file_path');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notices');
+        Schema::dropIfExists('notice_files');
     }
 };

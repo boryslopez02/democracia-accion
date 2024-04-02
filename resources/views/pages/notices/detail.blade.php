@@ -59,6 +59,15 @@
                 <div id="editor-container" class="editor-container only-read">{!! $notices->content !!}</div>
             </div>
         </div>
+
+        @if($previousNotice)
+            <a href="{{ route('notices.detail', $previousNotice->id) }}">Noticia anterior</a>
+        @endif
+
+        @if($nextNotice)
+            <a href="{{ route('notices.detail', $nextNotice->id) }}">Noticia siguiente</a>
+        @endif
+
     </div>
 @endsection
 

@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use App\Http\Requests\NoticesStoreRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Collection;
 
 
 class NoticesController extends Controller
@@ -83,9 +84,10 @@ class NoticesController extends Controller
     {
         // return $request->all();
 
+        $notice = Notices::create($request->only('title', 'link', 'content', 'main'));
         DB::beginTransaction();
         try {
-            $notice = Notices::create($request->validated());
+            $notice = Notices::create($request->only('title', 'link', 'content', 'main'));
             $errors = [];
             foreach ($request->file('media_path') as $key => $file) {
                 $validator = Validator::make([$key => $file], [
@@ -140,17 +142,8 @@ class NoticesController extends Controller
     public function preview()
     {
         $notices = Notices::all();
-
-        $mainArticles = [];
-        $subArticles = [];
-
-        foreach ($notices as $key => $notice) {
-            if ($notice->main == "1") {
-                array_push($mainArticles, $notice);
-            } else {
-                array_push($subArticles, $notice);
-            }
-        }
+        $mainArticles = Notices::where('main', '1')->orderBy('id', 'desc')->take(40)->get();
+        $subArticles = Notices::where('main', '0')->orderBy('id', 'desc')->take(15)->get();
 
         return view('pages.notices.preview', compact('mainArticles', 'subArticles'));
     }
@@ -167,7 +160,10 @@ class NoticesController extends Controller
     }
     public function detail(Notices $notices)
     {
-        return view('pages.notices.detail', compact('notices'));
+        $previousNotice = Notices::where('id', '<', $notices->id)->orderBy('id', 'desc')->first();
+        $nextNotice = Notices::where('id', '>', $notices->id)->orderBy('id', 'asc')->first();
+
+        return view('pages.notices.detail', compact('notices', 'previousNotice', 'nextNotice'));
     }
 
     /**

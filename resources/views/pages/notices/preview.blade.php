@@ -32,7 +32,12 @@
 
             @foreach ($mainArticles as $key => $notice)
                 <div class="col-md-6 {{ (count($mainArticles) == 1) ? 'col-lg-12' : (($key == 0) ? 'col-lg-8' : 'col-lg-4') }}">
-                    <div class="card blog blog-img-one position-relative overflow-hidden hover-img" bis_skin_checked="1" style="background-image: url({{ asset('storage/uploads/' . $notice->noticeFiles[0]->file_path) }});">
+
+                    @if(isset($notice->noticeFiles) && count($notice->noticeFiles) > 0)
+                        <div class="card blog blog-img-one position-relative overflow-hidden hover-img" bis_skin_checked="1" style="background-image: url({{ asset('storage/uploads/' . $notice->noticeFiles[0]->file_path) }});">
+                    @else
+                        <div class="card blog blog-img-one position-relative overflow-hidden hover-img" bis_skin_checked="1" style="background-image: url({{ asset('assets/images/blog.jpg') }});">
+                    @endif
                         <div class="card-body position-relative" bis_skin_checked="1">
                             <div class="d-flex flex-column justify-content-between h-100" bis_skin_checked="1">
                                 <div class="d-flex align-items-start justify-content-between" bis_skin_checked="1">
@@ -92,7 +97,7 @@
                         <div class="card-body p-4" bis_skin_checked="1">
                             <span class="badge text-bg-light fs-2 rounded-4 py-1 px-2 lh-sm  mt-3">Lifestyle</span>
                             <a class="d-block my-4 fs-5 text-dark fw-semibold"
-                                href="../main/blog-detail.html">{{ $notice->title }}</a>
+                                href="{{ route('notices.detail', $notice) }}">{{ $notice->title }}</a>
                             <div class="d-flex align-items-center gap-4" bis_skin_checked="1">
                                 <div class="d-flex align-items-center gap-2" bis_skin_checked="1"><i
                                         class="ti ti-eye text-dark fs-5"></i>2252</div>

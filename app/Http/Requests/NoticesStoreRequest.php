@@ -21,24 +21,45 @@ class NoticesStoreRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function messages()
-    {
-        return [
-            'title.required' => 'El título es obligatorio.',
-            'link.url' => 'El enlace debe ser una URL válida.',
-            'content.required' => 'El contenido es obligatorio.',
-            'main.boolean' => 'El campo "main" debe ser un valor booleano.',
-        ];
-    }
-
     public function rules()
     {
         return [
             'title' => 'required|string|max:255',
             'link' => 'nullable|url',
             'content' => 'required|string',
-            'main' => 'nullable|boolean',
+            'main' => 'nullable',
         ];
     }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, mixed>
+     */
+    public function messages()
+    {
+        return [
+            'title.required' => 'El título es obligatorio.',
+            'link.url' => 'El enlace debe ser una URL válida.',
+            'content.required' => 'El contenido es obligatorio.',
+            // 'main.boolean' => 'El campo "main" debe ser un valor booleano.',
+        ];
+    }
+
+    /**
+     * Configure the validator instance.
+     *
+     * @param  \Illuminate\Validation\Validator  $validator
+     * @return void
+     */
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if (!$this->has('main') || $this->input('main') === null) {
+                $this->merge(['main' => 0]);
+            }
+        });
+    }
+
 
 }

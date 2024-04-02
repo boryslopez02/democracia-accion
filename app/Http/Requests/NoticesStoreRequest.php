@@ -27,6 +27,7 @@ class NoticesStoreRequest extends FormRequest
             'title.required' => 'El título es obligatorio.',
             'link.url' => 'El enlace debe ser una URL válida.',
             'content.required' => 'El contenido es obligatorio.',
+            'main.boolean' => 'El campo "main" debe ser un valor booleano.',
         ];
     }
 
@@ -34,8 +35,9 @@ class NoticesStoreRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'link' => 'nullable',
+            'link' => 'nullable|url',
             'content' => 'required|string',
+            'main' => 'nullable|boolean',
         ];
     }
 

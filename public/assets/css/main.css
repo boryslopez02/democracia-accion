@@ -111,3 +111,6 @@ form.row {
 .hover-img {
     transition: 0.2s ease-in;
 }
+.only-read {
+    border: 0 !important;
+}

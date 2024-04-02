@@ -5,16 +5,40 @@
 
 @section('content')
     <div class="container-fluid">
+        <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4" bis_skin_checked="1">
+            <div class="card-body px-4 py-3" bis_skin_checked="1">
+              <div class="row align-items-center" bis_skin_checked="1">
+                <div class="col-9" bis_skin_checked="1">
+                  <h4 class="fw-semibold mb-8">Noticias</h4>
+                  <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item">
+                        <a class="text-muted text-decoration-none" href="{{ route('home') }}">Inicio</a>
+                      </li>
+                      <li class="breadcrumb-item" aria-current="page">Noticias</li>
+                    </ol>
+                  </nav>
+                </div>
+                <div class="col-3" bis_skin_checked="1">
+                  <div class="text-center mb-n5" bis_skin_checked="1">
+                    <img src="{{ asset('assets/images/notices/ChatBc.png') }}" alt="" class="img-fluid mb-n4">
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
         <div class="row" bis_skin_checked="1">
+
             @foreach ($mainArticles as $key => $notice)
-                <div class="col-md-6 {{ (count($notices) == 1) ? 'col-lg-12' : (($key == 0) ? 'col-lg-8' : 'col-lg-4') }}">
+                <div class="col-md-6 {{ (count($mainArticles) == 1) ? 'col-lg-12' : (($key == 0) ? 'col-lg-8' : 'col-lg-4') }}">
                     <div class="card blog blog-img-one position-relative overflow-hidden hover-img" bis_skin_checked="1" style="background-image: url({{ asset('storage/uploads/' . $notice->noticeFiles[0]->file_path) }});">
                         <div class="card-body position-relative" bis_skin_checked="1">
                             <div class="d-flex flex-column justify-content-between h-100" bis_skin_checked="1">
                                 <div class="d-flex align-items-start justify-content-between" bis_skin_checked="1">
                                     <div class="position-relative" data-bs-toggle="tooltip" data-bs-placement="top"
                                         data-bs-title="Mollie Underwood" bis_skin_checked="1">
-                                        <img src="../assets/images/profile/user-1.jpg" alt=""
+                                        <img src="{{ asset('assets/images/profile/user-1.jpg') }}" alt=""
                                             class="rounded-circle img-fluid" width="40" height="40">
                                     </div>
                                     <span class="badge text-bg-primary rounded-3 fs-2 fw-semibold">Gadget</span>
@@ -50,12 +74,17 @@
                 <div class="col-md-6 col-lg-4" bis_skin_checked="1">
                     <div class="card rounded-2 overflow-hidden hover-img" bis_skin_checked="1">
                         <div class="position-relative" bis_skin_checked="1">
-                            <a href="../main/blog-detail.html"><img src="{{ asset('storage/uploads/' . $notice->noticeFiles[0]->file_path) }}"
-                                    class="card-img-top rounded-0" alt="..."></a>
+                            <a href="{{ route('notices.detail', $notice) }}">
+                                @if(isset($notice->noticeFiles) && count($notice->noticeFiles) > 0)
+                                    <img src="{{ asset('storage/uploads/' . $notice->noticeFiles[0]->file_path) }}" class="card-img-top rounded-0" alt="...">
+                                @else
+                                    <img src="{{ asset('assets/images/blog.jpg') }}" class="card-img-top rounded-0" alt="...">
+                                @endif
+                            </a>
                             <span
                                 class="badge text-bg-light fs-2 rounded-4 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">2
                                 min Read</span>
-                            <img src="../assets/images/profile/user-5.jpg" alt=""
+                            <img src="{{ asset('assets/images/profile/user-1.jpg') }}" alt=""
                                 class="img-fluid rounded-circle position-absolute bottom-0 start-0 mb-n9 ms-9"
                                 width="40" height="40" data-bs-toggle="tooltip" data-bs-placement="top"
                                 data-bs-title="Esther Lindsey">
@@ -78,8 +107,7 @@
                 </div>
             @endforeach
 
-
-            <div class="col-md-6 col-lg-8" bis_skin_checked="1">
+            {{-- <div class="col-md-6 col-lg-8" bis_skin_checked="1">
                 <div class="card blog blog-img-one position-relative overflow-hidden hover-img" bis_skin_checked="1">
                     <div class="card-body position-relative" bis_skin_checked="1">
                         <div class="d-flex flex-column justify-content-between h-100" bis_skin_checked="1">
@@ -399,7 +427,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection

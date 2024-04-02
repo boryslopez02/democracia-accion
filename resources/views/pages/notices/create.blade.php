@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="{{ asset('assets/libs/select2/css/select2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}">
 <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 <style>
 
 </style>
@@ -30,13 +31,22 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-3 col-md-6">
+                    <div class="mb-5 col-12">
+                        <label for="content" class="form-label">Contenido</label>
+                        <div id="editor-container" class="editor-container"></div>
+                        <input type="hidden" id="content" name="content" value="{{ $notices->content ?? old('content') }}">
+                        @error('content')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-12 mb-5"></div>
+                    {{-- <div class="mb-3 col-md-6">
                         <label for="content" class="form-label">Contenido</label>
                         <textarea class="form-control @error('content') is-invalid @enderror" id="content" name="content" rows="5">{{ $notices->content ?? old('content') }}</textarea>
                         @error('content')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                    </div>
+                    </div> --}}
                     <div class="mb-3 col-md-6" id="myId">
                         <label for="media_path" class="form-label">Archivo</label>
                         <input type="file" class="form-control @error('media_path') is-invalid @enderror" id="media_path" name="media_path[]" multiple>
@@ -53,6 +63,9 @@
                                 Marcar como principal
                             </label>
                         </div>
+                        @error('main')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-12 align-self-end">
                         <button type="submit" class="btn btn-primary"> @if($notices->id) Actualizar @else Añadir @endif</button>
@@ -70,6 +83,25 @@
     <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('assets/libs/bootstrap-datepicker/js/forms/datepicker-init.js') }}"></script>
     <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+    <script>
+        let quill = new Quill('#editor-container', {
+            theme: 'snow'
+        });
+
+        let contentInput = document.querySelector('input[name=content]');
+
+        quill.on('text-change', function() {
+            let html = quill.root.innerHTML;
+            contentInput.value = html;
+        });
+
+        let existingContent = '{{ $notices->content ?? old('content') }}';
+        if (existingContent) {
+            quill.root.innerHTML = existingContent;
+        }
+    </script>
 
     <!-- <script src="{{ asset('assets/js/pages/members/members-register.js') }}"></script> -->
 @endsection

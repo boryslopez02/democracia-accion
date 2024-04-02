@@ -113,7 +113,6 @@ class NoticesController extends Controller
                         $noticeFile->notices_id = $notice->id;
                         $noticeFile->file_path = $namefile;
                         $noticeFile->save();
-
                     }
                 }
 
@@ -141,13 +140,17 @@ class NoticesController extends Controller
     public function preview()
     {
         $notices = Notices::all();
-        $mainArticles = $notices->filter(function ($notice) {
-            return $notice->main == 1;
-        });
 
-        $subArticles = $notices->filter(function ($notice) {
-            return $notice->main == 0;
-        });
+        $mainArticles = [];
+        $subArticles = [];
+
+        foreach ($notices as $key => $notice) {
+            if ($notice->main == "1") {
+                array_push($mainArticles, $notice);
+            } else {
+                array_push($subArticles, $notice);
+            }
+        }
 
         return view('pages.notices.preview', compact('mainArticles', 'subArticles'));
     }
@@ -161,6 +164,10 @@ class NoticesController extends Controller
     public function show(Notices $notices)
     {
         //
+    }
+    public function detail(Notices $notices)
+    {
+        return view('pages.notices.detail', compact('notices'));
     }
 
     /**

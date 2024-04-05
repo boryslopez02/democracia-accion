@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DataTables;
 use App\Models\Notices;
+use App\Models\NoticeCategories;
 use App\Models\NoticeFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -35,7 +36,8 @@ class NoticesController extends Controller
     public function create(Notices $notices)
     {
         // return $notices;
-        return view('pages.notices.create', compact('notices'));
+        $categories = NoticeCategories::all();
+        return view('pages.notices.create', compact('notices', 'categories'));
     }
 
     public function list()
@@ -82,46 +84,18 @@ class NoticesController extends Controller
      */
     public function store(NoticesStoreRequest $request)
     {
-        // return $request->all();
+        $input = $request->all();
+        $mediaPathsArray = explode(',', $input['media_path']);
 
-        $notice = Notices::create($request->only('title', 'link', 'content', 'main'));
         DB::beginTransaction();
         try {
-            $notice = Notices::create($request->only('title', 'link', 'content', 'main'));
-            $errors = [];
-            foreach ($request->file('media_path') as $key => $file) {
-                $validator = Validator::make([$key => $file], [
-                    "media_path.{$key}" => [
-                        'file',
-                        'mimes:jpeg,png,gif,mp4,mov,avi,webp',
-                        'max:4096',
-                    ],
-                ], [
-                    "media_path.{$key}.file" => 'El archivo debe ser válido.',
-                    "media_path.{$key}.mimes" => 'El archivo debe ser una imagen o un video.',
-                    "media_path.{$key}.max" => 'El tamaño máximo del archivo es :max kilobytes.',
-                ]);
+            $notice = Notices::create($request->only('title', 'link', 'content', 'main',  'category_id'));
 
-                if ($validator->fails()) {
-                    $errors[$key] = $validator->errors()->all();
-                } else {
-                    if ($file->isValid()) {
-                        $img = date('YmHis') . "_" . $file->getClientOriginalName();
-                        $file->storeAs('public/uploads', $img);
-
-                        $namefile = str_replace('public/', '', $img);
-
-                        $noticeFile = new NoticeFile();
-                        $noticeFile->notices_id = $notice->id;
-                        $noticeFile->file_path = $namefile;
-                        $noticeFile->save();
-                    }
-                }
-
-                if (!empty($errors)) {
-                    return redirect()->back()->withErrors($errors);
-                }
-
+            foreach ($mediaPathsArray as $path) {
+                $noticeFile = new NoticeFile();
+                $noticeFile->notices_id = $notice->id;
+                $noticeFile->file_path = $path;
+                $noticeFile->save();
             }
 
             DB::commit();
@@ -139,13 +113,37 @@ class NoticesController extends Controller
         }
     }
 
+    public function uploads(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $file = $request->file('media_path');
+            $img = date('YmdHis') . "_" . $file->getClientOriginalName();
+            $file->storeAs('public/uploads', $img);
+            $fullPath = 'storage/uploads/' . $img;
+
+            DB::commit();
+
+            session()->flash('success', 'Archivo creado con éxito.');
+
+            return $fullPath;
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            session()->flash('error', 'Hubo un error al guardar el archivo. Por favor, inténtalo de nuevo. Error: ' . $e->getMessage());
+
+            return $e->getMessage();
+        }
+    }
+
     public function preview()
     {
         $notices = Notices::all();
         $mainArticles = Notices::where('main', '1')->orderBy('id', 'desc')->take(40)->get();
         $subArticles = Notices::where('main', '0')->orderBy('id', 'desc')->take(15)->get();
 
-        return view('pages.notices.preview', compact('mainArticles', 'subArticles'));
+        return view('pages.notices.preview', compact('mainArticles', 'subArticles', 'notices'));
     }
 
     /**

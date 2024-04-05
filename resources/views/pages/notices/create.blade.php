@@ -17,14 +17,26 @@
                 <h5 class="card-title fw-semibold mb-4"> @if($notices->id) Editar noticia @else Crear noticia @endif</h5>
                 <form class="row" method="POST" @if($notices->id) action="{{ route('notices.update', $notices) }}" @else action="{{ route('notices.store') }}" @endif enctype="multipart/form-data" accept="image/*" id="formNotices">
                     @csrf
-                    <div class="mb-3 col-md-6">
+                    <div class="mb-3 col-md-6 col-lg-4">
                         <label for="title" class="form-label">Título</label>
                         <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ $notices->title ?? old('title') }}">
                         @error('title')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-3 col-md-6">
+                    <div class="mb-3 col-md-6 col-lg-4">
+                        <label for="title" class="form-label">Categoría</label>
+                        <select class="form-control select2 @error('category_id') is-invalid @enderror" id="category_id" name="category_id">
+                            <option value="">Seleccione una opción</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}" {{ $notices->category_id == $category->id ?? '' ? 'selected' : '' }}>{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="mb-3 col-md-6 col-lg-4">
                         <label for="link" class="form-label">Link</label>
                         <input type="text" class="form-control @error('link') is-invalid @enderror" id="link" name="link" value="{{ $notices->link ?? old('link') }}">
                         @error('link')
@@ -47,14 +59,26 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div> --}}
-                    <div class="mb-3 col-md-6" id="myId">
+                    <div class="col-12 mb-3">
+                        <div id="myDropzone" class="dropzone">
+                            {{-- <div class="fallback">
+                                <input type="file" class="form-control" id="media_path" name="media_path[]" multiple>
+                            </div>
+                            <label for="media_path" class="form-label">Arrastra y suelta archivos aquí o haz clic para seleccionar</label> --}}
+                        </div>
+                        <input type="text" class="d-none" id="media_paths" name="media_path" readonly>
+                        @error('media_path')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    {{-- <div class="mb-3 col-md-6" id="myId">
                         <label for="media_path" class="form-label">Archivo</label>
                         <input type="file" class="form-control @error('media_path') is-invalid @enderror" id="media_path" name="media_path[]" multiple>
 
                         @error('media_path')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                    </div>
+                    </div> --}}
                     <div class="mb-3 col-md-6">
                         <label for="link" class="form-label">Principal</label>
                         <div class="form-check">
@@ -67,6 +91,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+
                     <div class="col-12 align-self-end">
                         <button type="submit" class="btn btn-primary"> @if($notices->id) Actualizar @else Añadir @endif</button>
                     </div>
@@ -102,6 +127,52 @@
             quill.root.innerHTML = existingContent;
         }
     </script>
+
+    <script>
+        Dropzone.autoDiscover = false;
+        let uploadedPaths = [];
+        let myDropzone = new Dropzone("#myDropzone", {
+            paramName: "media_path",
+            maxFilesize: 5,
+            maxFiles: null,
+            acceptedFiles: ".jpg,.jpeg,.png,.gif",
+            addRemoveLinks: true,
+            dictDefaultMessage: "Arrastra y suelta archivos aquí o haz clic para seleccionar",
+            dictRemoveFile: "Eliminar archivo",
+            dictCancelUpload: "Cancelar carga",
+            autoProcessQueue: true,
+            url: "{{ route('notices.uploads') }}",
+            init: function() {
+
+                this.on("sending", function(file, xhr, formData) {
+                    formData.append('_token', '{{ csrf_token() }}');
+                });
+
+                this.on("success", function(file, response) {
+                    uploadedPaths.push(response);
+                    file.fullPath = response;
+                    console.log(file)
+                    console.log(response)
+                    updateMediaPathsInput();
+                });
+
+                this.on("removedfile", function(file) {
+                    let index = uploadedPaths.indexOf(file.fullPath);
+                    if (index !== -1) {
+                        uploadedPaths.splice(index, 1);
+                        updateMediaPathsInput();
+                    }
+                });
+
+            }
+        });
+
+        function updateMediaPathsInput() {
+            let media_paths_input = document.getElementById('media_paths');
+            media_paths_input.value = uploadedPaths.join(',');
+        }
+    </script>
+
 
     <!-- <script src="{{ asset('assets/js/pages/members/members-register.js') }}"></script> -->
 @endsection

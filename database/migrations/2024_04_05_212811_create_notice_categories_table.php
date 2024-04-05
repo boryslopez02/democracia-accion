@@ -13,14 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('notices', function (Blueprint $table) {
+        Schema::create('notice_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('link')->nullable();
-            $table->text('content');
-            $table->boolean('main')->nullable();
-            $table->string('category_id');
-            $table->string('media_path')->nullable();
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notices');
+        Schema::dropIfExists('notice_categories');
     }
 };

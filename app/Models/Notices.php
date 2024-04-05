@@ -16,12 +16,18 @@ class Notices extends Model
         'link',
         'content',
         'main',
+        'category_id',
         'media_path',
     ];
 
     public function noticeFiles()
     {
         return $this->hasMany(NoticeFile::class);
+    }
+
+    public function category()
+    {
+        return $this->hasOne(NoticeCategories::class, 'id', 'category_id');
     }
 
     protected static function boot()

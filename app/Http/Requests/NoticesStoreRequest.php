@@ -28,6 +28,7 @@ class NoticesStoreRequest extends FormRequest
             'link' => 'nullable|url',
             'content' => 'required|string',
             'main' => 'nullable',
+            'category_id' => 'required',
         ];
     }
 
@@ -42,7 +43,7 @@ class NoticesStoreRequest extends FormRequest
             'title.required' => 'El título es obligatorio.',
             'link.url' => 'El enlace debe ser una URL válida.',
             'content.required' => 'El contenido es obligatorio.',
-            // 'main.boolean' => 'El campo "main" debe ser un valor booleano.',
+            'category_id.required' => 'La categoría es obligatoria.',
         ];
     }
 

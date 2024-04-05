@@ -33,7 +33,7 @@
         <div class="card rounded-2 overflow-hidden" bis_skin_checked="1">
             <div class="position-relative" bis_skin_checked="1">
                 <a href="javascript:void(0)">
-                    <img src="{{ asset('storage/uploads/' . $notices->noticeFiles[0]->file_path) }}" class="card-img-top rounded-0 object-fit-cover" alt="..." height="440">
+                    <img src="{{ asset($notices->noticeFiles[0]->file_path) }}" class="card-img-top rounded-0 object-fit-cover" alt="..." height="440">
                 </a>
                 <span
                     class="badge text-bg-light fs-2 rounded-4 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">2

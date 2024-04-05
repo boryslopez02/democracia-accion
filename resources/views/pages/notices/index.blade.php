@@ -70,7 +70,7 @@
                         let images = '';
                         if (row.notice_files.length > 0) {
                             row.notice_files.forEach(function(file) {
-                                images += '<img src="storage/uploads/' + file.file_path + '" class="img-fluid rounded border-1 me-1 img-list" alt="Image">';
+                                images += '<img src="' + file.file_path + '" class="img-fluid rounded border-1 me-1 img-list" alt="Image">';
                             });
                         }
                         return '<div class="d-flex align-items-center">' + images + '</div>';

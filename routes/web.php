@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'committe-local', 'as' => 'com
 Route::group(['middleware' => 'auth', 'prefix' => 'notices', 'as' => 'notices.', 'controller' => App\Http\Controllers\NoticesController::class], function () {
     Route::get('/', 'index')->name('index');
     Route::get('/preview', 'preview')->name('preview');
+    Route::post('/uploads', 'uploads')->name('uploads');
     Route::get('/create/{notices?}', 'create')->name('create');
     Route::get('/detail/{notices}', 'detail')->name('detail');
     Route::post('/store', 'store')->name('store');

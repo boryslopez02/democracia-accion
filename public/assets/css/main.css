@@ -117,3 +117,6 @@ form.row {
 .only-read .ql-editor {
     padding: 0 !important;
 }
+.invalid-feedback {
+    display: block !important;
+}

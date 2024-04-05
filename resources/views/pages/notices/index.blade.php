@@ -69,9 +69,12 @@
                     render: function(data, type, row) {
                         let images = '';
                         if (row.notice_files.length > 0) {
-                            row.notice_files.forEach(function(file) {
-                                images += '<img src="' + file.file_path + '" class="img-fluid rounded border-1 me-1 img-list" alt="Image">';
-                            });
+                            images += '<img src="' + row.notice_files[0].file_path + '" class="img-fluid rounded border-1 me-1 img-list" alt="Image">';
+
+                            if (row.notice_files.length > 1) {
+                                let moreImagesCount = row.notice_files.length - 1;
+                                images += '<span class="fw-bolder">+' + moreImagesCount + '</span>';
+                            }
                         }
                         return '<div class="d-flex align-items-center">' + images + '</div>';
                     }

@@ -62,7 +62,10 @@ class NoticesController extends Controller
             })
             ->addColumn('action', function($row){
                 return '<div class="d-flex">
-                    <a href='. route('notices.create', $row) .' class="btn btn-icon btn-info btn-sm me-1">
+                    <a href='. route('notices.detail', $row) .' class="btn btn-icon btn-info btn-sm me-1">
+                        <i class="ti ti-eye"></i>
+                    </a>
+                    <a href='. route('notices.create', $row) .' class="btn btn-icon btn-warning btn-sm me-1">
                         <i class="ti ti-pencil"></i>
                     </a>
                     <button class="btn btn-icon btn-danger btn-sm modal-pers" data-path="'. route('notices.modalDelete', $row) .'">

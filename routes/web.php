@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth', 'prefix' => 'members', 'as' => 'members.', 'controller' => App\Http\Controllers\MembersController::class], function () {
     Route::get('/', 'index')->name('index');
@@ -44,7 +44,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'committe-local', 'as' => 'com
 
 Route::group(['middleware' => 'auth', 'prefix' => 'notices', 'as' => 'notices.', 'controller' => App\Http\Controllers\NoticesController::class], function () {
     Route::get('/', 'index')->name('index');
-    Route::get('/preview', 'preview')->name('preview');
+    Route::get('/home', 'preview')->name('home');
     Route::post('/uploads', 'uploads')->name('uploads');
     Route::get('/create/{notices?}', 'create')->name('create');
     Route::get('/detail/{notices}', 'detail')->name('detail');

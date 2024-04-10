@@ -13,7 +13,7 @@
                   <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item">
-                        <a class="text-muted text-decoration-none" href="{{ route('home') }}">Inicio</a>
+                        <a class="text-muted text-decoration-none" href="{{ route('notices.home') }}">Inicio</a>
                       </li>
                       <li class="breadcrumb-item" aria-current="page">Noticias</li>
                     </ol>
@@ -48,7 +48,7 @@
                                             <img src="{{ asset('assets/images/profile/user-1.jpg') }}" alt=""
                                                 class="rounded-circle img-fluid" width="40" height="40">
                                         </div>
-                                        <span class="badge text-bg-primary rounded-3 fs-2 fw-semibold">Gadget</span>
+                                        <span class="badge text-bg-primary rounded-3 fs-2 fw-semibold">{{ $notice->category->name }}</span>
                                     </div>
                                     <div bis_skin_checked="1">
                                         <a href="{{ route('notices.detail', $notice) }}"
@@ -97,7 +97,7 @@
                                     data-bs-title="Esther Lindsey">
                             </div>
                             <div class="card-body p-4" bis_skin_checked="1">
-                                <span class="badge text-bg-light fs-2 rounded-4 py-1 px-2 lh-sm  mt-3">Lifestyle</span>
+                                <span class="badge text-bg-light fs-2 rounded-4 py-1 px-2 lh-sm  mt-3">{{ $notice->category->name }}</span>
                                 <a class="d-block my-4 fs-5 text-dark fw-semibold"
                                     href="{{ route('notices.detail', $notice) }}">{{ $notice->title }}</a>
                                 <div class="d-flex align-items-center gap-4" bis_skin_checked="1">

@@ -6,7 +6,7 @@
             <div class="col-md-8 col-lg-6">
                 <div class="card mb-0">
                     <div class="card-body">
-                        <a href="{{ route('home') }}" class="text-nowrap logo-img text-center d-block w-100">
+                        <a href="{{ route('notices.home') }}" class="text-nowrap logo-img text-center d-block w-100">
                             <img src="{{ asset('assets/images/logos/logo.png') }}" width="180" alt="">
                         </a>
                         <p class="text-center">Democracia en Acción</p>

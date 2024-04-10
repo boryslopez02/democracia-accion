@@ -36,14 +36,13 @@
                     <img src="{{ asset($notices->noticeFiles[0]->file_path) }}" class="card-img-top rounded-0 object-fit-cover" alt="..." height="440">
                 </a>
                 <span
-                    class="badge text-bg-light fs-2 rounded-4 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">2
-                    min Read</span>
+                    class="badge text-bg-light fs-2 rounded-4 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">{{ $notices->category->name }}</span>
                 <img src="{{ asset('assets/images/profile/user-1.jpg') }}" alt=""
                     class="img-fluid rounded-circle position-absolute bottom-0 start-0 mb-n9 ms-9" width="40"
                     height="40" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Esther Lindsey">
             </div>
             <div class="card-body p-4" bis_skin_checked="1">
-                <span class="badge text-bg-light fs-2 rounded-4 py-1 px-2 lh-sm  mt-3">Lifestyle</span>
+                {{-- <span class="badge bg-primary fs-2 rounded-4 py-1 px-2 lh-sm  mt-3">{{ $notices->category->name }}</span> --}}
                 <h2 class="fs-9 fw-semibold my-4">{{ $notices->title}}</h2>
                 <div class="d-flex align-items-center gap-4" bis_skin_checked="1">
                     <div class="d-flex align-items-center gap-2" bis_skin_checked="1"><i
@@ -60,13 +59,27 @@
             </div>
         </div>
 
-        @if($previousNotice)
-            <a href="{{ route('notices.detail', $previousNotice->id) }}">Noticia anterior</a>
-        @endif
+        <div class="d-flex align-items-center justify-content-center">
+            @if($previousNotice)
+                <div class="card rounded-2 overflow-hidden position-relative card-glass-images w-100 @if($nextNotice) me-2 @endif">
+                    <span class="glass"></span>
+                    <img src="{{ asset($previousNotice->noticeFiles[0]->file_path) }}" alt="" class="img-fluid position-absolute top-0 start-0 w-100 h-100">
+                    <a href="{{ route('notices.detail', $previousNotice->id) }}" class="position-absolute top-50 start-50 translate-middle bg-white rounded-circle btnArrow">
+                        <i class="ti ti-arrow-left fs-7"></i>
+                    </a>
+                </div>
+            @endif
 
-        @if($nextNotice)
-            <a href="{{ route('notices.detail', $nextNotice->id) }}">Noticia siguiente</a>
-        @endif
+            @if($nextNotice)
+                <div class="card rounded-2 overflow-hidden position-relative card-glass-images w-100 @if($previousNotice) ms-2 @endif">
+                    <span class="glass"></span>
+                    <img src="{{ asset($nextNotice->noticeFiles[0]->file_path) }}" alt="" class="img-fluid position-absolute top-0 start-0 w-100 h-100">
+                    <a href="{{ route('notices.detail', $nextNotice->id) }}" class="position-absolute top-50 start-50 translate-middle bg-white rounded-circle btnArrow">
+                        <i class="ti ti-arrow-right fs-7"></i>
+                    </a>
+                </div>
+            @endif
+        </div>
 
     </div>
 @endsection

@@ -149,3 +149,7 @@ form.row {
     color: #5D87FF;
     opacity: 1;
 }
+
+.bg-light-subtle {
+    background-color: #f6f9fc !important;
+}

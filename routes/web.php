@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'members', 'as' => 'members.',
     Route::post('/save-members', 'saveMembers')->name('save-members');
     Route::get('/list', 'list')->name('list');
     Route::post('/store', 'store')->name('store');
+    Route::post('/comiteStore', 'comiteStore')->name('comiteStore');
     Route::put('/update', 'update')->name('update');
     Route::get('/edit/{members}', 'edit')->name('edit');
     Route::get('/modal_delete/{members}', 'modal_delete')->name('modalDelete');

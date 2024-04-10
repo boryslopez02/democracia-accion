@@ -12,6 +12,7 @@ use App\Models\Gender;
 use App\Models\Positions;
 use App\Models\SocialNetwork;
 use App\Http\Requests\MembersStoreRequest;
+use App\Http\Requests\MembersComiteStoreRequest;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
@@ -80,6 +81,43 @@ class MembersController extends Controller
     public function store(MembersStoreRequest $request)
     {
         // return $request;
+        $validated = $request->validated();
+
+        DB::beginTransaction();
+        try {
+            $member = Members::create($validated);
+
+            DB::commit();
+
+            session()->flash('success', 'Usuario creado con éxito.');
+
+            return redirect()->route('members.index');
+
+            // return response()->json([
+            //     'status' => 'success',
+            //     'message' => 'Usuario creado con éxito.',
+            //     'data' => $member,
+            // ]);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            // Suponiendo que $e es una instancia de Exception capturada en un bloque catch
+            session()->flash('error', 'Hubo un error al crear el usuario. Por favor, inténtalo de nuevo. Error: ' . $e->getMessage());
+
+            return redirect()->back();
+
+            // return response()->json([
+            //     'status' => 'error',
+            //     'message' => 'Hubo un error al crear el usuario. Por favor, inténtalo de nuevo.',
+            //     'error' => $e->getMessage(),
+            // ]);
+        }
+    }
+
+    public function comiteStore(MembersComiteStoreRequest $request)
+    {
+        return $request;
         $validated = $request->validated();
 
         DB::beginTransaction();

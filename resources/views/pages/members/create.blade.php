@@ -129,7 +129,10 @@
                         <select class="form-control select2 @error('seccional') is-invalid @enderror" id="seccional" name="seccional">
                             <option value="">Seleccionar</option>
                             @foreach ($seccionales as $seccional)
-                                <option value="{{ $seccional->id }}">{{ $seccional->nombre }}</option>
+                                @php
+                                    $nombre = str_replace('EDO. ', '', $seccional->nombre);
+                                @endphp
+                                <option value="{{ $seccional->id }}">{{ $nombre }}</option>
                             @endforeach
                         </select>
                         @error('seccional')

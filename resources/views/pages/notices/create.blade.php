@@ -46,7 +46,7 @@
                     <div class="mb-5 col-12">
                         <label for="content" class="form-label">Contenido</label>
                         <div id="editor-container" class="editor-container"></div>
-                        <input type="hidden" id="content" name="content" value="{{ $notices->content ?? old('content') }}">
+                        <input type="hidden" id="content" name="content" value="{!! $notices->content ?? old('content') !!}">
                         @error('content')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -59,6 +59,24 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div> --}}
+
+                    @if ($notices)
+                    <div class="col-12 mb-3 mt-4 mt-sm-0">
+                        <label for="content" class="form-label">Archivos adjuntos</label>
+                        <div class="row">
+                            @foreach ($notices->noticeFiles as $file)
+                            <div class="col-sm6 col-md-4 col-lg-3 box-img position-relative mb-3">
+                                <a href="{{ route('notices.deleteAttachment', $file) }}" class="position-absolute top-0 start-100 translate-middle badge bg-danger rounded-pill delete-attach">
+                                    <i class="ti ti-trash text-white fs-4"></i>
+                                </a>
+
+                                <img src="{{ asset($file->file_path) }}" alt="" class="img-fluid rounded">
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
+
                     <div class="col-12 mb-3">
                         <div id="myDropzone" class="dropzone">
                             {{-- <div class="fallback">
@@ -111,6 +129,35 @@
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
     <script>
+        $(document).ready(function() {
+            $('.delete-attach').on('click', function(event) {
+                event.preventDefault();
+                let element = $(this).parent(), url = $(this).attr('href');
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                    success: function(response) {
+                        element.remove();
+                        toastr.success(response.success, "¡Éxito!", {
+                            progressBar: true,
+                        });
+                        console.log('Solicitud AJAX POST exitosa');
+                    },
+                    error: function(xhr, status, error) {
+                        toastr.error(response.error, "Ups!", {
+                            progressBar: true,
+                        });
+                    }
+                });
+            });
+        });
+
+    </script>
+    <script>
         let quill = new Quill('#editor-container', {
             theme: 'snow'
         });
@@ -122,7 +169,8 @@
             contentInput.value = html;
         });
 
-        let existingContent = '{{ $notices->content ?? old('content') }}';
+        let existingContent = '{!! $notices->content ?? old('content') !!}';
+
         if (existingContent) {
             quill.root.innerHTML = existingContent;
         }

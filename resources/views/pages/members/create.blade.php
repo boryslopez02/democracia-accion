@@ -187,6 +187,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+
                     <!-- Buro -->
                     <div class="mb-3 col-md-6 col-lg-4 d-none">
                         <label for="buro" class="form-label">Buró</label>
@@ -197,6 +198,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+
                     <!-- Posees cargos de administración público -->
                     <div class="mb-3 col-md-6 align-self-end">
                         <label class="form-label me-3">Posees cargos de administración pública</label>

@@ -56,6 +56,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'notices', 'as' => 'notices.',
     Route::delete('/delete/{notices}', 'destroy')->name('delete');
     Route::post('/delete-masive', 'deleteMasive')->name('deleteMasive');
     Route::get('/modal_delete_masive', 'modal_delete_masive')->name('modalDeleteMasive');
+    Route::post('/delete-attach/{noticesFile}', 'deleteAttachment')->name('deleteAttachment');
 });
 
 Route::group(['middleware' => 'auth', 'prefix' => 'users', 'as' => 'users.', 'controller' => App\Http\Controllers\UsersController::class], function () {

@@ -193,12 +193,20 @@ class NoticesController extends Controller
     public function update(NoticesStoreRequest $request, Notices $notices)
     {
         // return $request;
-        $validated = $request->validated();
-        // $validated = $request->all();
+        $input = $request->all();
+        $mediaPathsArray = explode(',', $input['media_path']);
 
         DB::beginTransaction();
         try {
-            $notices->update($validated);
+            $notices->update($request->only('title', 'link', 'content', 'main',  'category_id'));
+
+            foreach ($mediaPathsArray as $path) {
+                // $notices->files()->delete();
+                $noticeFile = new NoticeFile();
+                $noticeFile->notices_id = $notices->id;
+                $noticeFile->file_path = $path;
+                $noticeFile->save();
+            }
 
             DB::commit();
 
@@ -214,6 +222,7 @@ class NoticesController extends Controller
             return redirect()->back();
         }
     }
+
 
     public function modal_delete(Notices $notices)
     {
@@ -231,6 +240,16 @@ class NoticesController extends Controller
         try {
             $notices->delete();
             return response()->json(['success' => 'Noticia eliminada correctamente'], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'Lo sentimos, hubo un error al completar la acción'], 200);
+        }
+    }
+
+    public function deleteAttachment(NoticeFile $noticesFile)
+    {
+        try {
+            $noticesFile->delete();
+            return response()->json(['success' => 'Archivo eliminado correctamente'], 200);
         } catch (\Throwable $th) {
             return response()->json(['error' => 'Lo sentimos, hubo un error al completar la acción'], 200);
         }

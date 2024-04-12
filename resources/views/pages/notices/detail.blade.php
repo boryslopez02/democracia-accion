@@ -41,6 +41,7 @@
                     class="img-fluid rounded-circle position-absolute bottom-0 start-0 mb-n9 ms-9" width="40"
                     height="40" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Esther Lindsey">
             </div>
+
             <div class="card-body p-4" bis_skin_checked="1">
                 {{-- <span class="badge bg-primary fs-2 rounded-4 py-1 px-2 lh-sm  mt-3">{{ $notices->category->name }}</span> --}}
                 <h2 class="fs-9 fw-semibold my-4">{{ $notices->title}}</h2>
@@ -54,8 +55,21 @@
                     </div>
                 </div>
             </div>
+
             <div class="card-body border-top p-4" bis_skin_checked="1">
                 <div id="editor-container" class="editor-container only-read">{!! $notices->content !!}</div>
+            </div>
+
+            <div class="card-body border-top p-4">
+                <div class="row">
+                    @foreach ($notices->noticeFiles as $key => $file)
+                        @if($key > 0)
+                            <div class="col-sm-6 col-md-4">
+                                <img src="{{ asset($file->file_path) }}" alt="" class="img-fluid img-detail rounded h-100 w-100 d-block">
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
             </div>
         </div>
 

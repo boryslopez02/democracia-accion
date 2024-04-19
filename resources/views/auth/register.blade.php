@@ -11,6 +11,8 @@
                         </a>
                         <p class="text-center">Democracia en Acción</p>
                         <form method="POST" action="{{ route('register') }}">
+                            @csrf
+
                             <div class="mb-3">
                                 <label for="exampleInputtext1" class="form-label">Nombre</label>
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>

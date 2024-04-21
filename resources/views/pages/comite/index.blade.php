@@ -5,22 +5,26 @@
     .table-responsive {
         min-height: 80vh;
     }
+    #datatable-comite .check-column {
+        width: 0px !important;
+    }
+    #datatable-comite .action-column {
+        width: 100px !important;
+    }
 </style>
 @endsection
 
 @section('content')
     <div class="position-relative">
         <div class="table-responsive">
-            <table id="datatable-notices" class="table border table-striped table-bordered text-nowrap align-middle dataTableCurrent">
+            <table id="datatable-comite" class="table border table-striped table-bordered text-nowrap align-middle dataTableCurrent">
                 <thead>
                     <!-- start row -->
                     <tr>
-                        <th></th>
-                        <th>Archivo</th>
-                        <th>Titulo</th>
-                        <th>Link</th>
-                        <th>Contenido</th>
-                        <th>Acciones</th>
+                        <th class="check-column"></th>
+                        <th>Nombre</th>
+                        <th class="members-column">Miembros</th>
+                        <th class="action-column">Acciones</th>
                     </tr>
                     <!-- end row -->
                 </thead>
@@ -30,12 +34,10 @@
                 <tfoot>
                     <!-- start row -->
                     <tr>
-                        <th></th>
-                        <th>Archivo</th>
-                        <th>Titulo</th>
-                        <th>Link</th>
-                        <th>Contenido</th>
-                        <th>Acciones</th>
+                        <th class="check-column"></th>
+                        <th>Nombre</th>
+                        <th class="members-column">Miembros</th>
+                        <th class="action-column">Acciones</th>
                     </tr>
                     <!-- end row -->
                 </tfoot>
@@ -43,46 +45,42 @@
         </div>
 
         <div class="position-fixed bottom-0 end-0 translate-middle d-none" id="deleteMasive">
-            <a data-path="{{ route('notices.modalDeleteMasive') }}" class="btn btn-danger h4 mb-0 d-flex align-items-center text-capitalize modal-pers">Eliminar noticias <i class="ti ti-alert-circle h4 ms-1 text-white mb-0"></i></a>
+            <a data-path="{{ route('notices.modalDeleteMasive') }}" class="btn btn-danger h4 mb-0 d-flex align-items-center text-capitalize modal-pers">Eliminar comite <i class="ti ti-alert-circle h4 ms-1 text-white mb-0"></i></a>
         </div>
     </div>
 @endsection
 
 @section('page-scripts')
     <script>
-        let table = $('#datatable-notices').DataTable({
+        let table = $('#datatable-comite').DataTable({
             processing: true,
             serverSide: true,
             pageLength: 25,
             lengthMenu: [10, 25, 50, 100],
-            ajax: '{{ route("notices.list") }}',
+            ajax: '{{ route("committe-local.list") }}',
             columns: [
                 {
                     data: "id",
                     render: function (data, type, row) {
+                        console.log(row, data)
                         return '<input type="checkbox" class="select-notice form-check-input" value="' + data + '">';
                     }
                 },
+                { data: 'nombre_comite', name: 'nombre_comite' },
                 {
-                    data: 'media_path',
-                    name: 'media_path',
-                    render: function(data, type, row) {
-                        let images = '';
-                        if (row.notice_files.length > 0) {
-                            images += '<img src="' + row.notice_files[0].file_path + '" class="img-fluid rounded border-1 me-1 img-list" alt="Image">';
-
-                            if (row.notice_files.length > 1) {
-                                let moreImagesCount = row.notice_files.length - 1;
-                                images += '<span class="fw-bolder">+' + moreImagesCount + '</span>';
-                            }
-                        }
-                        return '<div class="d-flex align-items-center">' + images + '</div>';
+                    data: "members",
+                    render: function (data, type, row) {
+                        return `<span class=" btn btn-info btn-sm">${data}</span>`;
                     }
                 },
-                { data: 'title', name: 'title' },
-                { data: 'link', name: 'link' },
-                { data: 'content', name: 'content' },
                 { data: 'action', name: 'action', orderable: false, searchable: false },
+            ],
+            columnDefs: [
+                {
+                    targets: 2,
+                    width: '10px',
+                    className: 'dt-center',
+                }
             ],
             language: {
                 processing:     "Procesando...",
@@ -107,11 +105,11 @@
                 }
             },
             initComplete: function() {
-                $('#datatable-notices_length, #datatable-notices_filter').wrapAll('<div class="d-flex align-items-center justify-content-between"></div>');
+                $('#datatable-comite_length, #datatable-comite_filter').wrapAll('<div class="d-flex align-items-center justify-content-between"></div>');
             },
         });
 
-        $('#datatable-notices').on('change', '.select-notice', function() {
+        $('#datatable-comite').on('change', '.select-notice', function() {
             if ($('.select-notice:checked').length > 0) {
                 $('#deleteMasive').removeClass('d-none');
             } else {
@@ -119,7 +117,7 @@
             }
         })
 
-        $('#datatable-notices').on('order.dt search.dt', function () {
+        $('#datatable-comite').on('order.dt search.dt', function () {
             $('.select-notice').prop('checked', false);
             $('.select-notice').change();
         });

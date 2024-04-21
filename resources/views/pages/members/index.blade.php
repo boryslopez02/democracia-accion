@@ -49,7 +49,7 @@
         </div>
 
         <div class="position-fixed bottom-0 end-0 translate-middle d-none" id="deleteMasive">
-            <a data-path="{{ route('members.modalDeleteMasive') }}" class="btn btn-danger h4 mb-0 d-flex align-items-center text-uppercase modal-pers">Eliminar usuarios <i class="ti ti-alert-circle h4 ms-1 text-white mb-0"></i></a>
+            <a data-path="{{ route('members.modalDeleteMasive') }}" class="btn btn-danger h4 mb-0 d-flex align-items-center text-capitalize modal-pers">Eliminar usuarios <i class="ti ti-alert-circle h4 ms-1 text-white mb-0"></i></a>
         </div>
     </div>
 @endsection

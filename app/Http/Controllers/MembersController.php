@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DataTables;
+use App\Models\Comite;
 use App\Models\Members;
 use App\Models\Scope;
 use App\Models\Seccional;
@@ -117,18 +118,47 @@ class MembersController extends Controller
 
     public function comiteStore(MembersComiteStoreRequest $request)
     {
-        return $request;
-        $validated = $request->validated();
+        $validatedData = $request->validated();
+
+        $comiteData = $request->only('nombre_comite');
+        // return $comiteData;
 
         DB::beginTransaction();
         try {
-            $member = Members::create($validated);
+            $comiteData = $request->only('nombre_comite');
+            $comite = Comite::create($comiteData);
+
+            foreach ($validatedData['cedula'] as $key => $cedula) {
+                // dd($validatedData);
+                $member = [
+                    'cedula' => $cedula,
+                    'nombre' => $validatedData['nombre'][$key],
+                    'apellido' => $validatedData['apellido'][$key],
+                    'telefono' => $validatedData['telefono'][$key],
+                    'correo' => $validatedData['correo'][$key],
+                    'fecha_nacimiento' => $validatedData['fecha_nacimiento'][$key],
+                    'profesion' => $validatedData['profesion'][$key],
+                    'red_social' => $validatedData['red_social'][$key],
+                    'usuario_red' => $validatedData['usuario_red'][$key],
+                    'genero' => $validatedData['genero'][$key],
+                    'seccional' => $validatedData['seccional'],
+                    'municipio' => $validatedData['municipio'],
+                    'parroquia' => $validatedData['parroquia'],
+                    'tipo_cargo' => $validatedData['tipo_cargo'][$key],
+                    'cargo' => $validatedData['cargo'][$key],
+                    'buro' => $validatedData['buro'][$key] ?? null,
+                    'cargo_pub' => $validatedData['cargo_pub'][$key] ?? null,
+                    'comite_id' => $comite->id,
+                ];
+
+                Members::create($member);
+            }
 
             DB::commit();
 
-            session()->flash('success', 'Usuario creado con éxito.');
+            session()->flash('success', 'Comite creado con éxito.');
 
-            return redirect()->route('members.index');
+            return redirect()->route('committe-local.index');
 
             // return response()->json([
             //     'status' => 'success',
@@ -140,7 +170,7 @@ class MembersController extends Controller
             DB::rollBack();
 
             // Suponiendo que $e es una instancia de Exception capturada en un bloque catch
-            session()->flash('error', 'Hubo un error al crear el usuario. Por favor, inténtalo de nuevo. Error: ' . $e->getMessage());
+            session()->flash('error', 'Hubo un error al crear el comite. Por favor, inténtalo de nuevo. Error: ' . $e->getMessage());
 
             return redirect()->back();
 

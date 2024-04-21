@@ -104,24 +104,24 @@ $(document).ready(function () {
         selectParroquia.trigger('change');
     });
 
-    $('#tipo_cargo').on('change', function (e) {
-        console.log($(this).val())
-        if ($(this).val() == 5) {
+    // $('#tipo_cargo').on('change', function (e) {
+    //     console.log($(this).val())
+    //     if ($(this).val() == 5) {
 
-            $('#cargo').parent().removeClass('d-none');
-            $('#cargo').prop('disabled', false).trigger('change');
-            $('#buro').parent().removeClass('d-none');
-            $('#buro').prop('disabled', false).trigger('change');
+    //         $('#cargo').parent().removeClass('d-none');
+    //         $('#cargo').prop('disabled', false).trigger('change');
+    //         $('#buro').parent().removeClass('d-none');
+    //         $('#buro').prop('disabled', false).trigger('change');
 
-        } else {
+    //     } else {
 
-            $('#cargo').parent().addClass('d-none');
-            $('#cargo').prop('disabled', true).trigger('change');
-            $('#buro').parent().addClass('d-none');
-            $('#buro').prop('disabled', true).trigger('change');
+    //         $('#cargo').parent().addClass('d-none');
+    //         $('#cargo').prop('disabled', true).trigger('change');
+    //         $('#buro').parent().addClass('d-none');
+    //         $('#buro').prop('disabled', true).trigger('change');
 
-        }
-    });
+    //     }
+    // });
 
     const selectBuro = $('#buro');
     const opcionesBuro = JSON.parse(window.opcionesBuro);

@@ -50,6 +50,9 @@ class MembersStoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'seccional' => 'nullable|exists:seccionales,id',
+            'municipio' => 'nullable|exists:municipios,id',
+            'parroquia' => 'nullable|exists:parroquias,id',
             'cedula' => 'required|numeric|unique:members,cedula',
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
@@ -61,12 +64,10 @@ class MembersStoreRequest extends FormRequest
             'usuario_red' => 'nullable|string|max:255',
             'genero' => 'required|in:hombre,mujer',
             'alcance' => 'required|string|max:255',
-            'seccional' => 'nullable|exists:seccionales,id',
-            'municipio' => 'nullable|exists:municipios,id',
-            'parroquia' => 'nullable|exists:parroquias,id',
             'tipo_cargo' => 'nullable|string|max:255',
             'cargo' => 'nullable|string|max:255',
             'buro' => 'nullable|string|max:255',
+            'cargo_pub' => 'nullable|string|max:255',
             // 'esUsuario' => 'required|in:si,no',
         ];
     }

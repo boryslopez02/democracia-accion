@@ -116,7 +116,7 @@
                         <select class="form-control select2 @error('alcance') is-invalid @enderror" id="alcance" name="alcance">
                             <option value="">Seleccionar</option>
                             @foreach ($optionsScope as $value => $label)
-                                <option value="{{ $value }}">{{ $label }}</option>";
+                                <option value="{{ $value }}" {{ old('alcance') == $value ? 'selected' : '' }}>{{ $label }}</option>";
                             @endforeach
                         </select>
                         @error('alcance')
@@ -210,7 +210,7 @@
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input cargoPublicoCheck" type="radio" name="cargosAdm" id="inlineRadio2"
-                            value="no" checked {{ old('cargosAdm') == 'no' ? 'checked' : '' }}>
+                            value="no" {{ old('cargosAdm') == 'no' ? 'checked' : '' }}>
                             <label class="form-check-label" for="inlineRadio2">No</label>
                         </div>
                         @error('cargosAdm')

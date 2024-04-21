@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'members', 'as' => 'members.',
 
 Route::group(['middleware' => 'auth', 'prefix' => 'committe-local', 'as' => 'committe-local.', 'controller' => App\Http\Controllers\ComiteLocalController::class], function () {
     Route::get('/', 'index')->name('index');
+    Route::get('/list', 'list')->name('list');
     Route::get('/create', 'create')->name('create');
 });
 

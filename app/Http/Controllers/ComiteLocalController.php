@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use DataTables;
-use App\Models\Members;
+use App\Models\Comite;
 use App\Models\Scope;
 use App\Models\Seccional;
 use App\Models\Municipio;
@@ -25,7 +25,7 @@ class ComiteLocalController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.comite.index');
     }
 
     /**
@@ -35,8 +35,6 @@ class ComiteLocalController extends Controller
      */
     public function create()
     {
-
-        
         $optionsScope = Scope::getOptions();
         $optionsGender = Gender::getGenders();
         $optionsSocialN = SocialNetwork::getSocialNet();
@@ -62,6 +60,33 @@ class ComiteLocalController extends Controller
         return view('pages.comite.create', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'seccionales', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura'));
     }
 
+    public function list()
+    {
+        $model = Comite::query()->orderBy('created_at', 'desc');
+
+        $data = DataTables::of($model)
+            ->addColumn('id', function ($row) {
+                return $row->id;
+            })
+            ->addColumn('members', function ($row) {
+                return count($row->members);
+            })
+            ->addColumn('action', function($row){
+                return '<div class="d-flex">
+                    <a href='. route('members.edit', $row) .' class="btn btn-icon btn-info btn-sm me-1">
+                        <i class="ti ti-pencil"></i>
+                    </a>
+                    <button class="btn btn-icon btn-danger btn-sm modal-pers" data-path="'. route('members.modalDelete', $row) .'">
+                        <i class="ti ti-trash"></i>
+                    </button>
+                </div>';
+            })
+            ->rawColumns(['action'])
+            ->toJson();
+
+        return $data;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -70,7 +95,7 @@ class ComiteLocalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**

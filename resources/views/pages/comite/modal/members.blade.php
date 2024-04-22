@@ -7,7 +7,11 @@
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body p-4">
-            <h4>Miembros</h4>
+            @if (count($comite->members) > 0)
+                <h4>Miembros</h4>
+            @else
+                <h4>No existen miembros registrados</h4>
+            @endif
             <ul class="list-group border-0">
                 @foreach ($comite->members as $member)
                     <li class="list-group-item py-4 border-0">

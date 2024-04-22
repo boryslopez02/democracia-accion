@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'committe-local', 'as' => 'com
     Route::get('/', 'index')->name('index');
     Route::get('/list', 'list')->name('list');
     Route::get('/members/{comite}', 'members')->name('members');
+    Route::get('/edit/{comite}', 'edit')->name('edit');
     Route::get('/create', 'create')->name('create');
 });
 

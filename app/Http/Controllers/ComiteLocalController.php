@@ -78,7 +78,7 @@ class ComiteLocalController extends Controller
             })
             ->addColumn('action', function($row){
                 return '<div class="d-flex">
-                    <a href='. route('members.edit', $row) .' class="btn btn-icon btn-info btn-sm me-1">
+                    <a href="'. route('committe-local.edit', $row) .'" class="btn btn-icon btn-info btn-sm me-1">
                         <i class="ti ti-pencil"></i>
                     </a>
                     <button class="btn btn-icon btn-danger btn-sm modal-pers" data-path="'. route('members.modalDelete', $row) .'">
@@ -120,9 +120,31 @@ class ComiteLocalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Comite $comite)
     {
-        //
+        $optionsScope = Scope::getOptions();
+        $optionsGender = Gender::getGenders();
+        $optionsSocialN = SocialNetwork::getSocialNet();
+        $optionsPositions = Positions::getPositions();
+        $optionsTypesPositions = Positions::getTypesPositions();
+        $optionsBuro = Positions::getBuro();
+        $optionsBuroSecFemenina = Positions::getBuroSecFemenina();
+        $optionsBuroSecCultura = Positions::getBuroSecCultura();
+        $seccionales = Seccional::all();
+
+        $optionsBuro = collect($optionsBuro)->map(function ($value, $key) {
+            return ['key' => $key, 'value' => $value];
+        })->values()->toJson();
+
+        $optionsBuroSecFemenina = collect($optionsBuroSecFemenina)->map(function ($value, $key) {
+            return ['key' => $key, 'value' => $value];
+        })->values()->toJson();
+
+        $optionsBuroSecCultura = collect($optionsBuroSecCultura)->map(function ($value, $key) {
+            return ['key' => $key, 'value' => $value];
+        })->values()->toJson();
+
+        return view('pages.comite.edit', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'seccionales', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura', 'comite'));
     }
 
     /**

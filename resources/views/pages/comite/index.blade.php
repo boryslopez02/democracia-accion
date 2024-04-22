@@ -67,12 +67,7 @@
                     }
                 },
                 { data: 'nombre_comite', name: 'nombre_comite' },
-                {
-                    data: "members",
-                    render: function (data, type, row) {
-                        return `<span class=" btn btn-info btn-sm">${data}</span>`;
-                    }
-                },
+                { data: "members", name: 'members' },
                 { data: 'action', name: 'action', orderable: false, searchable: false },
             ],
             columnDefs: [

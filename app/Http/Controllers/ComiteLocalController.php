@@ -60,6 +60,11 @@ class ComiteLocalController extends Controller
         return view('pages.comite.create', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'seccionales', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura'));
     }
 
+    public function members(Comite $comite)
+    {
+        return view('pages.comite.modal.members', compact('comite'));
+    }
+
     public function list()
     {
         $model = Comite::query()->orderBy('created_at', 'desc');
@@ -69,7 +74,7 @@ class ComiteLocalController extends Controller
                 return $row->id;
             })
             ->addColumn('members', function ($row) {
-                return count($row->members);
+                return '<button data-path="'. route('committe-local.members', $row) .'" class="btn btn-info btn-sm modal-pers">'.count($row->members).'</button>';
             })
             ->addColumn('action', function($row){
                 return '<div class="d-flex">
@@ -81,7 +86,7 @@ class ComiteLocalController extends Controller
                     </button>
                 </div>';
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['members', 'action'])
             ->toJson();
 
         return $data;

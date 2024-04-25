@@ -70,6 +70,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'users', 'as' => 'users.', 'co
     Route::delete('/delete/{users}', 'destroy')->name('delete');
     Route::get('/list', 'list')->name('list');
     Route::post('/store', 'store')->name('store');
+    Route::post('/storeU', 'storeU')->name('storeU');
+    Route::get('/useremail', 'useremail')->name('useremail');
     Route::put('/update', 'update')->name('update');
 });
 

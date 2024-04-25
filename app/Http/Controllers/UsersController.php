@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserCredentialsMail;
 use DataTables;
 use App\Models\Users;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserStoreRequest;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class UsersController extends Controller
 {
@@ -27,6 +31,11 @@ class UsersController extends Controller
     public function create()
     {
         return view('pages.users.create');
+    }
+
+    public function useremail()
+    {
+        return view('pages.emails.user_credentials');
     }
 
     public function modal_delete(Users $users)
@@ -68,6 +77,31 @@ class UsersController extends Controller
     public function store(UserStoreRequest $request)
     {
         dd($request);
+    }
+
+    public function storeU(UserStoreRequest $request)
+    {
+        // return $request['correo'];
+        try {
+            $email = $request['correo'];
+            $password = Str::random(10);
+            $newUser = new Users;
+            $newUser->name = 'User';
+            $newUser->email = $email;
+            $newUser->password = Hash::make($password);
+            $newUser->save();
+            Mail::to($newUser->email)->send(new UserCredentialsMail($newUser->email, $password));
+
+            session()->flash('success', 'Usuario registrado correctamente.');
+            return redirect()->route('users.index');
+
+        } catch (\Throwable $th) {
+            //throw $th;
+            session()->flash('error', 'Hubo un error al registrar el usuario. Por favor, inténtalo de nuevo. Error: ' . $th->getMessage());
+            return redirect()->back();
+        }
+
+
     }
 
     /**

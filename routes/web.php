@@ -72,7 +72,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'users', 'as' => 'users.', 'co
     Route::post('/store', 'store')->name('store');
     Route::post('/storeU', 'storeU')->name('storeU');
     Route::get('/useremail', 'useremail')->name('useremail');
-    Route::put('/update', 'update')->name('update');
+    Route::put('/update/{users}', 'update')->name('update');
 });
 
 // Route::group(['prefix' => 'seccional', 'as' => 'seccional.', 'controller' => App\Http\Controllers\SeccionalesController::class], function () {

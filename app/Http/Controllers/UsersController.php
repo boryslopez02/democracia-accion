@@ -132,9 +132,17 @@ class UsersController extends Controller
      * @param  \App\Models\Users  $users
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Users $users)
+    public function update(UserStoreRequest $request, Users $users)
     {
-        //
+        try {
+            $data = $request->validated();
+            $users->update(['email' => $data['correo']]);
+            session()->flash('success', 'Usuario actualizado correctamente.');
+            return redirect()->route('users.index');
+        } catch (\Throwable $th) {
+            session()->flash('error', 'Hubo un error al actualizar el usuario. Por favor, inténtalo de nuevo. Error: ' . $th->getMessage());
+            return redirect()->back();
+        }
     }
 
     /**

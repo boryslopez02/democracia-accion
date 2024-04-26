@@ -100,8 +100,6 @@ class UsersController extends Controller
             session()->flash('error', 'Hubo un error al registrar el usuario. Por favor, inténtalo de nuevo. Error: ' . $th->getMessage());
             return redirect()->back();
         }
-
-
     }
 
     /**

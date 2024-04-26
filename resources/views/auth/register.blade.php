@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center w-100">
-            <div class="col-md-8 col-lg-6 col-xxl-3">
+            <div class="col-md-8 col-lg-6">
                 <div class="card mb-0">
                     <div class="card-body">
                         <a href="{{ route('notices.home') }}" class="text-nowrap logo-img text-center d-block w-100">

@@ -27,7 +27,6 @@ $(document).ready(function () {
 
     $('.cargoPublicoCheck').on('change', function() {
         let idCol = $(this).attr('data-col');
-        console.log(idCol, "id col")
         if ($(this).val() == "si") {
             $('#'+idCol).removeClass('d-none');
         } else {
@@ -66,21 +65,16 @@ $(document).ready(function () {
 
     $('.tipo_cargo').on('change', function (e) {
         let idCol = $(this).attr('data-col');
-        console.log(idCol, "id")
         if ($(this).val() == 5) {
-
             $('#'+idCol).parent().removeClass('d-none');
             $('#'+idCol).prop('disabled', false).trigger('change');
             $('#'+idCol+'buro').parent().removeClass('d-none');
             $('#'+idCol+'buro').prop('disabled', false).trigger('change');
-
         } else {
-
             $('#'+idCol).parent().addClass('d-none');
             $('#'+idCol).prop('disabled', true).trigger('change');
             $('#'+idCol+'buro').parent().addClass('d-none');
             $('#'+idCol+'buro').prop('disabled', true).trigger('change');
-
         }
     });
 

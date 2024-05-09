@@ -168,3 +168,7 @@ form.row {
 .img-detail {
     max-height: 300px;
 }
+
+.app-header {
+    z-index: 999 !important;
+}

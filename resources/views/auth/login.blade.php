@@ -9,12 +9,12 @@
                         <a href="{{ route('notices.home') }}" class="text-nowrap logo-img text-center d-block w-100">
                             <img src="{{ asset('assets/images/logos/logo.png') }}" width="180" alt="">
                         </a>
-                        <p class="text-center">Democracia en Acción</p>
+                        <p class="text-center">Acción Democrática</p>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Usuario</label>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="admin@admin.com" required autocomplete="email" autofocus>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="" required autocomplete="email" autofocus>
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -23,7 +23,7 @@
                             </div>
                             <div class="mb-4">
                                 <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="123456789" required autocomplete="current-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="" required autocomplete="current-password">
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

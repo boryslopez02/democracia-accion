@@ -44,6 +44,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'committe-local', 'as' => 'com
     Route::get('/members/{comite}', 'members')->name('members');
     Route::get('/edit/{comite}', 'edit')->name('edit');
     Route::get('/create', 'create')->name('create');
+    Route::get('/modal_delete/{comite}', 'modal_delete')->name('modalDelete');
+    Route::delete('/delete/{comite}', 'destroy')->name('delete');
 });
 
 Route::group(['middleware' => 'auth', 'prefix' => 'notices', 'as' => 'notices.', 'controller' => App\Http\Controllers\NoticesController::class], function () {

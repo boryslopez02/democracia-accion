@@ -81,7 +81,7 @@ class ComiteLocalController extends Controller
                     <a href="'. route('committe-local.edit', $row) .'" class="btn btn-icon btn-info btn-sm me-1">
                         <i class="ti ti-pencil"></i>
                     </a>
-                    <button class="btn btn-icon btn-danger btn-sm modal-pers" data-path="'. route('members.modalDelete', $row) .'">
+                    <button class="btn btn-icon btn-danger btn-sm modal-pers" data-path="'. route('committe-local.modalDelete', $row) .'">
                         <i class="ti ti-trash"></i>
                     </button>
                 </div>';
@@ -165,8 +165,19 @@ class ComiteLocalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+    public function modal_delete(Comite $comite)
     {
-        //
+        return view('pages.comite.modal.deleteComite', compact('comite'));
+    }
+
+    public function destroy(Comite $comite)
+    {
+        try {
+            $comite->delete();
+            return response()->json(['success' => 'Comite eliminado correctamente'], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'Lo sentimos, hubo un error al completar la acción'], 200);
+        }
     }
 }

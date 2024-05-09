@@ -109,7 +109,6 @@
                     </div>
 
                     <div class="row p-3 bg-light-subtle m-0">
-
                         <!-- Fecha de nacimiento  -->
                         <div class="mb-3 col-md-6 col-lg-4">
                             <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
@@ -194,9 +193,8 @@
 
                         <!-- Tipo de Cargo -->
                         <div class="mb-3 col-md-6 col-lg-4">
-                            <label for="tipo_cargo" class="form-label">Tipo de Cargo</label>
-                            <select class="form-control select2 @error('tipo_cargo.0') is-invalid @enderror"
-                                name="tipo_cargo[]">
+                            <label for="" class="form-label">Tipo de Cargo</label>
+                            <select class="form-control select2 tipo_cargo @error('tipo_cargo.0') is-invalid @enderror" data-col="cargo1" name="tipo_cargo[]">
                                 <option value="" selected>Seleccionar</option>
                                 @foreach ($optionsTypesPositions as $value => $label)
                                     <option value="{{ $value }}" {{ old('tipo_cargo.0') == $value ? 'selected' : '' }}>{{ $label }}</option>";
@@ -211,7 +209,7 @@
                         <div class="mb-3 col-md-6 col-lg-4 d-none">
                             <label for="cargo" class="form-label">Cargos Administrativos</label>
                             <select class="form-control select2 @error('cargo.0') is-invalid @enderror"
-                                name="cargo[]">
+                                name="cargo[]" id="cargo1">
                                 <option value="">Seleccionar</option>
                                 @foreach ($optionsPositions as $value => $label)
                                     <option value="{{ $value }}" {{ old('cargo.0') == $value ? 'selected' : '' }}>{{ $label }}</option>";
@@ -226,8 +224,8 @@
                     <div class="row p-3 m-0">
                         <!-- Buro -->
                         <div class="mb-3 col-md-6 col-lg-4 d-none">
-                            <label for="buro" class="form-label">Buró</label>
-                            <select class="form-control select2 @error('buro.0') is-invalid @enderror" name="buro[]">
+                            <label for="" class="form-label">Buró</label>
+                            <select class="form-control select2 @error('buro.0') is-invalid @enderror" name="buro[]" id="cargo1buro">
                                 <option value="">Seleccionar</option>
                             </select>
                             @error('buro.0')
@@ -236,17 +234,17 @@
                         </div>
 
                         <!-- Posees cargos de administración público -->
-                        <div class="mb-3 col-md-6 align-self-end">
+                        <div class="mb-3 col-md-6 col-lg-4 align-self-end">
                             <label class="form-label me-3">Posees cargos de administración pública</label>
                             <br>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input cargoPublicoCheck" type="radio" name="cargosAdm[]" id="inlineRadio1"
+                                <input class="form-check-input cargoPublicoCheck" data-col="cargo_pub1" type="radio" name="cargosAdm[0]" id="inlineRadio1"
                                 value="si" {{ old('cargosAdm.0') == 'si' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="inlineRadio1">Si</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input cargoPublicoCheck" type="radio" name="cargosAdm[]" id="inlineRadio2"
-                                value="no" checked {{ old('cargosAdm.0') == 'no' ? 'checked' : '' }}>
+                                <input class="form-check-input cargoPublicoCheck" data-col="cargo_pub1" type="radio" name="cargosAdm[0]" id="inlineRadio2"
+                                value="no" {{ old('cargosAdm.0') == 'no' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="inlineRadio2">No</label>
                             </div>
                             @error('cargosAdm.0')
@@ -386,8 +384,8 @@
 
                         <!-- Tipo de Cargo -->
                         <div class="mb-3 col-md-6 col-lg-4">
-                            <label for="tipo_cargo" class="form-label">Tipo de Cargo</label>
-                            <select class="form-control select2 @error('tipo_cargo.1') is-invalid @enderror"
+                            <label for="" class="form-label">Tipo de Cargo</label>
+                            <select class="form-control select2 tipo_cargo @error('tipo_cargo.1') is-invalid @enderror" data-col="cargo2"
                                 name="tipo_cargo[]">
                                 <option value="" selected>Seleccionar</option>
                                 @foreach ($optionsTypesPositions as $value => $label)
@@ -401,9 +399,9 @@
 
                         <!-- Cargo -->
                         <div class="mb-3 col-md-6 col-lg-4 d-none">
-                            <label for="cargo" class="form-label">Cargos Administrativos</label>
+                            <label for="" class="form-label">Cargos Administrativos</label>
                             <select class="form-control select2 @error('cargo.1') is-invalid @enderror"
-                                name="cargo[]">
+                                name="cargo[]" id="cargo2">
                                 <option value="">Seleccionar</option>
                                 @foreach ($optionsPositions as $value => $label)
                                     <option value="{{ $value }}" {{ old('cargo.1') == $value ? 'selected' : '' }}>{{ $label }}</option>
@@ -418,8 +416,8 @@
                     <div class="row p-3 m-0">
                         <!-- Buro -->
                         <div class="mb-3 col-md-6 col-lg-4 d-none">
-                            <label for="buro" class="form-label">Buró</label>
-                            <select class="form-control select2 @error('buro.1') is-invalid @enderror" name="buro[]">
+                            <label for="" class="form-label">Buró</label>
+                            <select class="form-control select2 @error('buro.1') is-invalid @enderror" name="buro[]" id="cargo2buro">
                                 <option value="">Seleccionar</option>
                             </select>
                             @error('buro.1')
@@ -428,17 +426,17 @@
                         </div>
 
                         <!-- Posees cargos de administración público -->
-                        <div class="mb-3 col-md-6 align-self-end">
+                        <div class="mb-3 col-md-6 col-lg-4 align-self-end">
                             <label class="form-label me-3">Posees cargos de administración pública</label>
                             <br>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input cargoPublicoCheck" type="radio" name="cargosAdm[]" id="inlineRadio3"
+                                <input class="form-check-input cargoPublicoCheck" data-col="cargo_pub2" type="radio" name="cargosAdm[1]" id="inlineRadio3"
                                 value="si" {{ old('cargosAdm.1') == 'si' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="inlineRadio3">Si</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input cargoPublicoCheck" type="radio" name="cargosAdm[]" id="inlineRadio4"
-                                value="no" checked {{ old('cargosAdm.1') == 'no' ? 'checked' : '' }}>
+                                <input class="form-check-input cargoPublicoCheck" data-col="cargo_pub2" type="radio" name="cargosAdm[1]" id="inlineRadio4"
+                                value="no" {{ old('cargosAdm.1') == 'no' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="inlineRadio4">No</label>
                             </div>
                             @error('cargosAdm.1')
@@ -578,8 +576,8 @@
 
                         <!-- Tipo de Cargo -->
                         <div class="mb-3 col-md-6 col-lg-4">
-                            <label for="tipo_cargo" class="form-label">Tipo de Cargo</label>
-                            <select class="form-control select2 @error('tipo_cargo.2') is-invalid @enderror"
+                            <label for="" class="form-label">Tipo de Cargo</label>
+                            <select class="form-control select2 tipo_cargo @error('tipo_cargo.2') is-invalid @enderror" data-col="cargo3"
                                 name="tipo_cargo[]">
                                 <option value="" selected>Seleccionar</option>
                                 @foreach ($optionsTypesPositions as $value => $label)
@@ -595,7 +593,7 @@
                         <div class="mb-3 col-md-6 col-lg-4 d-none">
                             <label for="cargo" class="form-label">Cargos Administrativos</label>
                             <select class="form-control select2 @error('cargo.2') is-invalid @enderror"
-                                name="cargo[]">
+                                name="cargo[]" id="cargo3">
                                 <option value="">Seleccionar</option>
                                 @foreach ($optionsPositions as $value => $label)
                                     <option value="{{ $value }}" {{ old('cargo.2') == $value ? 'selected' : '' }}>{{ $label }}</option>
@@ -610,8 +608,8 @@
                     <div class="row p-3 m-0">
                         <!-- Buro -->
                         <div class="mb-3 col-md-6 col-lg-4 d-none">
-                            <label for="buro" class="form-label">Buró</label>
-                            <select class="form-control select2 @error('buro.2') is-invalid @enderror" name="buro[]">
+                            <label for="" class="form-label">Buró</label>
+                            <select class="form-control select2 @error('buro.2') is-invalid @enderror" name="buro[]" id="cargo3buro">
                                 <option value="">Seleccionar</option>
                             </select>
                             @error('buro.2')
@@ -620,17 +618,17 @@
                         </div>
 
                         <!-- Posees cargos de administración público -->
-                        <div class="mb-3 col-md-6 align-self-end">
+                        <div class="mb-3 col-md-6 col-lg-4 align-self-end">
                             <label class="form-label me-3">Posees cargos de administración pública</label>
                             <br>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input cargoPublicoCheck" type="radio" name="cargosAdm[]" id="inlineRadio5"
+                                <input class="form-check-input cargoPublicoCheck" data-col="cargo_pub3" type="radio" name="cargosAdm[2]" id="inlineRadio5"
                                 value="si" {{ old('cargosAdm.2') == 'si' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="inlineRadio5">Si</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input cargoPublicoCheck" type="radio" name="cargosAdm[]" id="inlineRadio6"
-                                value="no" checked {{ old('cargosAdm.2') == 'no' ? 'checked' : '' }}>
+                                <input class="form-check-input cargoPublicoCheck" data-col="cargo_pub3" type="radio" name="cargosAdm[2]" id="inlineRadio6"
+                                value="no" {{ old('cargosAdm.2') == 'no' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="inlineRadio6">No</label>
                             </div>
                             @error('cargosAdm.2')
@@ -770,8 +768,8 @@
 
                         <!-- Tipo de Cargo -->
                         <div class="mb-3 col-md-6 col-lg-4">
-                            <label for="tipo_cargo" class="form-label">Tipo de Cargo</label>
-                            <select class="form-control select2 @error('tipo_cargo.3') is-invalid @enderror"
+                            <label for="" class="form-label">Tipo de Cargo</label>
+                            <select class="form-control select2 tipo_cargo @error('tipo_cargo.3') is-invalid @enderror" data-col="cargo4"
                                 name="tipo_cargo[]">
                                 <option value="" selected>Seleccionar</option>
                                 @foreach ($optionsTypesPositions as $value => $label)
@@ -787,7 +785,7 @@
                         <div class="mb-3 col-md-6 col-lg-4 d-none">
                             <label for="cargo" class="form-label">Cargos Administrativos</label>
                             <select class="form-control select2 @error('cargo.3') is-invalid @enderror"
-                                name="cargo[]">
+                                name="cargo[]" id="cargo4">
                                 <option value="">Seleccionar</option>
                                 @foreach ($optionsPositions as $value => $label)
                                     <option value="{{ $value }}" {{ old('cargo.3') == $value ? 'selected' : '' }}>{{ $label }}</option>
@@ -802,8 +800,8 @@
                     <div class="row p-3 m-0">
                         <!-- Buro -->
                         <div class="mb-3 col-md-6 col-lg-4 d-none">
-                            <label for="buro" class="form-label">Buró</label>
-                            <select class="form-control select2 @error('buro.3') is-invalid @enderror" name="buro[]">
+                            <label for="" class="form-label">Buró</label>
+                            <select class="form-control select2 @error('buro.3') is-invalid @enderror" name="buro[]" id="cargo4buro">
                                 <option value="">Seleccionar</option>
                             </select>
                             @error('buro.3')
@@ -812,17 +810,17 @@
                         </div>
 
                         <!-- Posees cargos de administración público -->
-                        <div class="mb-3 col-md-6 align-self-end">
+                        <div class="mb-3 col-md-6 col-lg-4 align-self-end">
                             <label class="form-label me-3">Posees cargos de administración pública</label>
                             <br>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input cargoPublicoCheck" type="radio" name="cargosAdm[]" id="inlineRadio7"
+                                <input class="form-check-input cargoPublicoCheck" data-col="cargo_pub4" type="radio" name="cargosAdm[3]" id="inlineRadio7"
                                 value="si" {{ old('cargosAdm.3') == 'si' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="inlineRadio7">Si</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input cargoPublicoCheck" type="radio" name="cargosAdm[]" id="inlineRadio8"
-                                value="no" checked {{ old('cargosAdm.3') == 'no' ? 'checked' : '' }}>
+                                <input class="form-check-input cargoPublicoCheck" data-col="cargo_pub4" type="radio" name="cargosAdm[3]" id="inlineRadio8"
+                                value="no" {{ old('cargosAdm.3') == 'no' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="inlineRadio8">No</label>
                             </div>
                             @error('cargosAdm.3')
@@ -963,7 +961,7 @@
                         <!-- Tipo de Cargo -->
                         <div class="mb-3 col-md-6 col-lg-4">
                             <label for="tipo_cargo" class="form-label">Tipo de Cargo</label>
-                            <select class="form-control select2 @error('tipo_cargo.4') is-invalid @enderror"
+                            <select class="form-control select2 tipo_cargo @error('tipo_cargo.4') is-invalid @enderror" data-col="cargo5"
                                 name="tipo_cargo[]">
                                 <option value="" selected>Seleccionar</option>
                                 @foreach ($optionsTypesPositions as $value => $label)
@@ -979,7 +977,7 @@
                         <div class="mb-3 col-md-6 col-lg-4 d-none">
                             <label for="cargo" class="form-label">Cargos Administrativos</label>
                             <select class="form-control select2 @error('cargo.4') is-invalid @enderror"
-                                name="cargo[]">
+                                name="cargo[]" id="cargo5">
                                 <option value="">Seleccionar</option>
                                 @foreach ($optionsPositions as $value => $label)
                                     <option value="{{ $value }}" {{ old('cargo.4') == $value ? 'selected' : '' }}>{{ $label }}</option>";
@@ -994,8 +992,8 @@
                     <div class="row p-3 m-0">
                         <!-- Buro -->
                         <div class="mb-3 col-md-6 col-lg-4 d-none">
-                            <label for="buro" class="form-label">Buró</label>
-                            <select class="form-control select2 @error('buro.4') is-invalid @enderror" name="buro[]">
+                            <label for="" class="form-label">Buró</label>
+                            <select class="form-control select2 @error('buro.4') is-invalid @enderror" name="buro[]" id="cargo5buro">
                                 <option value="">Seleccionar</option>
                             </select>
                             @error('buro.4')
@@ -1004,17 +1002,17 @@
                         </div>
 
                         <!-- Posees cargos de administración público -->
-                        <div class="mb-3 col-md-6 align-self-end">
+                        <div class="mb-3 col-md-6 col-lg-4 align-self-end">
                             <label class="form-label me-3">Posees cargos de administración pública</label>
                             <br>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input cargoPublicoCheck" type="radio" name="cargosAdm[]" id="inlineRadio9"
+                                <input class="form-check-input cargoPublicoCheck" data-col="cargo_pub5" type="radio" name="cargosAdm[4]" id="inlineRadio9"
                                 value="si" {{ old('cargosAdm.4') == 'si' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="inlineRadio9">Si</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input cargoPublicoCheck" type="radio" name="cargosAdm[]" id="inlineRadio10"
-                                value="no" checked {{ old('cargosAdm.4') == 'no' ? 'checked' : '' }}>
+                                <input class="form-check-input cargoPublicoCheck" data-col="cargo_pub5" type="radio" name="cargosAdm[4]" id="inlineRadio10"
+                                value="no" {{ old('cargosAdm.4') == 'no' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="inlineRadio10">No</label>
                             </div>
                             @error('cargosAdm.4')

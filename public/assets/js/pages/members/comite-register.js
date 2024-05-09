@@ -25,54 +25,14 @@ $(document).ready(function () {
     selectSeccional.trigger('change');
     selectMunicipio.trigger('change');
 
-    $('#alcance').on('change', function (e) {
-        setAlcanceFields($(this).val());
-    });
-
-    const setAlcanceFields = (val) => {
-        $('#seccional').prop('disabled', false).trigger('change');
-        $('#municipio').prop('disabled', false).trigger('change');
-        $('#parroquia').prop('disabled', false).trigger('change');
-
-        if (val == "nacional") {
-
-            $('#seccional').parent().addClass('d-none');
-            $('#municipio').parent().addClass('d-none');
-            $('#parroquia').parent().addClass('d-none');
-            $('#seccional').prop('disabled', true).trigger('change');
-            $('#municipio').prop('disabled', true).trigger('change');
-            $('#parroquia').prop('disabled', true).trigger('change');
-
-        } else if (val == "seccional") {
-
-            $('#seccional').parent().removeClass('d-none');
-            $('#municipio').parent().addClass('d-none');
-            $('#parroquia').parent().addClass('d-none');
-            $('#municipio').prop('disabled', true).trigger('change');
-            $('#parroquia').prop('disabled', true).trigger('change');
-
-        } else if (val == "municipal") {
-
-            $('#seccional').parent().removeClass('d-none');
-            $('#municipio').parent().removeClass('d-none');
-            $('#parroquia').parent().addClass('d-none');
-            $('#parroquia').prop('disabled', true).trigger('change');
-
-        } else if (val == "parroquial") {
-
-            $('#seccional').parent().removeClass('d-none');
-            $('#municipio').parent().removeClass('d-none');
-            $('#parroquia').parent().removeClass('d-none');
-
-        }
-    }
-
     $('.cargoPublicoCheck').on('change', function() {
+        let idCol = $(this).attr('data-col');
+        console.log(idCol, "id col")
         if ($(this).val() == "si") {
-            $('#cargo_pub').removeClass('d-none');
+            $('#'+idCol).removeClass('d-none');
         } else {
-            $('#cargo_pub').addClass('d-none');
-            $('#cargo_pub input').val('');
+            $('#'+idCol).addClass('d-none');
+            $(`#${idCol} input`).val('');
         }
     });
 
@@ -104,24 +64,25 @@ $(document).ready(function () {
         selectParroquia.trigger('change');
     });
 
-    // $('#tipo_cargo').on('change', function (e) {
-    //     console.log($(this).val())
-    //     if ($(this).val() == 5) {
+    $('.tipo_cargo').on('change', function (e) {
+        let idCol = $(this).attr('data-col');
+        console.log(idCol, "id")
+        if ($(this).val() == 5) {
 
-    //         $('#cargo').parent().removeClass('d-none');
-    //         $('#cargo').prop('disabled', false).trigger('change');
-    //         $('#buro').parent().removeClass('d-none');
-    //         $('#buro').prop('disabled', false).trigger('change');
+            $('#'+idCol).parent().removeClass('d-none');
+            $('#'+idCol).prop('disabled', false).trigger('change');
+            $('#'+idCol+'buro').parent().removeClass('d-none');
+            $('#'+idCol+'buro').prop('disabled', false).trigger('change');
 
-    //     } else {
+        } else {
 
-    //         $('#cargo').parent().addClass('d-none');
-    //         $('#cargo').prop('disabled', true).trigger('change');
-    //         $('#buro').parent().addClass('d-none');
-    //         $('#buro').prop('disabled', true).trigger('change');
+            $('#'+idCol).parent().addClass('d-none');
+            $('#'+idCol).prop('disabled', true).trigger('change');
+            $('#'+idCol+'buro').parent().addClass('d-none');
+            $('#'+idCol+'buro').prop('disabled', true).trigger('change');
 
-    //     }
-    // });
+        }
+    });
 
     const selectBuro = $('#buro');
     const opcionesBuro = JSON.parse(window.opcionesBuro);

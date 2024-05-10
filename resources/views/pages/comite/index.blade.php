@@ -16,6 +16,32 @@
 
 @section('content')
     <div class="position-relative">
+        <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4" bis_skin_checked="1">
+            <div class="card-body px-4 py-3" bis_skin_checked="1">
+              <div class="row align-items-center" bis_skin_checked="1">
+                <div class="col-9" bis_skin_checked="1">
+                  <h4 class="fw-semibold mb-8">Comite local</h4>
+                  <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a class="text-muted text-decoration-none" href="{{ route('notices.home') }}">Inicio</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a class="text-muted text-decoration-none" href="{{ route('committe-local.index') }}">Comite</a>
+                        </li>
+                        <li class="breadcrumb-item" aria-current="page">Listado</li>
+                    </ol>
+                  </nav>
+                </div>
+                <div class="col-3" bis_skin_checked="1">
+                  <div class="text-center mb-n5" bis_skin_checked="1">
+                    <img src="{{ asset('assets/images/notices/ChatBc.png') }}" alt="" class="img-fluid mb-n4">
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
         <div class="table-responsive">
             <table id="datatable-comite" class="table border table-striped table-bordered text-nowrap align-middle dataTableCurrent">
                 <thead>

@@ -36,7 +36,7 @@ class MembersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Members $members)
     {
         $optionsScope = Scope::getOptions();
         $optionsGender = Gender::getGenders();
@@ -60,7 +60,7 @@ class MembersController extends Controller
             return ['key' => $key, 'value' => $value];
         })->values()->toJson();
 
-        return view('pages.members.create', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'seccionales', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura'));
+        return view('pages.members.create', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'seccionales', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura', 'members'));
     }
 
     public function getScopeInfo()

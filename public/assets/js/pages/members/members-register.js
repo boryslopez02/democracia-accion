@@ -163,4 +163,56 @@ $(document).ready(function () {
         }
     });
 
+
+    $('#cedula').keyup(function (e) {
+        let cedula = $(this).val();
+
+        cedula = cedula.replace(/\./g, '');
+
+        let cedulaFormateada = cedula.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+        $(this).val(cedulaFormateada);
+    });
+
+    $('#cedula').change(function (e) {
+        let ci = $(this).val().replace(/\./g, '');
+
+        $.blockUI({
+            message: $('#loading-message'),
+            css: {
+                width: '200px',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                border: 'none',
+                padding: '0',
+                backgroundColor: 'white',
+                borderRadius: '10px'
+            },
+            overlayCSS: {
+                backgroundColor: 'rgba(0, 0, 0, 0.5)' // Color de fondo de la superposición semitransparente
+            }
+        });
+
+        $.ajax({
+            url: urlFetchCiData,
+            type: "POST",
+            dataType: "json",
+            data: {
+                ci: ci
+            },
+            success: function(data) {
+                console.log(data);
+                $.unblockUI();
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Error en la solicitud: " + textStatus, errorThrown);
+                $.unblockUI();
+
+
+            }
+        });
+    });
+
 });

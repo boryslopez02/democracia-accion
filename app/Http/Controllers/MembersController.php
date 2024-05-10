@@ -17,6 +17,7 @@ use App\Http\Requests\MembersComiteStoreRequest;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class MembersController extends Controller
 {
@@ -302,6 +303,40 @@ class MembersController extends Controller
      * @param  \App\Models\Members  $members
      * @return \Illuminate\Http\Response
      */
+
+    public function searchDoc(Request $request)
+    {
+        $ci = $request->ci;
+        $path = public_path('assets/data/re20240131_pp.txt');
+
+        if (File::exists($path)) {
+            $file = fopen($path, 'r');
+
+            $columna_deseada = null;
+
+            while (($linea = fgets($file)) !== false) {
+                $linea = utf8_encode($linea);
+
+                $columnas = explode(',', $linea);
+
+                if ($columnas[1] === $ci) {
+                    $columna_deseada = $columnas;
+                    break;
+                }
+            }
+
+            fclose($file);
+
+            if ($columna_deseada !== null) {
+                return response()->json(['success' => $columna_deseada], 200);
+            } else {
+                return response()->json(['error' => "No se encontró la CI $ci en el archivo."], 200);
+            }
+        } else {
+            return response()->json(['error' => "El archivo no existe."], 200);
+        }
+    }
+
     public function show(Members $members)
     {
         //

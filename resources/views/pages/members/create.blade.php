@@ -4,6 +4,18 @@
 <link rel="stylesheet" href="{{ asset('assets/libs/select2/css/select2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}">
 <style>
+    #loading-message {
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    #loading-message span {
+        display: block;
+        margin-top: 10px;
+        font-size: 16px;
+    }
 
 </style>
 @endsection
@@ -235,16 +247,24 @@
                 </div>
             </div>
         </div>
+
+        <div id="loading-message">
+            <i class="fas fa-spinner fa-spin"></i>
+            <span>Cargando...</span>
+        </div>
+
     </div>
 @endsection
 
 @section('page-scripts')
     <script>
+        window.urlFetchCiData = "{{ route('members.searchDoc')}}";
         window.urlFetchScopeData = "{{ route('members.getScopeInfo')}}";
         window.opcionesBuro = @json($optionsBuro);
         window.opcionesBuroSecFemenina = @json($optionsBuroSecFemenina);
         window.opcionesBuroSecCultura = @json($optionsBuroSecCultura);
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
     <script src="{{ asset('assets/libs/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('assets/libs/select2/js/forms/select2.init.js') }}"></script>

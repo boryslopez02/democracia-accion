@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'members', 'as' => 'members.',
     Route::get('/modal_delete_masive', 'modal_delete_masive')->name('modalDeleteMasive');
     Route::delete('/delete/{members}', 'destroy')->name('delete');
     Route::post('/delete-masive', 'deleteMasive')->name('deleteMasive');
+    Route::post('/ci', 'searchDoc')->name('searchDoc');
 });
 
 Route::group(['middleware' => 'auth', 'prefix' => 'committe-local', 'as' => 'committe-local.', 'controller' => App\Http\Controllers\ComiteLocalController::class], function () {

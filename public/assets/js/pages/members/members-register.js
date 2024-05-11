@@ -190,9 +190,12 @@ $(document).ready(function () {
                 borderRadius: '10px'
             },
             overlayCSS: {
-                backgroundColor: 'rgba(0, 0, 0, 0.5)' // Color de fondo de la superposición semitransparente
+                backgroundColor: 'rgba(0, 0, 0, 0.5)'
             }
         });
+
+        $('#nombre').attr('readonly', false);
+        $('#apellido').attr('readonly', false);
 
         $.ajax({
             url: urlFetchCiData,
@@ -203,14 +206,21 @@ $(document).ready(function () {
             },
             success: function(data) {
                 console.log(data);
-                $.unblockUI();
+                if (data.info.length > 0) {
+                    let nombres = data.info[4] + ' ' + data.info[5],
+                    apellidos = data.info[2] + ' ' + data.info[3],
+                    fecha_nacimiento = data.info[7],
+                    genero = data.info[6] == 'M' ? 'hombre' : 'mujer',
+                    fecha_formateada = fecha_nacimiento.replace(/-/g, '/');
 
+                    $('#nombre').val(nombres).attr('readonly', true);
+                    $('#apellido').val(apellidos).attr('readonly', true);
+                }
+                $.unblockUI();
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error("Error en la solicitud: " + textStatus, errorThrown);
                 $.unblockUI();
-
-
             }
         });
     });

@@ -172,3 +172,6 @@ form.row {
 .app-header {
     z-index: 999 !important;
 }
+input[readonly].form-control {
+    background-color: #ddebff42;
+}

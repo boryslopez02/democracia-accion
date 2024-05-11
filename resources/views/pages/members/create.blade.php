@@ -80,7 +80,7 @@
                 <div class="mb-3 col-md-6 col-lg-4">
                     <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
                     <div class="input-group">
-                        <input type="text" class="form-control mydatepicker @error('fecha_nacimiento') is-invalid @enderror" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ old('fecha_nacimiento') }}" placeholder="mm/dd/yyyy" autocomplete="off">
+                        <input type="text" class="form-control mydatepicker @error('fecha_nacimiento') is-invalid @enderror" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ old('fecha_nacimiento') }}" placeholder="Seleccione una fecha" autocomplete="off">
                         <span class="input-group-text">
                         <i class="ti ti-calendar fs-5"></i>
                         </span>
@@ -274,7 +274,7 @@
     </div>
 
     <div id="loading-message">
-        <i class="fas fa-spinner fa-spin"></i>
+        <div class="spinner-border"></div>
         <span>Cargando...</span>
     </div>
 @endsection

@@ -138,7 +138,7 @@
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
                         <div class="input-group">
-                            <input type="text" class="form-control mydatepicker @error('fecha_nacimiento.0') is-invalid @enderror" name="fecha_nacimiento[]" value="{{ old('fecha_nacimiento.0') }}" placeholder="mm/dd/yyyy" autocomplete="off">
+                            <input type="text" class="form-control mydatepicker @error('fecha_nacimiento.0') is-invalid @enderror" name="fecha_nacimiento[]" value="{{ old('fecha_nacimiento.0') }}" placeholder="Seleccione una fecha" autocomplete="off">
                             <span class="input-group-text">
                             <i class="ti ti-calendar fs-5"></i>
                             </span>
@@ -329,7 +329,7 @@
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
                         <div class="input-group">
-                            <input type="text" class="form-control mydatepicker @error('fecha_nacimiento.1') is-invalid @enderror" name="fecha_nacimiento[]" value="{{ old('fecha_nacimiento.1') }}" placeholder="mm/dd/yyyy" autocomplete="off">
+                            <input type="text" class="form-control mydatepicker @error('fecha_nacimiento.1') is-invalid @enderror" name="fecha_nacimiento[]" value="{{ old('fecha_nacimiento.1') }}" placeholder="Seleccione una fecha" autocomplete="off">
                             <span class="input-group-text">
                                 <i class="ti ti-calendar fs-5"></i>
                             </span>
@@ -521,7 +521,7 @@
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
                         <div class="input-group">
-                            <input type="text" class="form-control mydatepicker @error('fecha_nacimiento.2') is-invalid @enderror" name="fecha_nacimiento[]" value="{{ old('fecha_nacimiento.2') }}" placeholder="mm/dd/yyyy" autocomplete="off">
+                            <input type="text" class="form-control mydatepicker @error('fecha_nacimiento.2') is-invalid @enderror" name="fecha_nacimiento[]" value="{{ old('fecha_nacimiento.2') }}" placeholder="Seleccione una fecha" autocomplete="off">
                             <span class="input-group-text">
                                 <i class="ti ti-calendar fs-5"></i>
                             </span>
@@ -713,7 +713,7 @@
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
                         <div class="input-group">
-                            <input type="text" class="form-control mydatepicker @error('fecha_nacimiento.3') is-invalid @enderror" name="fecha_nacimiento[]" value="{{ old('fecha_nacimiento.3') }}" placeholder="mm/dd/yyyy" autocomplete="off">
+                            <input type="text" class="form-control mydatepicker @error('fecha_nacimiento.3') is-invalid @enderror" name="fecha_nacimiento[]" value="{{ old('fecha_nacimiento.3') }}" placeholder="Seleccione una fecha" autocomplete="off">
                             <span class="input-group-text">
                                 <i class="ti ti-calendar fs-5"></i>
                             </span>
@@ -905,7 +905,7 @@
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
                         <div class="input-group">
-                            <input type="text" class="form-control mydatepicker @error('fecha_nacimiento.4') is-invalid @enderror" name="fecha_nacimiento[]" value="{{ old('fecha_nacimiento.4') }}" placeholder="mm/dd/yyyy" autocomplete="off">
+                            <input type="text" class="form-control mydatepicker @error('fecha_nacimiento.4') is-invalid @enderror" name="fecha_nacimiento[]" value="{{ old('fecha_nacimiento.4') }}" placeholder="Seleccione una fecha" autocomplete="off">
                             <span class="input-group-text">
                             <i class="ti ti-calendar fs-5"></i>
                             </span>

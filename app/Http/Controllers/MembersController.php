@@ -328,12 +328,12 @@ class MembersController extends Controller
             fclose($file);
 
             if ($columna_deseada !== null) {
-                return response()->json(['success' => $columna_deseada], 200);
+                return response()->json(['success' => true, 'info' => $columna_deseada], 200);
             } else {
                 return response()->json(['error' => "No se encontró la CI $ci en el archivo."], 200);
             }
         } else {
-            return response()->json(['error' => "El archivo no existe."], 200);
+            return response()->json(['error' => true, 'info' => []], 200);
         }
     }
 

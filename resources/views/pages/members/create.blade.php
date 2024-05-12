@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}">
 <style>
     #loading-message {
+        display: none;
         text-align: center;
         background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
         border-radius: 10px;
@@ -78,7 +79,7 @@
                 </div>
                 <!-- Fecha de nacimiento  -->
                 <div class="mb-3 col-md-6 col-lg-4">
-                    <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
+                    <label for="" class="form-label">Fecha de nacimiento</label>
                     <div class="input-group">
                         <input type="text" class="form-control mydatepicker @error('fecha_nacimiento') is-invalid @enderror" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ old('fecha_nacimiento') }}" placeholder="Seleccione una fecha" autocomplete="off">
                         <span class="input-group-text">

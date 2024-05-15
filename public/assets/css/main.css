@@ -175,3 +175,16 @@ form.row {
 input[readonly].form-control {
     background-color: #ddebff42;
 }
+#loading-message {
+    display: none;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+#loading-message span {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+}

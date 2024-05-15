@@ -8,7 +8,7 @@ $(document).ready(function () {
         type: "GET",
         dataType: "json",
         success: function(data) {
-            console.log(data);
+            // console.log(data);
             municipios = data.municipios;
             parroquias = data.parroquias;
             $('#municipio').prop('disabled', false).trigger('change');
@@ -115,6 +115,78 @@ $(document).ready(function () {
 
             selectBuro.trigger('change');
 
+        }
+    });
+
+    $('.cedula').keyup(function (e) {
+        let cedula = $(this).val();
+
+        cedula = cedula.replace(/\./g, '');
+
+        let cedulaFormateada = cedula.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+        $(this).val(cedulaFormateada);
+    });
+
+    $('.cedula').change(function (e) {
+        let ci = $(this).val().replace(/\./g, ''), currentCiInp = $(this).attr('data-count');
+
+        if (ci.trim() !== '' && ci.trim().length > 6) {
+            $.blockUI({
+                message: $('#loading-message'),
+                css: {
+                    display: 'block',
+                    width: '200px',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    border: 'none',
+                    padding: '0',
+                    backgroundColor: 'white',
+                    borderRadius: '10px'
+                },
+                overlayCSS: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            });
+
+            $.ajax({
+                url: urlFetchCiData,
+                type: "POST",
+                dataType: "json",
+                data: {
+                    ci: ci
+                },
+                success: function(data) {
+                    console.log(data);
+                    if (!data.error) {
+                        if (data.info.length > 0) {
+                            let nombres = data.info[4] + ' ' + data.info[5],
+                            apellidos = data.info[2] + ' ' + data.info[3],
+                            fecha_nacimiento = data.info[7],
+                            genero = data.info[6] == 'M' ? 'hombre' : 'mujer',
+                            fecha_formateada = fecha_nacimiento.replace(/-/g, '/');
+
+                            $(`.member${currentCiInp} .nombre`).val(nombres);
+                            $(`.member${currentCiInp} .apellido`).val(apellidos);
+                            $(`.member${currentCiInp} .genero`).val(genero).trigger('change');
+                            $(`.member${currentCiInp} .fecha`).val(fecha_formateada);
+                        }
+                    } else {
+                        toastr.error(data.error, "Ups!", {
+                            progressBar: true,
+                        });
+                    }
+                    $.unblockUI();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("Error en la solicitud: " + textStatus, errorThrown);
+                    $.unblockUI();
+                    toastr.error(textStatus, "Ups!", {
+                        progressBar: true,
+                    });
+                }
+            });
         }
     });
 

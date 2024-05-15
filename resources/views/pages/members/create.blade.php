@@ -3,22 +3,6 @@
 @section('styles')
 <link rel="stylesheet" href="{{ asset('assets/libs/select2/css/select2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}">
-<style>
-    #loading-message {
-        display: none;
-        text-align: center;
-        background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
-        border-radius: 10px;
-        padding: 20px;
-    }
-
-    #loading-message span {
-        display: block;
-        margin-top: 10px;
-        font-size: 16px;
-    }
-
-</style>
 @endsection
 
 @section('content')

@@ -208,23 +208,32 @@ $(document).ready(function () {
                 },
                 success: function(data) {
                     console.log(data);
-                    if (data.info.length > 0) {
-                        let nombres = data.info[4] + ' ' + data.info[5],
-                        apellidos = data.info[2] + ' ' + data.info[3],
-                        fecha_nacimiento = data.info[7],
-                        genero = data.info[6] == 'M' ? 'hombre' : 'mujer',
-                        fecha_formateada = fecha_nacimiento.replace(/-/g, '/');
+                    if (!data.error) {
+                        if (data.info.length > 0) {
+                            let nombres = data.info[4] + ' ' + data.info[5],
+                            apellidos = data.info[2] + ' ' + data.info[3],
+                            fecha_nacimiento = data.info[7],
+                            genero = data.info[6] == 'M' ? 'hombre' : 'mujer',
+                            fecha_formateada = fecha_nacimiento.replace(/-/g, '/');
 
-                        $('#nombre').val(nombres).attr('readonly', true);
-                        $('#apellido').val(apellidos).attr('readonly', true);
-                        $('#genero').val(genero).trigger('change');
-                        $('#fecha_nacimiento').val(fecha_formateada);
+                            $('#nombre').val(nombres).attr('readonly', true);
+                            $('#apellido').val(apellidos).attr('readonly', true);
+                            $('#genero').val(genero).trigger('change');
+                            $('#fecha_nacimiento').val(fecha_formateada);
+                        }
+                    } else {
+                        toastr.error(data.error, "Ups!", {
+                            progressBar: true,
+                        });
                     }
                     $.unblockUI();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error("Error en la solicitud: " + textStatus, errorThrown);
                     $.unblockUI();
+                    toastr.error(textStatus, "Ups!", {
+                        progressBar: true,
+                    });
                 }
             });
         }

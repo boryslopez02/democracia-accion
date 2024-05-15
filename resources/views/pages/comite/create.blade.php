@@ -104,11 +104,11 @@
                     </div>
                 </div>
 
-                <div class="row p-3 m-0">
+                <div class="row p-3 m-0 member1">
                     <!-- Cedula -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="cedula" class="form-label">Cedula</label>
-                        <input type="text" class="form-control @error('cedula.0') is-invalid @enderror" name="cedula[]" value="{{ old('cedula.0') }}">
+                        <input type="text" class="form-control cedula @error('cedula.0') is-invalid @enderror" data-count="1" name="cedula[]" value="{{ old('cedula.0') }}">
                         @error('cedula.0')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -117,7 +117,7 @@
                     <!-- Nombre -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="nombre" class="form-label">Nombres</label>
-                        <input type="text" class="form-control @error('nombre.0') is-invalid @enderror" name="nombre[]" value="{{ old('nombre.0') }}">
+                        <input type="text" class="form-control nombre @error('nombre.0') is-invalid @enderror" name="nombre[]" value="{{ old('nombre.0') }}">
                         @error('nombre.0')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -126,19 +126,19 @@
                     <!-- Apellidos -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="apellido" class="form-label">Apellidos</label>
-                        <input type="text" class="form-control @error('apellido.0') is-invalid @enderror" name="apellido[]" value="{{ old('apellido.0') }}">
+                        <input type="text" class="form-control apellido @error('apellido.0') is-invalid @enderror" name="apellido[]" value="{{ old('apellido.0') }}">
                         @error('apellido.0')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
 
-                <div class="row p-3 bg-light-subtle m-0">
+                <div class="row p-3 bg-light-subtle m-0 member1">
                     <!-- Fecha de nacimiento  -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
                         <div class="input-group">
-                            <input type="text" class="form-control mydatepicker @error('fecha_nacimiento.0') is-invalid @enderror" name="fecha_nacimiento[]" value="{{ old('fecha_nacimiento.0') }}" placeholder="Seleccione una fecha" autocomplete="off">
+                            <input type="text" class="form-control mydatepicker fecha @error('fecha_nacimiento.0') is-invalid @enderror" name="fecha_nacimiento[]" value="{{ old('fecha_nacimiento.0') }}" placeholder="Seleccione una fecha" autocomplete="off">
                             <span class="input-group-text">
                             <i class="ti ti-calendar fs-5"></i>
                             </span>
@@ -151,7 +151,7 @@
                     <!-- Genero -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="genero" class="form-label">Genero</label>
-                        <select name="genero[]" class="form-control select2 @error('genero.0') is-invalid @enderror">
+                        <select name="genero[]" class="form-control select2 genero @error('genero.0') is-invalid @enderror">
                             <option value="">Seleccionar</option>
                             @foreach ($optionsGender as $value => $label)
                                 <option value="{{ $value }}" {{ old('genero.0') == $value ? 'selected' : '' }}>{{ $label }}</option>";
@@ -294,11 +294,11 @@
                     </div>
                 </div>
 
-                <div class="row p-3 m-0">
+                <div class="row p-3 m-0 member2">
                     <!-- Cedula -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="cedula" class="form-label">Cedula</label>
-                        <input type="text" class="form-control @error('cedula.1') is-invalid @enderror" name="cedula[]" value="{{ old('cedula.1') }}">
+                        <input type="text" class="form-control cedula @error('cedula.1') is-invalid @enderror" data-count="2" name="cedula[]" value="{{ old('cedula.1') }}">
                         @error('cedula.1')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -307,7 +307,7 @@
                     <!-- Nombre -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="nombre" class="form-label">Nombres</label>
-                        <input type="text" class="form-control @error('nombre.1') is-invalid @enderror" name="nombre[]" value="{{ old('nombre.1') }}">
+                        <input type="text" class="form-control nombre @error('nombre.1') is-invalid @enderror" name="nombre[]" value="{{ old('nombre.1') }}">
                         @error('nombre.1')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -316,20 +316,20 @@
                     <!-- Apellidos -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="apellido" class="form-label">Apellidos</label>
-                        <input type="text" class="form-control @error('apellido.1') is-invalid @enderror" name="apellido[]" value="{{ old('apellido.1') }}">
+                        <input type="text" class="form-control apellido @error('apellido.1') is-invalid @enderror" name="apellido[]" value="{{ old('apellido.1') }}">
                         @error('apellido.1')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
 
-                <div class="row p-3 bg-light-subtle m-0">
+                <div class="row p-3 bg-light-subtle m-0 member2">
 
                     <!-- Fecha de nacimiento  -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
                         <div class="input-group">
-                            <input type="text" class="form-control mydatepicker @error('fecha_nacimiento.1') is-invalid @enderror" name="fecha_nacimiento[]" value="{{ old('fecha_nacimiento.1') }}" placeholder="Seleccione una fecha" autocomplete="off">
+                            <input type="text" class="form-control mydatepicker fecha @error('fecha_nacimiento.1') is-invalid @enderror" name="fecha_nacimiento[]" value="{{ old('fecha_nacimiento.1') }}" placeholder="Seleccione una fecha" autocomplete="off">
                             <span class="input-group-text">
                                 <i class="ti ti-calendar fs-5"></i>
                             </span>
@@ -342,7 +342,7 @@
                     <!-- Genero -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="genero" class="form-label">Genero</label>
-                        <select name="genero[]" class="form-control select2 @error('genero.1') is-invalid @enderror">
+                        <select name="genero[]" class="form-control select2 genero @error('genero.1') is-invalid @enderror">
                             <option value="">Seleccionar</option>
                             @foreach ($optionsGender as $value => $label)
                                 <option value="{{ $value }}" {{ old('genero.1') == $value ? 'selected' : '' }}>{{ $label }}</option>
@@ -486,11 +486,11 @@
                     </div>
                 </div>
 
-                <div class="row p-3 m-0">
+                <div class="row p-3 m-0 member3">
                     <!-- Cedula -->
                     <div class="mb-3 col-md-6 col-lg-4">
-                        <label for="cedula" class="form-label">Cedula</label>
-                        <input type="text" class="form-control @error('cedula.2') is-invalid @enderror" name="cedula[]" value="{{ old('cedula.2') }}">
+                        <label for="" class="form-label">Cedula</label>
+                        <input type="text" class="form-control cedula @error('cedula.2') is-invalid @enderror" data-count="3" name="cedula[]" value="{{ old('cedula.2') }}">
                         @error('cedula.2')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -499,7 +499,7 @@
                     <!-- Nombre -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="nombre" class="form-label">Nombres</label>
-                        <input type="text" class="form-control @error('nombre.2') is-invalid @enderror" name="nombre[]" value="{{ old('nombre.2') }}">
+                        <input type="text" class="form-control nombre @error('nombre.2') is-invalid @enderror" name="nombre[]" value="{{ old('nombre.2') }}">
                         @error('nombre.2')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -508,20 +508,20 @@
                     <!-- Apellidos -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="apellido" class="form-label">Apellidos</label>
-                        <input type="text" class="form-control @error('apellido.2') is-invalid @enderror"  name="apellido[]" value="{{ old('apellido.2') }}">
+                        <input type="text" class="form-control apellido @error('apellido.2') is-invalid @enderror"  name="apellido[]" value="{{ old('apellido.2') }}">
                         @error('apellido.2')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
 
-                <div class="row p-3 bg-light-subtle m-0">
+                <div class="row p-3 bg-light-subtle m-0 member3">
 
                     <!-- Fecha de nacimiento  -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
                         <div class="input-group">
-                            <input type="text" class="form-control mydatepicker @error('fecha_nacimiento.2') is-invalid @enderror" name="fecha_nacimiento[]" value="{{ old('fecha_nacimiento.2') }}" placeholder="Seleccione una fecha" autocomplete="off">
+                            <input type="text" class="form-control mydatepicker fecha @error('fecha_nacimiento.2') is-invalid @enderror" name="fecha_nacimiento[]" value="{{ old('fecha_nacimiento.2') }}" placeholder="Seleccione una fecha" autocomplete="off">
                             <span class="input-group-text">
                                 <i class="ti ti-calendar fs-5"></i>
                             </span>
@@ -534,7 +534,7 @@
                     <!-- Genero -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="genero" class="form-label">Genero</label>
-                        <select name="genero[]" class="form-control select2 @error('genero.2') is-invalid @enderror">
+                        <select name="genero[]" class="form-control select2 genero @error('genero.2') is-invalid @enderror">
                             <option value="">Seleccionar</option>
                             @foreach ($optionsGender as $value => $label)
                                 <option value="{{ $value }}" {{ old('genero.2') == $value ? 'selected' : '' }}>{{ $label }}</option>
@@ -678,11 +678,11 @@
                     </div>
                 </div>
 
-                <div class="row p-3 m-0">
+                <div class="row p-3 m-0 member4">
                     <!-- Cedula -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="cedula" class="form-label">Cedula</label>
-                        <input type="text" class="form-control @error('cedula.3') is-invalid @enderror" name="cedula[]" value="{{ old('cedula.3') }}">
+                        <input type="text" class="form-control cedula @error('cedula.3') is-invalid @enderror" data-count="4" name="cedula[]" value="{{ old('cedula.3') }}">
                         @error('cedula.3')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -691,7 +691,7 @@
                     <!-- Nombre -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="nombre" class="form-label">Nombres</label>
-                        <input type="text" class="form-control @error('nombre.3') is-invalid @enderror" name="nombre[]" value="{{ old('nombre.3') }}">
+                        <input type="text" class="form-control nombre @error('nombre.3') is-invalid @enderror" name="nombre[]" value="{{ old('nombre.3') }}">
                         @error('nombre.3')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -700,20 +700,20 @@
                     <!-- Apellidos -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="apellido" class="form-label">Apellidos</label>
-                        <input type="text" class="form-control @error('apellido.3') is-invalid @enderror"  name="apellido[]" value="{{ old('apellido.3') }}">
+                        <input type="text" class="form-control apellido @error('apellido.3') is-invalid @enderror"  name="apellido[]" value="{{ old('apellido.3') }}">
                         @error('apellido.3')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
 
-                <div class="row p-3 bg-light-subtle m-0">
+                <div class="row p-3 bg-light-subtle m-0 member4">
 
                     <!-- Fecha de nacimiento  -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
                         <div class="input-group">
-                            <input type="text" class="form-control mydatepicker @error('fecha_nacimiento.3') is-invalid @enderror" name="fecha_nacimiento[]" value="{{ old('fecha_nacimiento.3') }}" placeholder="Seleccione una fecha" autocomplete="off">
+                            <input type="text" class="form-control mydatepicker fecha @error('fecha_nacimiento.3') is-invalid @enderror" name="fecha_nacimiento[]" value="{{ old('fecha_nacimiento.3') }}" placeholder="Seleccione una fecha" autocomplete="off">
                             <span class="input-group-text">
                                 <i class="ti ti-calendar fs-5"></i>
                             </span>
@@ -726,7 +726,7 @@
                     <!-- Genero -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="genero" class="form-label">Genero</label>
-                        <select name="genero[]" class="form-control select2 @error('genero.3') is-invalid @enderror">
+                        <select name="genero[]" class="form-control select2 genero @error('genero.3') is-invalid @enderror">
                             <option value="">Seleccionar</option>
                             @foreach ($optionsGender as $value => $label)
                                 <option value="{{ $value }}" {{ old('genero.3') == $value ? 'selected' : '' }}>{{ $label }}</option>
@@ -870,11 +870,11 @@
                     </div>
                 </div>
 
-                <div class="row p-3 m-0">
+                <div class="row p-3 m-0 member5">
                     <!-- Cedula -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="cedula" class="form-label">Cedula</label>
-                        <input type="text" class="form-control @error('cedula.4') is-invalid @enderror" name="cedula[]" value="{{ old('cedula.4') }}">
+                        <input type="text" class="form-control cedula @error('cedula.4') is-invalid @enderror" data-count="5" name="cedula[]" value="{{ old('cedula.4') }}">
                         @error('cedula.4')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -883,7 +883,7 @@
                     <!-- Nombre -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="nombre" class="form-label">Nombres</label>
-                        <input type="text" class="form-control @error('nombre.4') is-invalid @enderror" name="nombre[]" value="{{ old('nombre.4') }}">
+                        <input type="text" class="form-control nombre @error('nombre.4') is-invalid @enderror" name="nombre[]" value="{{ old('nombre.4') }}">
                         @error('nombre.4')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -892,20 +892,20 @@
                     <!-- Apellidos -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="apellido" class="form-label">Apellidos</label>
-                        <input type="text" class="form-control @error('apellido.4') is-invalid @enderror"  name="apellido[]" value="{{ old('apellido.4') }}">
+                        <input type="text" class="form-control apellido @error('apellido.4') is-invalid @enderror"  name="apellido[]" value="{{ old('apellido.4') }}">
                         @error('apellido.4')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
 
-                <div class="row p-3 bg-light-subtle m-0">
+                <div class="row p-3 bg-light-subtle m-0 member5">
 
                     <!-- Fecha de nacimiento  -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
                         <div class="input-group">
-                            <input type="text" class="form-control mydatepicker @error('fecha_nacimiento.4') is-invalid @enderror" name="fecha_nacimiento[]" value="{{ old('fecha_nacimiento.4') }}" placeholder="Seleccione una fecha" autocomplete="off">
+                            <input type="text" class="form-control mydatepicker fecha @error('fecha_nacimiento.4') is-invalid @enderror" name="fecha_nacimiento[]" value="{{ old('fecha_nacimiento.4') }}" placeholder="Seleccione una fecha" autocomplete="off">
                             <span class="input-group-text">
                             <i class="ti ti-calendar fs-5"></i>
                             </span>
@@ -918,7 +918,7 @@
                     <!-- Genero -->
                     <div class="mb-3 col-md-6 col-lg-4">
                         <label for="genero" class="form-label">Genero</label>
-                        <select name="genero[]" class="form-control select2 @error('genero.4') is-invalid @enderror">
+                        <select name="genero[]" class="form-control select2 genero @error('genero.4') is-invalid @enderror">
                             <option value="">Seleccionar</option>
                             @foreach ($optionsGender as $value => $label)
                                 <option value="{{ $value }}">{{ $label }}</option>";
@@ -1063,6 +1063,11 @@
                 <img src="{{ asset('assets/images/logos/logo.png') }}" class="glassLogo" />
             </div>
         </div>
+
+        <div id="loading-message">
+            <div class="spinner-border"></div>
+            <span>Cargando...</span>
+        </div>
     </div>
 @endsection
 
@@ -1076,11 +1081,13 @@
         </script>
     @endif
     <script>
+        window.urlFetchCiData = "{{ route('members.searchDoc')}}";
         window.urlFetchScopeData = "{{ route('members.getScopeInfo')}}";
         window.opcionesBuro = @json($optionsBuro);
         window.opcionesBuroSecFemenina = @json($optionsBuroSecFemenina);
         window.opcionesBuroSecCultura = @json($optionsBuroSecCultura);
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.blockUI/2.70/jquery.blockUI.min.js"></script>
     <script src="{{ asset('assets/libs/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('assets/libs/select2/js/forms/select2.init.js') }}"></script>

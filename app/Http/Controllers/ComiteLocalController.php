@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DataTables;
 use App\Models\Comite;
 use App\Models\Scope;
+use App\Models\Geograficos;
 use App\Models\Seccional;
 use App\Models\Municipio;
 use App\Models\Parroquia;
@@ -35,6 +36,7 @@ class ComiteLocalController extends Controller
      */
     public function create()
     {
+        $geograficos = Geograficos::all();
         $optionsScope = Scope::getOptions();
         $optionsGender = Gender::getGenders();
         $optionsSocialN = SocialNetwork::getSocialNet();
@@ -43,7 +45,7 @@ class ComiteLocalController extends Controller
         $optionsBuro = Positions::getBuro();
         $optionsBuroSecFemenina = Positions::getBuroSecFemenina();
         $optionsBuroSecCultura = Positions::getBuroSecCultura();
-        $seccionales = Seccional::all();
+        // $seccionales = Seccional::all();
 
         $optionsBuro = collect($optionsBuro)->map(function ($value, $key) {
             return ['key' => $key, 'value' => $value];
@@ -57,7 +59,7 @@ class ComiteLocalController extends Controller
             return ['key' => $key, 'value' => $value];
         })->values()->toJson();
 
-        return view('pages.comite.create', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'seccionales', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura'));
+        return view('pages.comite.create', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura', 'geograficos'));
     }
 
     public function members(Comite $comite)
@@ -122,6 +124,7 @@ class ComiteLocalController extends Controller
      */
     public function edit(Comite $comite)
     {
+        $geograficos = Geograficos::all();
         $optionsScope = Scope::getOptions();
         $optionsGender = Gender::getGenders();
         $optionsSocialN = SocialNetwork::getSocialNet();
@@ -144,7 +147,7 @@ class ComiteLocalController extends Controller
             return ['key' => $key, 'value' => $value];
         })->values()->toJson();
 
-        return view('pages.comite.edit', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'seccionales', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura', 'comite'));
+        return view('pages.comite.edit', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura', 'comite', 'geograficos'));
     }
 
     /**

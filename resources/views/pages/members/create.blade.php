@@ -150,12 +150,12 @@
                     <label for="seccional" class="form-label">Seccional</label>
                     <select class="form-control select2 @error('seccional') is-invalid @enderror" id="seccional" name="seccional">
                         <option value="">Seleccionar</option>
-                        @foreach ($seccionales as $seccional)
+                        {{-- @foreach ($seccionales as $seccional)
                             @php
                                 $nombre = str_replace('EDO. ', '', $seccional->nombre);
                             @endphp
                             <option value="{{ $seccional->id }}">{{ $nombre }}</option>
-                        @endforeach
+                        @endforeach --}}
                     </select>
                     @error('seccional')
                         <div class="invalid-feedback">{{ $message }}</div>
@@ -268,6 +268,7 @@
     <script>
         window.urlFetchCiData = "{{ route('members.searchDoc')}}";
         window.urlFetchScopeData = "{{ route('members.getScopeInfo')}}";
+        window.geograficos = @json($geograficos);
         window.opcionesBuro = @json($optionsBuro);
         window.opcionesBuroSecFemenina = @json($optionsBuroSecFemenina);
         window.opcionesBuroSecCultura = @json($optionsBuroSecCultura);

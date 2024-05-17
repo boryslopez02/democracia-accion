@@ -6,6 +6,7 @@ use DataTables;
 use App\Models\Comite;
 use App\Models\Members;
 use App\Models\Scope;
+use App\Models\Geograficos;
 use App\Models\Seccional;
 use App\Models\Municipio;
 use App\Models\Parroquia;
@@ -38,6 +39,7 @@ class MembersController extends Controller
      */
     public function create(Members $members)
     {
+        $geograficos = Geograficos::all();
         $optionsScope = Scope::getOptions();
         $optionsGender = Gender::getGenders();
         $optionsSocialN = SocialNetwork::getSocialNet();
@@ -46,7 +48,7 @@ class MembersController extends Controller
         $optionsBuro = Positions::getBuro();
         $optionsBuroSecFemenina = Positions::getBuroSecFemenina();
         $optionsBuroSecCultura = Positions::getBuroSecCultura();
-        $seccionales = Seccional::all();
+        // $seccionales = Seccional::all();
 
         $optionsBuro = collect($optionsBuro)->map(function ($value, $key) {
             return ['key' => $key, 'value' => $value];
@@ -60,7 +62,7 @@ class MembersController extends Controller
             return ['key' => $key, 'value' => $value];
         })->values()->toJson();
 
-        return view('pages.members.create', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'seccionales', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura', 'members'));
+        return view('pages.members.create', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura', 'members', 'geograficos'));
     }
 
     public function getScopeInfo()
@@ -350,6 +352,7 @@ class MembersController extends Controller
      */
     public function edit(Members $members)
     {
+        $geograficos = Geograficos::all();
         $optionsScope = Scope::getOptions();
         $optionsGender = Gender::getGenders();
         $optionsSocialN = SocialNetwork::getSocialNet();
@@ -358,7 +361,7 @@ class MembersController extends Controller
         $optionsBuro = Positions::getBuro();
         $optionsBuroSecFemenina = Positions::getBuroSecFemenina();
         $optionsBuroSecCultura = Positions::getBuroSecCultura();
-        $seccionales = Seccional::all();
+        // $seccionales = Seccional::all();
 
         $optionsBuro = collect($optionsBuro)->map(function ($value, $key) {
             return ['key' => $key, 'value' => $value];
@@ -372,7 +375,7 @@ class MembersController extends Controller
             return ['key' => $key, 'value' => $value];
         })->values()->toJson();
 
-        return view('pages.members.edit', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'seccionales', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura'));
+        return view('pages.members.edit', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura', 'geograficos'));
     }
 
     /**

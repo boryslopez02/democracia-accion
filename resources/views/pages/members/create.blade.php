@@ -117,7 +117,7 @@
                     <select type="text" class="form-control select2 @error('red_social') is-invalid @enderror" id="red_social" name="red_social">
                         <option value="">Seleccionar</option>
                         @foreach ($optionsSocialN as $value => $label)
-                            <option value="{{ $value }}">{{ $label }}</option>";
+                            <option value="{{ $value }}" {{ old('red_social') == $value ? 'selected' : '' }}>{{ $label }}</option>";
                         @endforeach
                     </select>
                     @error('red_social')
@@ -262,10 +262,26 @@
         <div class="spinner-border"></div>
         <span>Cargando...</span>
     </div>
+
+    @if ($errors->any())
+        <div id="old-errors" data-old-errors="{{ json_encode($errors->all()) }}" style="display: none;"></div>
+    @endif
+
 @endsection
 
 @section('page-scripts')
+
     <script>
+        $(document).ready(function() {
+            var oldErrors = $('#old-errors').data('old-errors');
+            if (oldErrors && oldErrors.length > 0) {
+                console.log('Errores anteriores:');
+                oldErrors.forEach(function(error) {
+                    console.log(error);
+                });
+            }
+        });
+
         window.urlFetchCiData = "{{ route('members.searchDoc')}}";
         window.urlFetchScopeData = "{{ route('members.getScopeInfo')}}";
         window.geograficos = @json($geograficos);

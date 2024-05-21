@@ -1,24 +1,4 @@
 $(document).ready(function () {
-    let municipios = [], parroquias = [];
-    // $('#municipio').prop('disabled', true).trigger('change');
-    // $('#parroquia').prop('disabled', true).trigger('change');
-
-    // $.ajax({
-    //     url: urlFetchScopeData,
-    //     type: "GET",
-    //     dataType: "json",
-    //     success: function(data) {
-    //         // console.log(data);
-    //         municipios = data.municipios;
-    //         parroquias = data.parroquias;
-    //         $('#municipio').prop('disabled', false).trigger('change');
-    //         $('#parroquia').prop('disabled', false).trigger('change');
-    //     },
-    //     error: function(jqXHR, textStatus, errorThrown) {
-    //         console.error("Error en la solicitud: " + textStatus, errorThrown);
-    //     }
-    // });
-
     const selectSeccional = $('#seccional');
     const selectMunicipio = $('#municipio');
     const selectParroquia = $('#parroquia');
@@ -35,79 +15,50 @@ $(document).ready(function () {
         }
     });
 
-    function getUniqueOptions(data, key, uniqueKey) {
-        const unique = new Map();
-        data.forEach(item => {
-            if (!unique.has(item[uniqueKey])) {
-                unique.set(item[uniqueKey], item);
-            }
-        });
-        return Array.from(unique.values());
+    const getUniqueOptions = (data, key) => {
+        return [...new Map(data.map(item => [item[key], item])).values()];
     }
 
-    // Para los estados
-    const uniqueEstados = getUniqueOptions(geograficos, 'cod_estado', 'estado');
+    const uniqueEstados = getUniqueOptions(geograficos, 'estado');
     uniqueEstados.forEach(geo => {
         let estadoSinEdo = geo.estado.replace('EDO. ', '');
-        let option = new Option(estadoSinEdo, geo.cod_estado);
+        let option = new Option(estadoSinEdo, geo.estado);
         selectSeccional.append(option);
     });
 
-    // Evento de cambio para seleccionar municipios
+    console.log(uniqueEstados, "uniqueEstados")
+
+
     $('#seccional').on('change', function() {
-        const estadoId = $(this).val();
-        const filteredMunicipios = geograficos.filter(geo => geo.cod_estado == estadoId);
-        const uniqueMunicipios = getUniqueOptions(filteredMunicipios, 'cod_municipio', 'municipio');
+        const estado = $(this).val();
+        const filteredMunicipios = geograficos.filter(geo => geo.estado == estado);
+        // console.log(filteredMunicipios, "filteredMunicipios")
+        const uniqueMunicipios = getUniqueOptions(filteredMunicipios, 'municipio');
 
         selectMunicipio.empty().append('<option value="">Seleccionar</option>');
         uniqueMunicipios.forEach(geo => {
-            let option = new Option(geo.municipio, geo.cod_municipio);
+            let option = new Option(geo.municipio, geo.municipio);
+            console.log(geo, "item")
             selectMunicipio.append(option);
         });
         selectParroquia.empty().append('<option value="">Seleccionar</option>');
+        selectMunicipio.trigger('change');
     });
 
-    // Evento de cambio para seleccionar parroquias
     $('#municipio').on('change', function() {
-        const municipioId = $(this).val();
-        const filteredParroquias = geograficos.filter(geo => geo.cod_municipio == municipioId);
-        const uniqueParroquias = getUniqueOptions(filteredParroquias, 'cod_parroquia', 'parroquia');
+        const municipio = $(this).val();
+        const filteredParroquias = geograficos.filter(geo => geo.municipio == municipio);
+        const uniqueParroquias = getUniqueOptions(filteredParroquias, 'parroquia');
 
         selectParroquia.empty().append('<option value="">Seleccionar</option>');
         uniqueParroquias.forEach(geo => {
-            let option = new Option(geo.parroquia, geo.id);
+            let option = new Option(geo.parroquia, geo.parroquia);
             selectParroquia.append(option);
         });
     });
 
-
-    // $('#seccional').on('change', function() {
-    //     const seccionalId = $(this).val();
-    //     const municipiosFilter = municipios.filter(municipio => municipio.seccional_id == seccionalId);
-
-    //     selectMunicipio.empty();
-    //     selectMunicipio.prepend('<option value="" selected>Seleccionar</option>');
-
-    //     municipiosFilter.forEach(municipio => {
-    //         let option = new Option(municipio.nombre, municipio.id, false, false);
-    //         selectMunicipio.append(option);
-    //     });
-    //     selectMunicipio.trigger('change');
-    // });
-
-    // $('#municipio').on('change', function() {
-    //     const municipioId = $(this).val();
-    //     const parroquiasFilter = parroquias.filter(parroquia => parroquia.municipio_id == municipioId);
-
-    //     selectParroquia.empty();
-    //     selectParroquia.prepend('<option value="" selected>Seleccionar</option>');
-
-    //     parroquiasFilter.forEach(parroquia => {
-    //         let option = new Option(parroquia.nombre, parroquia.id, false, false);
-    //         selectParroquia.append(option);
-    //     });
-    //     selectParroquia.trigger('change');
-    // });
+    selectSeccional.trigger('change');
+    selectMunicipio.trigger('change');
 
     $('.tipo_cargo').on('change', function (e) {
         let idCol = $(this).attr('data-col');

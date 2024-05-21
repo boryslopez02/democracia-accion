@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    let municipios = [], parroquias = [];
+    // let municipios = [], parroquias = [];
     // $('#municipio').prop('disabled', true).trigger('change');
     // $('#parroquia').prop('disabled', true).trigger('change');
 
@@ -80,21 +80,23 @@ $(document).ready(function () {
         return [...new Map(data.map(item => [item[key], item])).values()];
     }
 
-    const uniqueEstados = getUniqueOptions(geograficos, 'cod_estado');
+    const uniqueEstados = getUniqueOptions(geograficos, 'estado');
     uniqueEstados.forEach(geo => {
         let estadoSinEdo = geo.estado.replace('EDO. ', '');
-        let option = new Option(estadoSinEdo, geo.cod_estado);
+        let option = new Option(estadoSinEdo, geo.estado);
         selectSeccional.append(option);
     });
 
     $('#seccional').on('change', function() {
-        const estadoId = $(this).val();
-        const filteredMunicipios = geograficos.filter(geo => geo.cod_estado == estadoId);
-        const uniqueMunicipios = getUniqueOptions(filteredMunicipios, 'cod_municipio');
+        const estado = $(this).val();
+        // console.log(estado, "estado")
+        const filteredMunicipios = geograficos.filter(geo => geo.estado == estado);
+        // console.log(filteredMunicipios, "filteredMunicipios")
+        const uniqueMunicipios = getUniqueOptions(filteredMunicipios, 'municipio');
 
         selectMunicipio.empty().append('<option value="">Seleccionar</option>');
         uniqueMunicipios.forEach(geo => {
-            let option = new Option(geo.municipio, geo.cod_municipio);
+            let option = new Option(geo.municipio, geo.municipio);
             console.log(geo, "item")
             selectMunicipio.append(option);
         });
@@ -103,13 +105,13 @@ $(document).ready(function () {
     });
 
     $('#municipio').on('change', function() {
-        const municipioId = $(this).val();
-        const filteredParroquias = geograficos.filter(geo => geo.cod_municipio == municipioId);
-        const uniqueParroquias = getUniqueOptions(filteredParroquias, 'cod_parroquia');
+        const municipio = $(this).val();
+        const filteredParroquias = geograficos.filter(geo => geo.municipio == municipio);
+        const uniqueParroquias = getUniqueOptions(filteredParroquias, 'parroquia');
 
         selectParroquia.empty().append('<option value="">Seleccionar</option>');
         uniqueParroquias.forEach(geo => {
-            let option = new Option(geo.parroquia, geo.id);
+            let option = new Option(geo.parroquia, geo.parroquia);
             selectParroquia.append(option);
         });
     });
@@ -203,7 +205,6 @@ $(document).ready(function () {
 
         }
     });
-
 
     $('#cedula').keyup(function (e) {
         let cedula = $(this).val();

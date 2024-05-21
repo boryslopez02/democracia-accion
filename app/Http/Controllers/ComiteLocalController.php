@@ -133,7 +133,7 @@ class ComiteLocalController extends Controller
         $optionsBuro = Positions::getBuro();
         $optionsBuroSecFemenina = Positions::getBuroSecFemenina();
         $optionsBuroSecCultura = Positions::getBuroSecCultura();
-        $seccionales = Seccional::all();
+        // $seccionales = Seccional::all();
 
         $optionsBuro = collect($optionsBuro)->map(function ($value, $key) {
             return ['key' => $key, 'value' => $value];

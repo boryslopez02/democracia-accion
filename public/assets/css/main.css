@@ -188,3 +188,6 @@ input[readonly].form-control {
     margin-top: 10px;
     font-size: 16px;
 }
+footer .social-links .social-icons {
+    font-size: 18px;
+}

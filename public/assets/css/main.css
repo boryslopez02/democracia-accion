@@ -74,8 +74,8 @@ form.row {
 }
 .glassLogo {
     width: 100%;
-    max-width: 500px;
-    object-fit: contain;
+    /* max-width: 500px; */
+    object-fit: cover;
     opacity: 0.05;
 }
 .form-control, .form-control:focus {

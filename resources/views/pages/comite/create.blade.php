@@ -1059,8 +1059,8 @@
                 </div>
             </form>
 
-            <div class="position-absolute top-50 start-50 translate-middle glassContainer">
-                <img src="{{ asset('assets/images/logos/logo.png') }}" class="glassLogo" />
+            <div class="position-absolute top-50 start-50 translate-middle glassContainer w-100">
+                <img src="{{ asset('assets/images/logos/logo-b.png') }}" class="glassLogo" />
             </div>
         </div>
 

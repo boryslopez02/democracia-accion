@@ -74,10 +74,120 @@ form.row {
 }
 .glassLogo {
     width: 100%;
-    max-width: 500px;
-    object-fit: contain;
+    /* max-width: 500px; */
+    object-fit: cover;
     opacity: 0.05;
 }
 .form-control, .form-control:focus {
     background: white;
+}
+.img-list {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
+/* Blog */
+.blog {
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 400px;
+}
+.fs-7 {
+    font-size: 1.5rem !important;
+}
+.blog::before {
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(33, 33, 33, 0.6);
+}
+.hover-img:hover {
+    transform: translateY(-10px);
+}
+.hover-img {
+    transition: 0.2s ease-in;
+}
+.only-read {
+    border: 0 !important;
+}
+.only-read .ql-editor {
+    padding: 0 !important;
+}
+.invalid-feedback {
+    display: block !important;
+}
+.card-glass-images {
+    min-height: 120px;
+}
+.card-glass-images a {
+    position: relative;
+    z-index: 1;
+}
+.card-glass-images .glass {
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: absolute;
+    background-color: rgba(33, 33, 33, 0.6);
+}
+.card-glass-images img {
+    object-fit: cover;
+}
+.card-glass-images .btnArrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8px;
+    color: #5D87FF;
+    opacity: 1;
+}
+
+.bg-light-subtle {
+    background-color: #f6f9fc !important;
+}
+
+.box-img img {
+    width: 100%;
+    height: 100%;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.box-img .rounded-pill {
+    z-index: 1;
+}
+
+.img-detail {
+    max-height: 300px;
+}
+
+.app-header {
+    z-index: 999 !important;
+}
+input[readonly].form-control {
+    background-color: #ddebff42;
+}
+#loading-message {
+    display: none;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+#loading-message span {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+}
+footer .social-links .social-icons {
+    font-size: 18px;
 }

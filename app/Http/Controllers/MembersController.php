@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use DataTables;
+use App\Models\Comite;
 use App\Models\Members;
 use App\Models\Scope;
+use App\Models\Geograficos;
 use App\Models\Seccional;
 use App\Models\Municipio;
 use App\Models\Parroquia;
@@ -12,9 +14,11 @@ use App\Models\Gender;
 use App\Models\Positions;
 use App\Models\SocialNetwork;
 use App\Http\Requests\MembersStoreRequest;
+use App\Http\Requests\MembersComiteStoreRequest;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class MembersController extends Controller
 {
@@ -33,8 +37,9 @@ class MembersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Members $members)
     {
+        $geograficos = Geograficos::all();
         $optionsScope = Scope::getOptions();
         $optionsGender = Gender::getGenders();
         $optionsSocialN = SocialNetwork::getSocialNet();
@@ -43,7 +48,7 @@ class MembersController extends Controller
         $optionsBuro = Positions::getBuro();
         $optionsBuroSecFemenina = Positions::getBuroSecFemenina();
         $optionsBuroSecCultura = Positions::getBuroSecCultura();
-        $seccionales = Seccional::all();
+        // $seccionales = Seccional::all();
 
         $optionsBuro = collect($optionsBuro)->map(function ($value, $key) {
             return ['key' => $key, 'value' => $value];
@@ -57,7 +62,7 @@ class MembersController extends Controller
             return ['key' => $key, 'value' => $value];
         })->values()->toJson();
 
-        return view('pages.members.create', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'seccionales', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura'));
+        return view('pages.members.create', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura', 'members', 'geograficos'));
     }
 
     public function getScopeInfo()
@@ -79,7 +84,7 @@ class MembersController extends Controller
      */
     public function store(MembersStoreRequest $request)
     {
-        //return $request;
+        // return $request;
         $validated = $request->validated();
 
         DB::beginTransaction();
@@ -88,7 +93,9 @@ class MembersController extends Controller
 
             DB::commit();
 
-            return redirect()->route('members.index')->with('success', 'Usuario creado con éxito.');
+            session()->flash('success', 'Usuario creado con éxito.');
+
+            return redirect()->route('members.index');
 
             // return response()->json([
             //     'status' => 'success',
@@ -100,7 +107,75 @@ class MembersController extends Controller
             DB::rollBack();
 
             // Suponiendo que $e es una instancia de Exception capturada en un bloque catch
-            return redirect()->back()->with('error', 'Hubo un error al crear el usuario. Por favor, inténtalo de nuevo. Error: ' . $e->getMessage())->withInput();
+            session()->flash('error', 'Hubo un error al crear el usuario. Por favor, inténtalo de nuevo. Error: ' . $e->getMessage());
+
+            return redirect()->back();
+
+            // return response()->json([
+            //     'status' => 'error',
+            //     'message' => 'Hubo un error al crear el usuario. Por favor, inténtalo de nuevo.',
+            //     'error' => $e->getMessage(),
+            // ]);
+        }
+    }
+
+    public function comiteStore(MembersComiteStoreRequest $request)
+    {
+        $validatedData = $request->validated();
+
+        $comiteData = $request->only('nombre_comite');
+        // return $comiteData;
+
+        DB::beginTransaction();
+        try {
+            $comiteData = $request->only('nombre_comite');
+            $comite = Comite::create($comiteData);
+
+            foreach ($validatedData['cedula'] as $key => $cedula) {
+                // dd($validatedData);
+                $member = [
+                    'cedula' => $cedula,
+                    'nombre' => $validatedData['nombre'][$key],
+                    'apellido' => $validatedData['apellido'][$key],
+                    'telefono' => $validatedData['telefono'][$key],
+                    'correo' => $validatedData['correo'][$key],
+                    'fecha_nacimiento' => $validatedData['fecha_nacimiento'][$key],
+                    'profesion' => $validatedData['profesion'][$key],
+                    'red_social' => $validatedData['red_social'][$key],
+                    'usuario_red' => $validatedData['usuario_red'][$key],
+                    'genero' => $validatedData['genero'][$key],
+                    'seccional' => $validatedData['seccional'],
+                    'municipio' => $validatedData['municipio'],
+                    'parroquia' => $validatedData['parroquia'],
+                    'tipo_cargo' => $validatedData['tipo_cargo'][$key],
+                    'cargo' => $validatedData['cargo'][$key],
+                    'buro' => $validatedData['buro'][$key] ?? null,
+                    'cargo_pub' => $validatedData['cargo_pub'][$key] ?? null,
+                    'comite_id' => $comite->id,
+                ];
+
+                Members::create($member);
+            }
+
+            DB::commit();
+
+            session()->flash('success', 'Comite creado con éxito.');
+
+            return redirect()->route('committe-local.index');
+
+            // return response()->json([
+            //     'status' => 'success',
+            //     'message' => 'Usuario creado con éxito.',
+            //     'data' => $member,
+            // ]);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            // Suponiendo que $e es una instancia de Exception capturada en un bloque catch
+            session()->flash('error', 'Hubo un error al crear el comite. Por favor, inténtalo de nuevo. Error: ' . $e->getMessage());
+
+            return redirect()->back();
 
             // return response()->json([
             //     'status' => 'error',
@@ -157,7 +232,9 @@ class MembersController extends Controller
             $member->save();
         }
 
-        return redirect()->route('members.index')->with('success', 'Usuarios guardados correctamente.');
+        session()->flash('success', 'Usuarios guardados correctamente.');
+
+        return redirect()->route('members.index');
     }
 
     public function modal_delete(Members $members)
@@ -228,6 +305,40 @@ class MembersController extends Controller
      * @param  \App\Models\Members  $members
      * @return \Illuminate\Http\Response
      */
+
+    public function searchDoc(Request $request)
+    {
+        $ci = $request->ci;
+        $path = public_path('assets/data/re20240131_pp.txt');
+
+        if (File::exists($path)) {
+            $file = fopen($path, 'r');
+
+            $columna_deseada = null;
+
+            while (($linea = fgets($file)) !== false) {
+                $linea = utf8_encode($linea);
+
+                $columnas = explode(',', $linea);
+
+                if ($columnas[1] === $ci) {
+                    $columna_deseada = $columnas;
+                    break;
+                }
+            }
+
+            fclose($file);
+
+            if ($columna_deseada !== null) {
+                return response()->json(['success' => true, 'info' => $columna_deseada], 200);
+            } else {
+                return response()->json(['error' => "No se encontró la CI $ci en el archivo."], 200);
+            }
+        } else {
+            return response()->json(['error' => true, 'info' => []], 200);
+        }
+    }
+
     public function show(Members $members)
     {
         //
@@ -241,6 +352,7 @@ class MembersController extends Controller
      */
     public function edit(Members $members)
     {
+        $geograficos = Geograficos::all();
         $optionsScope = Scope::getOptions();
         $optionsGender = Gender::getGenders();
         $optionsSocialN = SocialNetwork::getSocialNet();
@@ -249,7 +361,7 @@ class MembersController extends Controller
         $optionsBuro = Positions::getBuro();
         $optionsBuroSecFemenina = Positions::getBuroSecFemenina();
         $optionsBuroSecCultura = Positions::getBuroSecCultura();
-        $seccionales = Seccional::all();
+        // $seccionales = Seccional::all();
 
         $optionsBuro = collect($optionsBuro)->map(function ($value, $key) {
             return ['key' => $key, 'value' => $value];
@@ -263,7 +375,7 @@ class MembersController extends Controller
             return ['key' => $key, 'value' => $value];
         })->values()->toJson();
 
-        return view('pages.members.edit', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'seccionales', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura'));
+        return view('pages.members.edit', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura', 'geograficos'));
     }
 
     /**
@@ -298,14 +410,12 @@ class MembersController extends Controller
     {
         $ids = $request->input('ids');
 
-
         try {
             Members::whereIn('id', $ids)->delete();
             return response()->json(['message' => 'Los miembros seleccionados se han eliminado correctamente.']);
         } catch (\Throwable $th) {
             return response()->json(['message' => 'Lo sentimos sucedió algo al realizar la acción.']);
         }
-
     }
 
 }

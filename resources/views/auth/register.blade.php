@@ -3,14 +3,16 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center w-100">
-            <div class="col-md-8 col-lg-6 col-xxl-3">
-                <div class="card mb-0">
+            <div class="col-md-8 col-lg-6">
+                <div class="card">
                     <div class="card-body">
-                        <a href="{{ route('home') }}" class="text-nowrap logo-img text-center d-block w-100">
+                        <a href="{{ route('notices.home') }}" class="text-nowrap logo-img text-center d-block w-100">
                             <img src="{{ asset('assets/images/logos/logo.png') }}" width="180" alt="">
                         </a>
                         <p class="text-center">Democracia en Acción</p>
                         <form method="POST" action="{{ route('register') }}">
+                            @csrf
+
                             <div class="mb-3">
                                 <label for="exampleInputtext1" class="form-label">Nombre</label>
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>

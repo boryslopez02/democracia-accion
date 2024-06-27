@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use DataTables;
-use App\Models\Members;
+use App\Models\Comite;
 use App\Models\Scope;
+use App\Models\Geograficos;
 use App\Models\Seccional;
 use App\Models\Municipio;
 use App\Models\Parroquia;
@@ -25,7 +26,7 @@ class ComiteLocalController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.comite.index');
     }
 
     /**
@@ -35,6 +36,7 @@ class ComiteLocalController extends Controller
      */
     public function create()
     {
+        $geograficos = Geograficos::all();
         $optionsScope = Scope::getOptions();
         $optionsGender = Gender::getGenders();
         $optionsSocialN = SocialNetwork::getSocialNet();
@@ -43,7 +45,7 @@ class ComiteLocalController extends Controller
         $optionsBuro = Positions::getBuro();
         $optionsBuroSecFemenina = Positions::getBuroSecFemenina();
         $optionsBuroSecCultura = Positions::getBuroSecCultura();
-        $seccionales = Seccional::all();
+        // $seccionales = Seccional::all();
 
         $optionsBuro = collect($optionsBuro)->map(function ($value, $key) {
             return ['key' => $key, 'value' => $value];
@@ -57,7 +59,39 @@ class ComiteLocalController extends Controller
             return ['key' => $key, 'value' => $value];
         })->values()->toJson();
 
-        return view('pages.comite.create', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'seccionales', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura'));
+        return view('pages.comite.create', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura', 'geograficos'));
+    }
+
+    public function members(Comite $comite)
+    {
+        return view('pages.comite.modal.members', compact('comite'));
+    }
+
+    public function list()
+    {
+        $model = Comite::query()->orderBy('created_at', 'desc');
+
+        $data = DataTables::of($model)
+            ->addColumn('id', function ($row) {
+                return $row->id;
+            })
+            ->addColumn('members', function ($row) {
+                return '<button data-path="'. route('committe-local.members', $row) .'" class="btn btn-info btn-sm modal-pers">'.count($row->members).'</button>';
+            })
+            ->addColumn('action', function($row){
+                return '<div class="d-flex">
+                    <a href="'. route('committe-local.edit', $row) .'" class="btn btn-icon btn-info btn-sm me-1">
+                        <i class="ti ti-pencil"></i>
+                    </a>
+                    <button class="btn btn-icon btn-danger btn-sm modal-pers" data-path="'. route('committe-local.modalDelete', $row) .'">
+                        <i class="ti ti-trash"></i>
+                    </button>
+                </div>';
+            })
+            ->rawColumns(['members', 'action'])
+            ->toJson();
+
+        return $data;
     }
 
     /**
@@ -68,7 +102,7 @@ class ComiteLocalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -88,9 +122,32 @@ class ComiteLocalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Comite $comite)
     {
-        //
+        $geograficos = Geograficos::all();
+        $optionsScope = Scope::getOptions();
+        $optionsGender = Gender::getGenders();
+        $optionsSocialN = SocialNetwork::getSocialNet();
+        $optionsPositions = Positions::getPositions();
+        $optionsTypesPositions = Positions::getTypesPositions();
+        $optionsBuro = Positions::getBuro();
+        $optionsBuroSecFemenina = Positions::getBuroSecFemenina();
+        $optionsBuroSecCultura = Positions::getBuroSecCultura();
+        // $seccionales = Seccional::all();
+
+        $optionsBuro = collect($optionsBuro)->map(function ($value, $key) {
+            return ['key' => $key, 'value' => $value];
+        })->values()->toJson();
+
+        $optionsBuroSecFemenina = collect($optionsBuroSecFemenina)->map(function ($value, $key) {
+            return ['key' => $key, 'value' => $value];
+        })->values()->toJson();
+
+        $optionsBuroSecCultura = collect($optionsBuroSecCultura)->map(function ($value, $key) {
+            return ['key' => $key, 'value' => $value];
+        })->values()->toJson();
+
+        return view('pages.comite.edit', compact('optionsScope', 'optionsGender', 'optionsSocialN', 'optionsTypesPositions', 'optionsPositions', 'optionsBuro', 'optionsBuroSecFemenina', 'optionsBuroSecCultura', 'comite', 'geograficos'));
     }
 
     /**
@@ -111,8 +168,19 @@ class ComiteLocalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+    public function modal_delete(Comite $comite)
     {
-        //
+        return view('pages.comite.modal.deleteComite', compact('comite'));
+    }
+
+    public function destroy(Comite $comite)
+    {
+        try {
+            $comite->delete();
+            return response()->json(['success' => 'Comite eliminado correctamente'], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'Lo sentimos, hubo un error al completar la acción'], 200);
+        }
     }
 }

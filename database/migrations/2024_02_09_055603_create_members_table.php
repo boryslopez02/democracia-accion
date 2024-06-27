@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('cargo')->nullable();
             $table->string('buro')->nullable();
             $table->string('cargo_pub')->nullable();
+            $table->string('comite_id')->nullable();
             $table->timestamps();
             // $table->string('esUsuario');
             // $table->string('password');

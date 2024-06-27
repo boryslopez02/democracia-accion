@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             SeccionalesSeeder::class,
             MunicipiosSeeder::class,
             ParroquiasSeeder::class,
+            NoticeCategoriesSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
 

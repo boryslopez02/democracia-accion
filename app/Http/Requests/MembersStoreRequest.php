@@ -22,9 +22,12 @@ class MembersStoreRequest extends FormRequest
      * @return array<string, mixed>
      */
 
-     public function messages()
-     {
+    public function messages()
+    {
         return [
+            'seccional.exists' => 'La seccional es inválida.',
+            'municipio.exists' => 'El municipio es inválido.',
+            'parroquia.exists' => 'La parroquia es inválida.',
             'cedula.required' => 'La cédula es obligatoria.',
             'cedula.numeric' => 'La cédula debe ser un número.',
             'cedula.unique' => 'La cédula ya ha sido registrada.',
@@ -50,23 +53,24 @@ class MembersStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'cedula' => 'required|numeric|unique:members,cedula',
+            'seccional' => 'nullable|exists:geograficos,estado',
+            'municipio' => 'nullable|exists:geograficos,municipio',
+            'parroquia' => 'nullable|exists:geograficos,parroquia',
+            'cedula' => 'required|unique:members,cedula',
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
             'telefono' => 'required|nullable|numeric',
             'correo' => 'required|email|unique:members,correo',
-            'fecha_nacimiento' => 'required|date_format:m/d/Y',
+            'fecha_nacimiento' => 'required|date_format:Y/m/d',
             'profesion' => 'nullable|string|max:255',
             'red_social' => 'nullable|string|max:255',
             'usuario_red' => 'nullable|string|max:255',
             'genero' => 'required|in:hombre,mujer',
             'alcance' => 'required|string|max:255',
-            'seccional' => 'nullable|exists:seccionales,id',
-            'municipio' => 'nullable|exists:municipios,id',
-            'parroquia' => 'nullable|exists:parroquias,id',
             'tipo_cargo' => 'nullable|string|max:255',
             'cargo' => 'nullable|string|max:255',
             'buro' => 'nullable|string|max:255',
+            'cargo_pub' => 'nullable|string|max:255',
             // 'esUsuario' => 'required|in:si,no',
         ];
     }
